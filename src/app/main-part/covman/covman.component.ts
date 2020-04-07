@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-covman',
@@ -10,7 +9,9 @@ import { take } from 'rxjs/operators';
 export class CovmanComponent implements OnInit {
 
   position:number = 40;  
-  positionPx = this.position + "px";  
+  positionPx = this.position + "px";
+  
+  innerWidth:number;
 
   constructor() { }
 
@@ -21,14 +22,19 @@ export class CovmanComponent implements OnInit {
     takeFourNumbers.subscribe(x => this.move(x));
     */
 
-   interval(10).subscribe( () => this.move() );
+   this.innerWidth = window.innerWidth;
+   console.log(this.innerWidth," this.innerWidth = window.innerWidth;")
+
+   // interval(10).subscribe( () => this.move() );
     
   }
 
   move(){  
-    if(this.position <= 200) {
+    if(this.position <= (this.innerWidth-20)) {
       this.position+= 2;      
       this.positionPx = this.position + "px";
+    } else {
+      console.log("erreicht")
     }
    
   }
