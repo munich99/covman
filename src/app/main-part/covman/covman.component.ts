@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
+import { KeystrokeService } from '../../services/keystroke.service'
 
 @Component({
   selector: 'app-covman',
@@ -13,19 +14,17 @@ export class CovmanComponent implements OnInit {
   
   innerWidth:number;
 
-  constructor() { }
+  constructor(public _KeystrokeService:KeystrokeService) { }
 
-  ngOnInit() {   
-    
-    /* const numbers = interval(10);
-    const takeFourNumbers = numbers;
-    takeFourNumbers.subscribe(x => this.move(x));
-    */
+  ngOnInit() {  
 
-   this.innerWidth = window.innerWidth;
-   console.log(this.innerWidth," this.innerWidth = window.innerWidth;")
+   this.innerWidth = window.innerWidth;   
 
    // interval(10).subscribe( () => this.move() );
+
+   this._KeystrokeService.keyStroke$.subscribe(
+     messageKey =>{alert(messageKey)
+    });
     
   }
 
