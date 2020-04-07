@@ -9,17 +9,21 @@ import { KeystrokeService } from '../../services/keystroke.service'
 })
 export class CovmanComponent implements OnInit {
 
-  position:number = 40;  
-  positionPx = this.position + "px";
+  positionx:number = 40; 
+  positiony:number = 40; 
+  positionX = this.positionx + "px";
+  positionY = this.positiony + "px";
   positionDirection = "ArrowRight";
   
   innerWidth:number;
+  innerHeight:number;
 
   constructor(public _KeystrokeService:KeystrokeService) { }
 
   ngOnInit() {  
 
-   this.innerWidth = window.innerWidth;   
+   this.innerWidth = window.innerWidth;
+   this.innerHeight = (window.innerHeight/100) * 88;   
 
    interval(10).subscribe( () => this.move() );
 
@@ -30,19 +34,28 @@ export class CovmanComponent implements OnInit {
     });    
   }
 
-  move(){  
-    if(this.position <= (this.innerWidth-20) && this.position >= 10)  {
+  move(){      
+    
       switch (this.positionDirection) {
         case "ArrowRight":
-          this.position+= 2;
-          this.positionPx = this.position + "px";
+          this.positionx+= 2;          
           break;
         case "ArrowLeft":
-          this.position-= 2;
-          this.positionPx = this.position + "px";
+          this.positionx-= 2;          
+          break;
+        case "ArrowUp":
+          this.positiony-= 2;          
+          break;
+        case "ArrowDown":
+          this.positiony+= 2;          
           break;
       }
-    }   
+      if(this.positionx <= (this.innerWidth-20) && this.positionx >= 10)  {
+        this.positionX = this.positionx + "px";
+      }   
+     if(this.positiony <= (this.innerHeight-20) && this.positiony >= 10)  {
+        this.positionY = this.positiony + "px";
+      } 
   }
 
 
