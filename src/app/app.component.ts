@@ -9,14 +9,12 @@ import { fromEvent } from 'rxjs';
 export class AppComponent {
   title = 'covman';  
 
-  // public clicks = fromEvent(document, 'click').subscribe(x => console.log(x, "click"));
+  public keyDirection = fromEvent(document, 'keydown');
 
-    public mouseMoves = fromEvent(document, 'click');
-
-    // Subscribe to start listening for mouse-move events
-    public subscription = this.mouseMoves.subscribe((evt: MouseEvent) => {
-    // Log coords of mouse movements
-    console.log(`Coords: ${evt.clientX} X ${evt.clientY}`);
+    // Subscribe to start listening for press-key events
+    public keyForDirection = this.keyDirection.subscribe((evt: KeyboardEvent) => {
+    // Log Key Code
+    console.log(`key: ${evt.key}`);
   });
 
   
