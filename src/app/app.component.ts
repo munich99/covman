@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { fromEvent } from 'rxjs';
+import { KeystrokeService } from './services/keystroke.service'
 
 @Component({
   selector: 'app-root',
@@ -7,15 +8,19 @@ import { fromEvent } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'covman';  
+  title = 'covman'; 
+  
+  constructor(public _KeystrokeService:KeystrokeService){    
+    }
 
   public keyDirection = fromEvent(document, 'keydown');
 
-    // Subscribe to start listening for press-key events
-    public keyForDirection = this.keyDirection.subscribe((evt: KeyboardEvent) => {
-    // Log Key Code
-    console.log(`key: ${evt.key}`);
-  });
+  // Subscribe to start listening for press-key events
+  public keyForDirection = this.keyDirection.subscribe((evt: KeyboardEvent) => {
 
+  // pressdown key sending to service
+  this._KeystrokeService.sendMessage(evt.key);
+
+  });
   
 }

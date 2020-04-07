@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { fromEvent } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +13,7 @@ constructor() { }
 
   sendMessage(message:string){
     this._keyStrokeSource.next(message);
+    console.log(message, "from app-component");
   }
 
 }
