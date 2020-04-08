@@ -58,21 +58,8 @@ export class CovmanComponent implements OnInit {
   }
 
   playsize(){
-
     this.innerWidth = window.innerWidth;
-    this.innerHeight = (window.innerHeight/100) * 88;  
-    /*
-    this.playGround = {
-      left:'10px',
-      right:'10px',
-      bottom:'10px',
-      top:'10px',
-      backgroundColor:'green'    
-    }
-    */
-
+    this.innerHeight = (window.innerHeight/100) * 88; 
   }
-
-
 
 }
