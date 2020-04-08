@@ -1,5 +1,5 @@
 div {
-    color:red;
+    color:black;
     position: absolute;
     font-size: 1em;    
  }
@@ -7,8 +7,6 @@ div {
  :host {
     position: absolute;
     left:0; right: 0; bottom:0; top:10%;
-    height: 90%;
-    width: 100%;
     background-color: yellow;
   }
 

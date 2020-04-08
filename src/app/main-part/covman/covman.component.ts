@@ -14,28 +14,27 @@ export class CovmanComponent implements OnInit {
   positionX = this.positionx + "px";
   positionY = this.positiony + "px";
   positionDirection = "ArrowRight";
+
+  covMan:any;
+  playGround:any;
   
   innerWidth:number;
   innerHeight:number;
 
   constructor(public _KeystrokeService:KeystrokeService) { }
 
-  ngOnInit() {  
+  ngOnInit() { 
+    this.playsize();
+    // interval(10).subscribe( () => this.move() );
 
-   this.innerWidth = window.innerWidth;
-   this.innerHeight = (window.innerHeight/100) * 88;   
-
-   interval(10).subscribe( () => this.move() );
-
-   this._KeystrokeService.keyStroke$.subscribe(
-     messageKey =>{
-       console.log(messageKey, "pacman richtung");
-       this.positionDirection = messageKey;
-    });    
+    this._KeystrokeService.keyStroke$.subscribe(
+      messageKey =>{
+        console.log(messageKey, "pacman richtung");
+        this.positionDirection = messageKey;
+      });    
   }
 
-  move(){      
-    
+  move(){
       switch (this.positionDirection) {
         case "ArrowRight":
           this.positionx+= 2;          
@@ -56,6 +55,22 @@ export class CovmanComponent implements OnInit {
      if(this.positiony <= (this.innerHeight-20) && this.positiony >= 10)  {
         this.positionY = this.positiony + "px";
       } 
+  }
+
+  playsize(){
+
+    this.innerWidth = window.innerWidth;
+    this.innerHeight = (window.innerHeight/100) * 88;  
+    /*
+    this.playGround = {
+      left:'10px',
+      right:'10px',
+      bottom:'10px',
+      top:'10px',
+      backgroundColor:'green'    
+    }
+    */
+
   }
 
 
