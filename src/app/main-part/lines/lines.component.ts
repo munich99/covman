@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-lines',
@@ -6,10 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lines.component.css']
 })
 export class LinesComponent implements OnInit {
+  @Input()
+  boxSize:string;
+  
 
-  constructor() { }
+  constructor(public _ElementRef:ElementRef) { }
 
   ngOnInit() {
+    console.log(this.boxSize,"box")
   }
+
+  ngAfterViewInit(){
+    let PlaySize = this._ElementRef.nativeElement.offsetHeight;
+    console.log(PlaySize,"playsize")
+  }
+
 
 }
