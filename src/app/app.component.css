@@ -1,5 +1,9 @@
-#covelement{
+#covelement {
     position: absolute;
     left: 20px;
-    top:0
+    top:0;
+}
+
+button {
+    margin: 1rem;
 }
