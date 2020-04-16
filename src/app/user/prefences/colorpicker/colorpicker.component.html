@@ -1,6 +1,7 @@
 <table>
   <tr *ngFor="let pickerCells of pickerCell">
-    <td >{{pickerCells.erstes}}</td> 
-    <td >{{pickerCells.zweites}}</td>   
+    <td [style.background-color]="pickerCells.erstes"></td> 
+    <td [style.background-color]="pickerCells.zweites"></td> 
+      
   </tr>
 </table>
