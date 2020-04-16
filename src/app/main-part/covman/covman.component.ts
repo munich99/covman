@@ -31,7 +31,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() { 
     
     this.playsize();
-    // interval(10).subscribe( () => this.move() );
+    // interval(1000).subscribe( () => this.move() );
 
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
@@ -43,26 +43,31 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   move(){
       switch (this.positionDirection) {
         case "ArrowRight":
-          this.positionx+= 2;          
+          this.positionx+= 10;          
           break;
         case "ArrowLeft":
-          this.positionx-= 2;          
+          this.positionx-= 10;          
           break;
         case "ArrowUp":
-          this.positiony-= 2;          
+          this.positiony-= 10;          
           break;
         case "ArrowDown":
-          this.positiony+= 2;          
+          this.positiony+= 10;                    
           break;
       }
+      
       if(this.positionx <= (this.innerWidth-20) && this.positionx >= 10)  {
         this.positionX = this.positionx + "px";
+        console.log(this.covmanView.nativeElement.offsetLeft, "XX");
       }   
      if(this.positiony <= (this.innerHeight-20) && this.positiony >= 10)  {
-        this.positionY = this.positiony + "px";
+        this.positionY = this.positiony + "px";   
+        console.log(this.covmanView.nativeElement.offsetTop, "YY");     
       } 
 
-      console.log(this.covmanView.nativeElement.offsetTop, "ee");    
+      
+
+          
 
     
   }
