@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-colorpicker',
   templateUrl: './colorpicker.component.html',
@@ -13,13 +14,16 @@ export class ColorpickerComponent implements OnInit {
     {erstes:'#ffffff', zweites:'#0000ff'}
   ];
 
+  presentColor:string;
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {  
   }
 
   change(event:any){
-    console.log(event.toElement.style.backgroundColor);
+    this.presentColor = event.toElement.style.backgroundColor;
+    console.log(this.presentColor, "presentColor");    
   }
 
 }
