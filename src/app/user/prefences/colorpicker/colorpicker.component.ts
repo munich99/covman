@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ColorpickerComponent implements OnInit {
 
+  pickerCell = [
+    {erstes:'#ff0000', zweites:'#00ff00'},
+    {erstes:'#ffff00', zweites:'#00ffff'},
+    {erstes:'#ffffff', zweites:'#0000ff'}
+  ];
+
   constructor() { }
 
   ngOnInit() {
