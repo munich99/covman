@@ -22,12 +22,9 @@ export class PrefencesComponent implements OnInit{
 
   }
 
-  
-
   change(){
     console.log(this.presentPicker.presentColor,"presentPicker");
     this.backgroundColor = this.presentPicker.presentColor;
-
   }
 
 }

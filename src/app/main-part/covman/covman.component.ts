@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { interval } from 'rxjs';
 import { KeystrokeService } from '../../services/keystroke.service'
 
@@ -7,7 +7,9 @@ import { KeystrokeService } from '../../services/keystroke.service'
   templateUrl: './covman.component.html',
   styleUrls: ['./covman.component.css']
 })
-export class CovmanComponent implements OnInit {
+export class CovmanComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('covman', {static: true}) covmanView:ElementRef;
 
   positionx:number = 40; 
   positiony:number = 40; 
@@ -23,7 +25,11 @@ export class CovmanComponent implements OnInit {
 
   constructor(public _KeystrokeService:KeystrokeService) { }
 
-  ngOnInit() { 
+  ngOnInit() {     
+  }
+
+  ngAfterViewInit() { 
+    
     this.playsize();
     // interval(10).subscribe( () => this.move() );
 
@@ -31,7 +37,7 @@ export class CovmanComponent implements OnInit {
       messageKey =>{
         console.log(messageKey, "pacman richtung");
         this.positionDirection = messageKey;
-      });    
+      });  
   }
 
   move(){
@@ -55,6 +61,10 @@ export class CovmanComponent implements OnInit {
      if(this.positiony <= (this.innerHeight-20) && this.positiony >= 10)  {
         this.positionY = this.positiony + "px";
       } 
+
+      console.log(this.covmanView.nativeElement.offsetTop, "ee");    
+
+    
   }
 
   playsize(){
