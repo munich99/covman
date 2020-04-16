@@ -18,4 +18,8 @@ export class ColorpickerComponent implements OnInit {
   ngOnInit() {
   }
 
+  change(event:any){
+    console.log(event.toElement.style.backgroundColor);
+  }
+
 }

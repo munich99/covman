@@ -1,7 +1,8 @@
 <table>
-  <tr *ngFor="let pickerCells of pickerCell">
-    <td [style.background-color]="pickerCells.erstes"></td> 
-    <td [style.background-color]="pickerCells.zweites"></td> 
-      
+  <tr *ngFor="let pickerCells of pickerCell" (click)="change($event)">
+    <td
+     [style.background-color]="pickerCells.erstes"     
+     ></td> 
+    <td [style.background-color]="pickerCells.zweites"></td>       
   </tr>
 </table>
