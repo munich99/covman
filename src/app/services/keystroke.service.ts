@@ -9,7 +9,7 @@ export class KeystrokeService {
   public _keyStrokeSource = new Subject<string>();
   keyStroke$ = this._keyStrokeSource.asObservable();
 
-constructor() { }
+  constructor() { }
 
   sendMessage(message:string){
     if(message=="ArrowRight" || message=="ArrowLeft" || message=="ArrowUp" || message=="ArrowDown" ) this._keyStrokeSource.next(message);

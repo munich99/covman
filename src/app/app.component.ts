@@ -17,10 +17,8 @@ export class AppComponent {
 
   // Subscribe to start listening for press-key events
   public keyForDirection = this.keyDirection.subscribe((evt: KeyboardEvent) => {
-
-  // pressdown key sending to service
-  this._KeystrokeService.sendMessage(evt.key);
-
+    // pressdown key sending to service
+    this._KeystrokeService.sendMessage(evt.key);
   });
   
 }

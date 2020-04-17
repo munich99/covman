@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { interval } from 'rxjs';
-import { KeystrokeService } from '../../services/keystroke.service'
+import { KeystrokeService } from '../../services/keystroke.service';
+import { CovpositionService } from '../../services/covposition.service';
 
 @Component({
   selector: 'app-covman',
@@ -21,9 +22,9 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   playGround:any;
   
   innerWidth:number;
-  innerHeight:number;
+  innerHeight:number;  
 
-  constructor(public _KeystrokeService:KeystrokeService) { }
+  constructor(public _KeystrokeService:KeystrokeService, public _CovpositionService:CovpositionService ) { }
 
   ngOnInit() {     
   }
@@ -31,7 +32,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() { 
     
     this.playsize();
-    // interval(1000).subscribe( () => this.move() );
+    interval(1000).subscribe( () => this.move() );
 
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
@@ -40,7 +41,11 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       });  
   }
 
-  move(){
+  move(){    
+    this._CovpositionService.givePositon(
+      this.covmanView.nativeElement.offsetLeft,
+      this.covmanView.nativeElement.offsetTop
+      );
       switch (this.positionDirection) {
         case "ArrowRight":
           this.positionx+= 10;          
@@ -57,19 +62,11 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       }
       
       if(this.positionx <= (this.innerWidth-20) && this.positionx >= 10)  {
-        this.positionX = this.positionx + "px";
-        console.log(this.covmanView.nativeElement.offsetLeft, "XX");
+        this.positionX = this.positionx + "px";        
       }   
      if(this.positiony <= (this.innerHeight-20) && this.positiony >= 10)  {
-        this.positionY = this.positiony + "px";   
-        console.log(this.covmanView.nativeElement.offsetTop, "YY");     
+        this.positionY = this.positiony + "px"; 
       } 
-
-      
-
-          
-
-    
   }
 
   playsize(){
