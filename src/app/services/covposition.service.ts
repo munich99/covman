@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class CovpositionService {
 
-  schranke:number=80;
+  schranke:number;
 
   constructor() { }
 
@@ -15,9 +15,9 @@ export class CovpositionService {
     // console.log(posX,"X from covpostion service ");
     // console.log(posY,"Y from covpostion service ");
   }
-  fetchLines(line:number){
-    console.log(line,"line");
-    this.schranke = line;
+  fetchLines(line:object){
+    console.log(line[0].x,"line");
+    this.schranke = line[0].x;
 
   }
 

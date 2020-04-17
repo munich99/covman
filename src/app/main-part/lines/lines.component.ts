@@ -9,6 +9,10 @@ import { CovpositionService } from '../../services/covposition.service';
 export class LinesComponent implements OnInit {
   @Input()
   boxSize:string;
+
+  dimensions = [
+    {x:130}
+  ];
   
 
   constructor(
@@ -18,7 +22,7 @@ export class LinesComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.boxSize,"box");
-    this._CovpositionService.fetchLines(100);
+    this._CovpositionService.fetchLines(this.dimensions);
   }
 
   ngAfterViewInit(){

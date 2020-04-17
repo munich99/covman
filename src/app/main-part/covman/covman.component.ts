@@ -32,7 +32,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() { 
     
     this.playsize();
-    interval(100).subscribe( () => this.move() );
+    // interval(100).subscribe( () => this.move() );
 
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
