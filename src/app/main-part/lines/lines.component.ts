@@ -10,8 +10,10 @@ export class LinesComponent implements OnInit {
   @Input()
   boxSize:string;
 
+  
   dimensions = [
-    {x:130}
+    {xS:130, xE:200, yS:100, yE:110},
+    {xS:50, xE:60, yS:130, yE:180}
   ];
   
 

@@ -16,9 +16,20 @@ export class CovpositionService {
     // console.log(posY,"Y from covpostion service ");
   }
   fetchLines(line:object){
-    console.log(line[0].x,"line");
-    this.schranke = line[0].x;
 
+    // let cars = line;
+    let i = 0;    
+
+while (line[i]) {
+  console.log(line[i],"funkt");  
+  i++;
+}
+
+    // console.log(line.argument);
+   //  while (i=0; line.length < 5; i++){
+   // this.schranke = line[0].xS;
   }
+
+  
 
 }

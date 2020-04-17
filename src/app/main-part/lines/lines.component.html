@@ -1,3 +1,11 @@
-<p>
+<!--p>
   {{boxSize}} lines works!
-</p>
+</p-->
+
+<div *ngFor="let line of dimensions"
+  [ngStyle]="{
+    left:(line.xS + 'px'),
+    right:(line.xE + 'px'),
+    top:(line.yS + 'px')
+    }"
+  ></div>

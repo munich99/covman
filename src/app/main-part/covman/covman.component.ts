@@ -46,6 +46,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       this.covmanView.nativeElement.offsetLeft,
       this.covmanView.nativeElement.offsetTop
       );
+
       console.log(movePermission);
       switch (this.positionDirection) {
         case "ArrowRight":
@@ -68,7 +69,10 @@ export class CovmanComponent implements OnInit, AfterViewInit {
      if(this.positiony <= (this.innerHeight-20) && this.positiony >= 10)  {
         this.positionY = this.positiony + "px"; 
       } 
+
   }
+
+  permissionToMove(){}
 
   playsize(){
     this.innerWidth = window.innerWidth;
