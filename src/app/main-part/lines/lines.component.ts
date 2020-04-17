@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { CovpositionService } from '../../services/covposition.service';
 
 @Component({
   selector: 'app-lines',
@@ -10,10 +11,14 @@ export class LinesComponent implements OnInit {
   boxSize:string;
   
 
-  constructor(public _ElementRef:ElementRef) { }
+  constructor(
+    public _ElementRef:ElementRef,
+    public _CovpositionService:CovpositionService
+    ) { }
 
   ngOnInit() {
-    console.log(this.boxSize,"box")
+    console.log(this.boxSize,"box");
+    this._CovpositionService.fetchLines(100);
   }
 
   ngAfterViewInit(){

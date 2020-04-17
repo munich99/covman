@@ -32,7 +32,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() { 
     
     this.playsize();
-    interval(1000).subscribe( () => this.move() );
+    interval(100).subscribe( () => this.move() );
 
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
@@ -42,10 +42,11 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   }
 
   move(){    
-    this._CovpositionService.givePositon(
+    let movePermission = this._CovpositionService.givePositon(
       this.covmanView.nativeElement.offsetLeft,
       this.covmanView.nativeElement.offsetTop
       );
+      console.log(movePermission);
       switch (this.positionDirection) {
         case "ArrowRight":
           this.positionx+= 10;          
