@@ -44,9 +44,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       });  
   }
 
-  move(){    
-    
-    
+  move(){   
       switch (this.positionDirection) {
         case "ArrowRight":
           this.positionx = this.covmanView.nativeElement.offsetLeft + 10; 

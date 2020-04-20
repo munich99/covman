@@ -11,31 +11,30 @@ export class CovpositionService {
     bR:400,
     bU:400
    }
+
+   lineXY:object;
     
   
 
   constructor() { }
 
   givePositon(posX:number, posY:number){
-    
-    if(posX<this.begrenzung["bR"]){
-      console.log(posX,"positionx");
+    let i = 0;
+    /* while (this.lineXY[i]) {
+      console.log(this.lineXY[i],"funkt");  
+      i++;
+    } */
+    console.log(this.lineXY[0],"funkt"); 
+
+    if(posX<this.begrenzung["bR"]){      
       // console.log(direction,"positionx + direction");
       return true
     }    
     
   }
 
-  fetchLines(line:object){
-    let i = 0;
-    
-    while (line[i]) {
-      console.log(line[i],"funkt");  
-      i++;
-    }
-
+  fetchLines(line:object){    
+    this.lineXY = line;  
   }
-
-  
 
 }
