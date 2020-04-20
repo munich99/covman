@@ -12,8 +12,8 @@ export class LinesComponent implements OnInit {
 
   
   dimensions = [
-    {xS:130, xE:200, yS:100, yE:110},
-    {xS:50, xE:60, yS:130, yE:180}
+    {xS:130, xW:10, yS:0, yH:110},
+    {xS:50, xW:60, yS:130, yH:10}
   ];
   
 

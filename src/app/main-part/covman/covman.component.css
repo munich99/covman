@@ -1,7 +1,7 @@
 div {
     color:black;
     position: absolute;
-    font-size: 1em;    
+    font-size: 8px;    
  }
 
  :host {

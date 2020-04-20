@@ -12,21 +12,28 @@ export class CovpositionService {
     bU:400
    }
 
-   lineXY:object;
-    
-  
+  lineXY:object;
+  linePermission:boolean;
 
   constructor() { }
 
   givePositon(posX:number, posY:number){
     let i = 0;
-    /* while (this.lineXY[i]) {
+    this.linePermission = true;
+
+       /* let i = 0;
+     while (this.lineXY[i]) {
       console.log(this.lineXY[i],"funkt");  
       i++;
-    } */
+    } 
     console.log(this.lineXY[0],"funkt"); 
+*/
+    if(this.lineXY[0]["xS"] == posX){      
+      this.linePermission = false;
+    }
+     
 
-    if(posX<this.begrenzung["bR"]){      
+    if(posX<this.begrenzung["bR"] && this.linePermission == true){      
       // console.log(direction,"positionx + direction");
       return true
     }    
