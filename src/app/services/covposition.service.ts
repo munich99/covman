@@ -17,23 +17,34 @@ export class CovpositionService {
 
   constructor() { }
 
-  givePositon(posX:number, posY:number){
-    let i = 0;
+  givePositon(posX:number, posY:number){    
     this.linePermission = true;
 
-       /* let i = 0;
+    let i:number = 0;
      while (this.lineXY[i]) {
-      console.log(this.lineXY[i],"funkt");  
+      console.log(this.lineXY[i]["xS"],"funkt mit schlelife");  
+      if(
+          posX == this.lineXY[i]["xS"]   
+          && 10 == this.lineXY[i]["xW"]
+          && posY <= ( this.lineXY[i]["yS"] + this.lineXY[i]["yH"] )
+
+        ) 
+      { 
+          this.linePermission = false; 
+          break;      
+      }
       i++;
     } 
-    console.log(this.lineXY[0],"funkt"); 
-*/
-    if(this.lineXY[0]["xS"] == posX){      
-      this.linePermission = false;
-    }
+
+    // console.log(this.lineXY[0],"funkt"); 
+
+    /* */
      
 
-    if(posX<this.begrenzung["bR"] && this.linePermission == true){      
+    if(
+      posX<this.begrenzung["bR"]  
+      && this.linePermission == true
+      ){      
       // console.log(direction,"positionx + direction");
       return true
     }    
