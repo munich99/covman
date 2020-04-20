@@ -24,6 +24,8 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   innerWidth:number;
   innerHeight:number;  
 
+  movePermission:boolean=true;
+
   constructor(public _KeystrokeService:KeystrokeService, public _CovpositionService:CovpositionService ) { }
 
   ngOnInit() {     
@@ -32,7 +34,8 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() { 
     
     this.playsize();
-    // interval(100).subscribe( () => this.move() );
+    interval(100).subscribe( () => this.move() );
+     
 
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
@@ -42,37 +45,38 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   }
 
   move(){    
-    let movePermission = this._CovpositionService.givePositon(
-      this.covmanView.nativeElement.offsetLeft,
-      this.covmanView.nativeElement.offsetTop
-      );
-
-      console.log(movePermission);
+    
+    
       switch (this.positionDirection) {
         case "ArrowRight":
-          this.positionx+= 10;          
+          this.positionx = this.covmanView.nativeElement.offsetLeft + 10; 
           break;
         case "ArrowLeft":
-          this.positionx-= 10;          
+          this.positionx = this.covmanView.nativeElement.offsetLeft - 10;         
           break;
         case "ArrowUp":
-          this.positiony-= 10;          
+          this.positiony = this.covmanView.nativeElement.offsetTop - 10;          
           break;
         case "ArrowDown":
-          this.positiony+= 10;                    
+          this.positiony = this.covmanView.nativeElement.offsetTop + 10;                    
           break;
-      }
+      }       
+
+      this.movePermission = this._CovpositionService.givePositon(       
+        this.positionx,
+        this.positiony        
+        );  
+      console.log(this.movePermission,"zurück vom service");      
       
-      if(this.positionx <= (this.innerWidth-20) && this.positionx >= 10)  {
-        this.positionX = this.positionx + "px";        
+      if(this.movePermission == true)  {        
+        this.positionX = this.positionx+  "px";
       }   
+
      if(this.positiony <= (this.innerHeight-20) && this.positiony >= 10)  {
         this.positionY = this.positiony + "px"; 
       } 
 
-  }
-
-  permissionToMove(){}
+  }  
 
   playsize(){
     this.innerWidth = window.innerWidth;

@@ -7,27 +7,33 @@ export class CovpositionService {
 
   schranke:number;
 
+  begrenzung:object={
+    bR:400,
+    bU:400
+   }
+    
+  
+
   constructor() { }
 
   givePositon(posX:number, posY:number){
-    if(posX>this.schranke)
-    return "permission not" + posX;
-    // console.log(posX,"X from covpostion service ");
-    // console.log(posY,"Y from covpostion service ");
+    
+    if(posX<this.begrenzung["bR"]){
+      console.log(posX,"positionx");
+      // console.log(direction,"positionx + direction");
+      return true
+    }    
+    
   }
+
   fetchLines(line:object){
+    let i = 0;
+    
+    while (line[i]) {
+      console.log(line[i],"funkt");  
+      i++;
+    }
 
-    // let cars = line;
-    let i = 0;    
-
-while (line[i]) {
-  console.log(line[i],"funkt");  
-  i++;
-}
-
-    // console.log(line.argument);
-   //  while (i=0; line.length < 5; i++){
-   // this.schranke = line[0].xS;
   }
 
   
