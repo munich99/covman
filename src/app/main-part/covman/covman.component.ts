@@ -25,6 +25,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   innerHeight:number;  
 
   movePermission:boolean=true;
+  movePermissionHorizotal:boolean=true;
 
   constructor(public _KeystrokeService:KeystrokeService, public _CovpositionService:CovpositionService ) { }
 
@@ -48,31 +49,53 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       switch (this.positionDirection) {
         case "ArrowRight":
           this.positionx = this.covmanView.nativeElement.offsetLeft + 10; 
+          this.movePermissionHorizotal = true;
           break;
         case "ArrowLeft":
-          this.positionx = this.covmanView.nativeElement.offsetLeft - 10;         
+          this.positionx = this.covmanView.nativeElement.offsetLeft - 10; 
+          this.movePermissionHorizotal = true;        
           break;
         case "ArrowUp":
-          this.positiony = this.covmanView.nativeElement.offsetTop - 10;          
+          this.positiony = this.covmanView.nativeElement.offsetTop - 10; 
+          this.movePermissionHorizotal = false;         
           break;
         case "ArrowDown":
-          this.positiony = this.covmanView.nativeElement.offsetTop + 10;                    
+          this.positiony = this.covmanView.nativeElement.offsetTop + 10; 
+          this.movePermissionHorizotal = false;                   
           break;
       }       
 
       this.movePermission = this._CovpositionService.givePositon(       
-        this.positionx,
-        this.positiony        
-        );  
-      console.log(this.movePermission,"zurück vom service");      
+                              this.positionx,
+                              this.positiony
+                            );             
       
-      if(this.movePermission == true)  {        
-        this.positionX = this.positionx+  "px";
-      }   
+      if(this.movePermission && this.movePermissionHorizotal ) 
+      {      
+        this.positionX = this.positionx+  "px";                
+      }
+      else {
+          this.positionx = this.covmanView.nativeElement.offsetLeft;
+          this.positionX = this.positionx+  "px"; 
+      }
 
-     if(this.positiony <= (this.innerHeight-20) && this.positiony >= 10)  {
-        this.positionY = this.positiony + "px"; 
-      } 
+      if(this.movePermission && !this.movePermissionHorizotal ) 
+      {      
+        this.positionY = this.positiony+  "px";
+      }
+      else {
+          this.positiony = this.covmanView.nativeElement.offsetTop;
+          this.positionY = this.positiony+  "px"; 
+      }
+
+
+
+        
+       
+
+     
+        
+     
 
   }  
 

@@ -21,25 +21,21 @@ export class CovpositionService {
     this.linePermission = true;
 
     let i:number = 0;
-     while (this.lineXY[i]) {
-      console.log(this.lineXY[i]["xS"],"funkt mit schlelife");  
-      if(
-          posX == this.lineXY[i]["xS"]   
-          && 10 == this.lineXY[i]["xW"]
-          && posY <= ( this.lineXY[i]["yS"] + this.lineXY[i]["yH"] )
+     while (this.lineXY[i]) {      
+      let lineLeft = this.lineXY[i]["xS"];
+      let lineRight = this.lineXY[i]["xS"] + this.lineXY[i]["xW"];
+      let lineTop = this.lineXY[i]["yS"];
+      let lineBottom = this.lineXY[i]["yS"] + this.lineXY[i]["yH"];
 
+      if(  
+        posX >= lineLeft && posX < lineRight     
+        && posY < lineBottom && posY >= lineTop
         ) 
-      { 
-          this.linePermission = false; 
-          break;      
-      }
+      {         
+          this.linePermission = false;                 
+      };
       i++;
     } 
-
-    // console.log(this.lineXY[0],"funkt"); 
-
-    /* */
-     
 
     if(
       posX<this.begrenzung["bR"]  
