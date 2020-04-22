@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class CovpositionService {
 
-  schranke:number;
-
   begrenzung:object={
     bR:400,
     bU:400
@@ -40,8 +38,7 @@ export class CovpositionService {
     if(
       posX<this.begrenzung["bR"]  
       && this.linePermission == true
-      ){      
-      // console.log(direction,"positionx + direction");
+      ){ 
       return true
     }    
     

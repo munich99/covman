@@ -1,7 +1,9 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { interval } from 'rxjs';
+
 import { KeystrokeService } from '../../services/keystroke.service';
 import { CovpositionService } from '../../services/covposition.service';
+import { PlaygroundService } from '../../services/playground.service';
 
 @Component({
   selector: 'app-covman',
@@ -16,10 +18,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   positiony:number = 40; 
   positionX = this.positionx + "px";
   positionY = this.positiony + "px";
-  positionDirection = "ArrowRight";
-
-  covMan:any;
-  playGround:any;
+  positionDirection = "ArrowRight";  
   
   innerWidth:number;
   innerHeight:number;  
@@ -27,16 +26,18 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   movePermission:boolean=true;
   movePermissionHorizotal:boolean=true;
 
-  constructor(public _KeystrokeService:KeystrokeService, public _CovpositionService:CovpositionService ) { }
+  constructor(public _KeystrokeService:KeystrokeService,
+              public _CovpositionService:CovpositionService,
+              public _PlaygroundService:PlaygroundService
+               ) { }
 
-  ngOnInit() {     
+  ngOnInit() {  
+    this._PlaygroundService.makeSize();
   }
 
   ngAfterViewInit() { 
-    
-    this.playsize();
+
     interval(100).subscribe( () => this.move() );
-     
 
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
@@ -86,22 +87,8 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       else {
           this.positiony = this.covmanView.nativeElement.offsetTop;
           this.positionY = this.positiony+  "px"; 
-      }
-
-
-
-        
-       
-
-     
-        
-     
+      }     
 
   }  
-
-  playsize(){
-    this.innerWidth = window.innerWidth;
-    this.innerHeight = (window.innerHeight/100) * 88; 
-  }
 
 }

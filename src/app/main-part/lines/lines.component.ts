@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { CovpositionService } from '../../services/covposition.service';
 
 @Component({
@@ -7,9 +7,6 @@ import { CovpositionService } from '../../services/covposition.service';
   styleUrls: ['./lines.component.css']
 })
 export class LinesComponent implements OnInit {
-  @Input()
-  boxSize:string;
-
   
   dimensions = [
     {xS:130, xW:10, yS:0, yH:110},
@@ -22,8 +19,7 @@ export class LinesComponent implements OnInit {
     public _CovpositionService:CovpositionService
     ) { }
 
-  ngOnInit() {
-    console.log(this.boxSize,"box");
+  ngOnInit() {    
     this._CovpositionService.fetchLines(this.dimensions);
   }
 
