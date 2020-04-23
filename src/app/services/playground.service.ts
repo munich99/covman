@@ -7,8 +7,8 @@ export class PlaygroundService {
 
 constructor() { }
 
-makeSize(){
-  console.log("hallo from PlaygroundService")
+makeSize(aboutHight:number){
+  console.log(aboutHight, "hallo from PlaygroundService")
 }
 
 }

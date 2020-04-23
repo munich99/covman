@@ -13,6 +13,7 @@ import { PlaygroundService } from '../../services/playground.service';
 export class CovmanComponent implements OnInit, AfterViewInit {
 
   @ViewChild('covman', {static: true}) covmanView:ElementRef;
+  @ViewChild('playground', {static: true}) playgroundView:ElementRef;
 
   positionx:number = 40; 
   positiony:number = 40; 
@@ -32,13 +33,19 @@ export class CovmanComponent implements OnInit, AfterViewInit {
                ) { }
 
   ngOnInit() {  
-    this._PlaygroundService.makeSize();
+    /*
+    console.log (this.playgroundView.nativeElement.getBoundingClientRect().width, "breite");
+    console.log (this.playgroundView.nativeElement.getBoundingClientRect().height, "höhe")
+    // console.log (this.playgroundView.nativeElement.offsetLeft, "offsetLeft");
+    this._PlaygroundService.makeSize(this.playgroundView.nativeElement.offsetLeft);
+    // console.log (this.playgroundView.nativeElement.getBoundingClientRect().height, "this.playgroundView.nativeElement.covman");
+
+    */
+    
   }
 
   ngAfterViewInit() { 
-
     interval(100).subscribe( () => this.move() );
-
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
         console.log(messageKey, "pacman richtung");
@@ -64,12 +71,15 @@ export class CovmanComponent implements OnInit, AfterViewInit {
           this.positiony = this.covmanView.nativeElement.offsetTop + 10; 
           this.movePermissionHorizotal = false;                   
           break;
-      }       
-
+      }    
+      
+      // asking for move
       this.movePermission = this._CovpositionService.givePositon(       
-                              this.positionx,
-                              this.positiony
-                            );             
+          this.positionx,                              
+          this.positiony,
+          this.playgroundView.nativeElement.getBoundingClientRect().width,
+          this.playgroundView.nativeElement.getBoundingClientRect().height                              
+          );             
       
       if(this.movePermission && this.movePermissionHorizotal ) 
       {      
@@ -88,6 +98,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
           this.positiony = this.covmanView.nativeElement.offsetTop;
           this.positionY = this.positiony+  "px"; 
       }     
+    // -- end asking for move
 
   }  
 
