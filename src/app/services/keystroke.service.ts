@@ -13,8 +13,7 @@ export class KeystrokeService {
 
   sendMessage(message:string){
     if(message=="ArrowRight" || message=="ArrowLeft" || message=="ArrowUp" || message=="ArrowDown" ) 
-      this._keyStrokeSource.next(message);
-    console.log(message, "from app-component");
+      this._keyStrokeSource.next(message);    
   }
 
 }

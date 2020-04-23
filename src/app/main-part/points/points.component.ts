@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { PointServiceService } from '../../services/point-service.service';
 
 @Component({
   selector: 'app-points',
@@ -8,12 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class PointsComponent implements OnInit {
 
   points=[
-    {pointX:50, pointY:50}
+    {pointX:80, pointY:50}
   ]
 
-  constructor() { }
+  constructor(public _PointServiceService:PointServiceService) { }
 
   ngOnInit() {
+    this._PointServiceService.countPoint(this.points)
   }
 
 }

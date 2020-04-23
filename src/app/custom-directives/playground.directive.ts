@@ -1,5 +1,5 @@
 import { Directive, ElementRef } from '@angular/core';
-import { PlaygroundService } from './../services/playground.service';
+
 
 
 @Directive({
@@ -10,7 +10,7 @@ export class PlaygroundDirective {
   // xRandLeft:number;
   // xRandRight:number;
 
-  constructor(public _PlaygroundService:PlaygroundService, elementRef: ElementRef) {
+  constructor(elementRef: ElementRef) {
 
     let wishSizeX = Math.floor( (window.innerWidth-10)/10 ) * 10;
     let wishDifX = window.innerWidth - wishSizeX;
@@ -35,9 +35,6 @@ export class PlaygroundDirective {
     elementRef.nativeElement.style.backgroundColor = '#1f1';
 
     console.log(xRandLeft,"window.innerHight");
-
-    this._PlaygroundService.makeSize(20);
-    
   }
 
   

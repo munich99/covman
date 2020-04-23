@@ -3,7 +3,8 @@ import { interval } from 'rxjs';
 
 import { KeystrokeService } from '../../services/keystroke.service';
 import { CovpositionService } from '../../services/covposition.service';
-import { PlaygroundService } from '../../services/playground.service';
+import { PointServiceService } from '../../services/point-service.service';
+
 
 @Component({
   selector: 'app-covman',
@@ -29,7 +30,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   constructor(public _KeystrokeService:KeystrokeService,
               public _CovpositionService:CovpositionService,
-              public _PlaygroundService:PlaygroundService
+              public _PointServiceService:PointServiceService
                ) { }
 
   ngOnInit() {  
@@ -42,7 +43,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
     */
 
-   this._PlaygroundService.makeSize(this.playgroundView.nativeElement.getBoundingClientRect().width);
+   
     
   }
 
@@ -99,11 +100,15 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       else {
           this.positiony = this.covmanView.nativeElement.offsetTop;
           this.positionY = this.positiony+  "px"; 
-      }     
+      }   
+
     // -- end asking for move
 
-    // asking for pick a point
-
+            //*** asking for pick a point
+            this._PointServiceService.catchPoint(
+              this.positionx,                              
+              this.positiony
+            );
   }  
 
 }
