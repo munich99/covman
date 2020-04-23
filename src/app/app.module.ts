@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CovmanComponent } from './main-part/covman/covman.component';
 import { LinesComponent } from './main-part/lines/lines.component';
+import { PointsComponent } from './main-part/points/points.component';
 
 import { PlaygroundDirective } from './custom-directives/playground.directive';
 
@@ -25,6 +26,7 @@ const routes: Routes = [
       AppComponent,
       CovmanComponent,
       LinesComponent,
+      PointsComponent,
       PlaygroundDirective
    ],
    imports: [

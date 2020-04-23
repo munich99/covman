@@ -19,13 +19,16 @@ export class LinesComponent implements OnInit {
     public _CovpositionService:CovpositionService
     ) { }
 
-  ngOnInit() {    
+  ngOnInit() {  
+    let PlaySizeWidth = this._ElementRef.nativeElement.offsetWidth;
+    let PlaySizeHeight = this._ElementRef.nativeElement.offsetHeight;
+    console.log(PlaySizeHeight + " " + PlaySizeWidth ," playsize from lines");
+    
+    // Gives Postition of llines to Service  
     this._CovpositionService.fetchLines(this.dimensions);
   }
 
   ngAfterViewInit(){
-    let PlaySize = this._ElementRef.nativeElement.offsetHeight;
-    console.log(PlaySize,"playsize")
   }
 
 

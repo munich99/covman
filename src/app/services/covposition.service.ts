@@ -13,7 +13,7 @@ export class CovpositionService {
   givePositon(posX:number, posY:number, widthX:number, widthY:number){    
     this.linePermission = true;
 
-    // check covmanposition
+    // check covman position
     let i:number = 0;
     while (this.lineXY[i]) {      
       let lineLeft = this.lineXY[i]["xS"];

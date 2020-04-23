@@ -41,6 +41,8 @@ export class CovmanComponent implements OnInit, AfterViewInit {
     // console.log (this.playgroundView.nativeElement.getBoundingClientRect().height, "this.playgroundView.nativeElement.covman");
 
     */
+
+   this._PlaygroundService.makeSize(this.playgroundView.nativeElement.getBoundingClientRect().width);
     
   }
 
