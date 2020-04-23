@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PointsComponent implements OnInit {
 
+  points=[
+    {pointX:50, pointY:50}
+  ]
+
   constructor() { }
 
   ngOnInit() {

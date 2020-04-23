@@ -102,6 +102,8 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       }     
     // -- end asking for move
 
+    // asking for pick a point
+
   }  
 
 }
