@@ -8,7 +8,7 @@ export class PointServiceService {
 
   positionX:number;
   positionY:number;
-  pointXY:object;
+  pointXY:object[];
   private pointCountSource = new Subject<number>();
   pointCount$ = this.pointCountSource.asObservable();
 
@@ -24,19 +24,21 @@ export class PointServiceService {
 
     let i:number =0;
     while(this.pointXY[i]) {
+            
       if(this.positionX == this.pointXY[i]["pointX"] && this.positionY == this.pointXY[i]["pointY"])
       {
         console.log(
           this.positionY + " match yy " + this.pointXY[i]["pointY"] + " " +
           this.positionX + " match xx " + this.pointXY[i]["pointX"]
           );     
-          this.CountPoint(4)
+          this.CountPoint(4);
+          this.pointXY.splice(i, 1);
       }         
       i++;
     }
   }
 
-  ForCountPoint(poiXY:object){
+  ForCountPoint(poiXY:object[]){
     this.pointXY = poiXY;  
   }
   CountPoint(point:number){
