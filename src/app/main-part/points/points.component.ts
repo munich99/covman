@@ -15,7 +15,7 @@ export class PointsComponent implements OnInit {
   constructor(public _PointServiceService:PointServiceService) { }
 
   ngOnInit() {
-    this._PointServiceService.countPoint(this.points)
+    this._PointServiceService.ForCountPoint(this.points)
   }
 
 }

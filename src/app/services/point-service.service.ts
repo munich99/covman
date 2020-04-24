@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,14 @@ export class PointServiceService {
   positionX:number;
   positionY:number;
   pointXY:object;
+  private pointCountSource = new Subject<number>();
+  pointCount$ = this.pointCountSource.asObservable();
 
-  constructor() { }
+  
+
+  
+
+  constructor() {  }
 
   catchPoint(posX:number, posY:number){
     this.positionX = posX;
@@ -22,15 +29,18 @@ export class PointServiceService {
         console.log(
           this.positionY + " match yy " + this.pointXY[i]["pointY"] + " " +
           this.positionX + " match xx " + this.pointXY[i]["pointX"]
-          )
+          );     
+          this.CountPoint(4)
       }         
       i++;
     }
   }
 
-  countPoint(poiXY:object){
-    this.pointXY = poiXY;    
-
+  ForCountPoint(poiXY:object){
+    this.pointXY = poiXY;  
+  }
+  CountPoint(point:number){
+    this.pointCountSource.next(point);     
   }
 
 }

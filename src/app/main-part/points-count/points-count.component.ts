@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PointServiceService } from '../../services/point-service.service';
 
 @Component({
   selector: 'app-points-count',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PointsCountComponent implements OnInit {
 
-  constructor() { }
+  points:number=10;
 
-  ngOnInit() {
+  constructor(public _PointServiceService:PointServiceService ) { }
+
+  ngOnInit() {   
+      this._PointServiceService.pointCount$
+      .subscribe(message =>{
+        this.points += message;
+      })  
   }
 
 }
