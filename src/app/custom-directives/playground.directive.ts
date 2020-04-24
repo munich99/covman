@@ -24,9 +24,11 @@ export class PlaygroundDirective {
     let yRandTop = this.randLO(wishDifY);
     let yRandBottom = this.randLO(wishDifY);
 
-    elementRef.nativeElement.style.position = 'absolute';
+    elementRef.nativeElement.style.position = 'relative';
+    elementRef.nativeElement.style.float = 'left';
     elementRef.nativeElement.style.left = '10px' // xRandLeft;
-    // elementRef.nativeElement.style.right =  '100px' // xRandRight;
+    //elementRef.nativeElement.style.right =  '0' // xRandRight;
+    elementRef.nativeElement.style.marginRight =  '10px' // xRandRight;
     elementRef.nativeElement.style.width = '400px';
     elementRef.nativeElement.style.top = '10px' // yRandTop;
     elementRef.nativeElement.style.height = '420px';
