@@ -104,11 +104,13 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
     // -- end asking for move
 
-            //*** asking for pick a point
-            this._PointServiceService.catchPoint(
-              this.positionx,                              
-              this.positiony
-            );
+      //*** asking for pick a point
+      this._PointServiceService.catchPoint(
+        this.positionx,                              
+        this.positiony
+      );
+
+      
   }  
 
 }

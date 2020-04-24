@@ -9,11 +9,12 @@ export class PointServiceService {
   positionX:number;
   positionY:number;
   pointXY:object[];
+
   private pointCountSource = new Subject<number>();
   pointCount$ = this.pointCountSource.asObservable();
 
-  
-
+  private CovEnemySourceX = new Subject<number>();
+  CovEnemyX$ = this.CovEnemySourceX.asObservable();
   
 
   constructor() {  }
@@ -35,6 +36,9 @@ export class PointServiceService {
           this.pointXY.splice(i, 1);
       }         
       i++;
+ 
+      this.CovEnemy( this.RandomCovEnemy() );
+
     }
   }
 
@@ -43,6 +47,16 @@ export class PointServiceService {
   }
   CountPoint(point:number){
     this.pointCountSource.next(point);     
+  }
+  CovEnemy(CovEnemyx:number){
+    this.CovEnemySourceX.next(CovEnemyx); 
+  }
+
+  RandomCovEnemy(){
+    let min = Math.ceil(1);
+    let max = Math.floor(400);
+    let enemyX = Math.floor(Math.random() * (max - min +1)) + min;
+    return enemyX
   }
 
 }
