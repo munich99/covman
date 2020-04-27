@@ -8,7 +8,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 })
 export class CovEnemyComponent implements OnInit {
 
-  @ViewChild('enemy', {static: true}) enemyView:ElementRef;
+  // @ViewChild('enemywalk', {static: true}) enemyView:ElementRef;
 
   positionx:number = 40; 
   positiony:number = 20; 
@@ -25,10 +25,12 @@ export class CovEnemyComponent implements OnInit {
       */
  
 
+    sayHello(x:number, y:number){
+      console.log(x + "hallo from enemy" + y);
+      if (this.positionx == x && this.positiony == y) alert("erwischt");
+    }
 
 
-    //this.positionX = this.positionx+  "px";
-    // this.positionY = this.positiony+  "px";
 
 
 

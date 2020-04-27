@@ -17,11 +17,17 @@ export class PointCountService {
     this.pointsPositionList = pointsXY;     
   }
 
-  covManPosition(covmanPosition:object){    
-    this.pointsMatch(covmanPosition); 
+  enemyPosition(){    
+
   }
 
-  pointsMatch(covmanposition:object){
+  covManPosition(covmanPosition:object){    
+    this.matchPoint(covmanPosition);    
+  }
+
+
+
+  matchPoint(covmanposition:object){
     let i=0;
     while(this.pointsPositionList[i]){      
       if( JSON.stringify(this.pointsPositionList[i]) === JSON.stringify(covmanposition) ) {   
@@ -37,5 +43,4 @@ export class PointCountService {
   pointCounts(pointcounts:number){
     this.pointGetSource.next(pointcounts);    
   }
-
 }

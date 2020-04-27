@@ -5,6 +5,10 @@ import { KeystrokeService } from '../../services/keystroke.service';
 import { MovePermissionService } from '../../_services/move-permission.service';
 import { PointCountService } from '../../_services/point-count.service';
 
+import { CovEnemyComponent } from '../cov-enemy/cov-enemy.component';
+
+
+
 
 @Component({
   selector: 'app-covman',
@@ -15,6 +19,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   @ViewChild('covman', {static: true}) covmanView:ElementRef;
   @ViewChild('playground', {static: true}) playgroundView:ElementRef;
+  @ViewChild(CovEnemyComponent, {static: true}) enemyview:CovEnemyComponent;
 
   positionx:number = 40; 
   positiony:number = 40; 
@@ -29,7 +34,9 @@ export class CovmanComponent implements OnInit, AfterViewInit {
               public _PointCountService:PointCountService
                ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+
+  }
 
   ngAfterViewInit() { 
     interval(100).subscribe( () => this.move() );
@@ -77,6 +84,9 @@ export class CovmanComponent implements OnInit, AfterViewInit {
     // sending postion for count points
     let covManPosition = {positionx:this.positionx, positiony: this.positiony};  
     this._PointCountService.covManPosition(covManPosition);
+
+    // asking for enemy
+    this.enemyview.sayHello(this.positionx, this.positiony);
 
   }  
 
