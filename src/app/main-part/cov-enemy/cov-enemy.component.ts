@@ -18,9 +18,9 @@ export class CovEnemyComponent implements OnInit {
 
   ngOnInit() { }
 
-  sayHello(x:number, y:number, live:number){      
-    if (this.positionx == x && this.positiony == y) return (live-1);
-    else return live;
+  sayHello(x:number, y:number){      
+    if (this.positionx == x && this.positiony == y) return false;
+    else return true;
   }
 
 

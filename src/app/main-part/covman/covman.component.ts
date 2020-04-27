@@ -68,19 +68,12 @@ export class CovmanComponent implements OnInit, AfterViewInit {
           break;
       } 
 
-    // asking for movepermission
-      this.nextMove(this.positionx, this.positiony);  
-      
-      if(this.nextMovePermission) 
+    // asking for movepermission       
+      this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
+      if(!this.nextMovePermission) 
       {      
-        this.positionX = this.positionx +  "px"; 
-        this.positionY = this.positiony +  "px";                      
-      }
-      else {
-          this.positionx = this.covmanView.nativeElement.offsetLeft;
-          this.positionX = this.positionx+  "px"; 
-          this.positiony = this.covmanView.nativeElement.offsetTop;
-          this.positionY = this.positiony+  "px"; 
+        this.positionx = this.covmanView.nativeElement.offsetLeft;
+        this.positiony = this.covmanView.nativeElement.offsetTop;                    
       }
 
     // sending postion for count points
@@ -88,12 +81,18 @@ export class CovmanComponent implements OnInit, AfterViewInit {
     this._PointCountService.covManPosition(covManPosition);
 
     // asking for enemy and still to live
-    this.lives = this.enemyview.sayHello(this.positionx, this.positiony, this.lives);   
+    let liveYes:boolean = this.enemyview.sayHello(this.positionx, this.positiony); 
+    if (!liveYes)  {
+      this.positionx = 40; 
+      this.positiony = 40;
+      this.positionDirection = "ArrowRight";
+      this.lives--;
+    }
+
+    // setting new position
+    this.positionX = this.positionx +  "px"; 
+    this.positionY = this.positiony +  "px";  
 
   }  
-
-  nextMove(positionx:number, positiony:number){     
-    this.nextMovePermission = this._MovePermissionService.playMove(positionx, positiony);
-  }
 
 }
