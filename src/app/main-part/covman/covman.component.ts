@@ -25,7 +25,9 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   positiony:number = 40; 
   positionX = this.positionx + "px";
   positionY = this.positiony + "px";
-  positionDirection = "ArrowRight"; 
+  positionDirection = "ArrowRight";
+  
+  lives:number = 3;
 
   nextMovePermission:boolean;
 
@@ -85,8 +87,8 @@ export class CovmanComponent implements OnInit, AfterViewInit {
     let covManPosition = {positionx:this.positionx, positiony: this.positiony};  
     this._PointCountService.covManPosition(covManPosition);
 
-    // asking for enemy
-    this.enemyview.sayHello(this.positionx, this.positiony);
+    // asking for enemy and still to live
+    this.lives = this.enemyview.sayHello(this.positionx, this.positiony, this.lives);   
 
   }  
 

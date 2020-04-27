@@ -6,9 +6,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
   templateUrl: './cov-enemy.component.html',
   styleUrls: ['./cov-enemy.component.css']
 })
-export class CovEnemyComponent implements OnInit {
-
-  // @ViewChild('enemywalk', {static: true}) enemyView:ElementRef;
+export class CovEnemyComponent implements OnInit {  
 
   positionx:number = 40; 
   positiony:number = 20; 
@@ -19,16 +17,11 @@ export class CovEnemyComponent implements OnInit {
   constructor() { }
 
   ngOnInit() { }
-/*
-    this._PointServiceService.CovEnemyX$
-    .subscribe(xx => {
-      */
- 
 
-    sayHello(x:number, y:number){
-      console.log(x + "hallo from enemy" + y);
-      if (this.positionx == x && this.positiony == y) alert("erwischt");
-    }
+  sayHello(x:number, y:number, live:number){      
+    if (this.positionx == x && this.positiony == y) return (live-1);
+    else return live;
+  }
 
 
 

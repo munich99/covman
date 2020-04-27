@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PointCountService } from '../../_services/point-count.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { PointCountService } from '../../_services/point-count.service';
 export class PointsTableComponent implements OnInit {
 
   points:number=10;
+  @Input() liveToDie:number;
 
   constructor(
     public _PointCountService:PointCountService 
