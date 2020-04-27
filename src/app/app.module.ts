@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { CovmanComponent } from './main-part/covman/covman.component';
 import { LinesComponent } from './main-part/lines/lines.component';
 import { PointsComponent } from './main-part/points/points.component';
-import { PointsCountComponent } from './main-part/points-count/points-count.component';
+import { PointsTableComponent } from './main-part/points-table/points-table.component';
 import { CovEnemyComponent } from './main-part/cov-enemy/cov-enemy.component';
 
 import { PlaygroundDirective } from './custom-directives/playground.directive';
@@ -29,7 +29,7 @@ const routes: Routes = [
       CovmanComponent,
       LinesComponent,
       PointsComponent,
-      PointsCountComponent,
+      PointsTableComponent,
       CovEnemyComponent,
       PlaygroundDirective
    ],

@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { CovpositionService } from './covposition.service';
+import { PointCountService } from './point-count.service';
 
-describe('Service: Covposition', () => {
+describe('Service: PointCount', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CovpositionService]
+      providers: [PointCountService]
     });
   });
 
-  it('should ...', inject([CovpositionService], (service: CovpositionService) => {
+  it('should ...', inject([PointCountService], (service: PointCountService) => {
     expect(service).toBeTruthy();
   }));
 });

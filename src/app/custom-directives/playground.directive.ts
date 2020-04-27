@@ -1,5 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 
+import { MovePermissionService } from '../_services/move-permission.service';
+
 
 
 @Directive({
@@ -10,7 +12,25 @@ export class PlaygroundDirective {
   // xRandLeft:number;
   // xRandRight:number;
 
-  constructor(elementRef: ElementRef) {
+  constructor(
+    elementRef: ElementRef,
+    public _MovePermissionService:MovePermissionService
+    ) {
+
+    
+      let PlaygroundWidth = 400;
+      let PlaygroundHeight = 420;
+      
+      this._MovePermissionService.playBorder(PlaygroundWidth, PlaygroundHeight);
+
+    
+
+
+
+
+
+
+
 
     let wishSizeX = Math.floor( (window.innerWidth-10)/10 ) * 10;
     let wishDifX = window.innerWidth - wishSizeX;
@@ -29,14 +49,15 @@ export class PlaygroundDirective {
     elementRef.nativeElement.style.left = '10px' // xRandLeft;
     //elementRef.nativeElement.style.right =  '0' // xRandRight;
     elementRef.nativeElement.style.marginRight =  '10px' // xRandRight;
-    elementRef.nativeElement.style.width = '400px';
+    elementRef.nativeElement.style.width = PlaygroundWidth + "px";
+    
     elementRef.nativeElement.style.top = '10px' // yRandTop;
-    elementRef.nativeElement.style.height = '420px';
+    elementRef.nativeElement.style.height = PlaygroundHeight + 'px';
     // elementRef.nativeElement.style.bottom = yRandBottom;
 
     elementRef.nativeElement.style.backgroundColor = '#1f1';
 
-    console.log(xRandLeft,"window.innerHight");
+    // console.log(xRandLeft,"window.innerHight");
   }
 
   

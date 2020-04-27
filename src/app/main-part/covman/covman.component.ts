@@ -2,8 +2,12 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angula
 import { interval } from 'rxjs';
 
 import { KeystrokeService } from '../../services/keystroke.service';
-import { CovpositionService } from '../../services/covposition.service';
-import { PointServiceService } from '../../services/point-service.service';
+import { MovePermissionService } from '../../_services/move-permission.service';
+import { PointCountService } from '../../_services/point-count.service';
+
+import { CovEnemyComponent } from '../cov-enemy/cov-enemy.component';
+
+
 
 
 @Component({
@@ -15,40 +19,28 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   @ViewChild('covman', {static: true}) covmanView:ElementRef;
   @ViewChild('playground', {static: true}) playgroundView:ElementRef;
+  @ViewChild(CovEnemyComponent, {static: true}) enemyview:CovEnemyComponent;
 
   positionx:number = 40; 
   positiony:number = 40; 
   positionX = this.positionx + "px";
   positionY = this.positiony + "px";
-  positionDirection = "ArrowRight";  
-  
-  innerWidth:number;
-  innerHeight:number;  
+  positionDirection = "ArrowRight"; 
 
-  movePermission:boolean=true;
-  movePermissionHorizotal:boolean=true;
+  nextMovePermission:boolean;
 
-  constructor(public _KeystrokeService:KeystrokeService,
-              public _CovpositionService:CovpositionService,
-              public _PointServiceService:PointServiceService
+  constructor(public _KeystrokeService:KeystrokeService,  
+              public _MovePermissionService:MovePermissionService,
+              public _PointCountService:PointCountService
                ) { }
 
-  ngOnInit() {  
-    /*
-    console.log (this.playgroundView.nativeElement.getBoundingClientRect().width, "breite");
-    console.log (this.playgroundView.nativeElement.getBoundingClientRect().height, "höhe")
-    // console.log (this.playgroundView.nativeElement.offsetLeft, "offsetLeft");
-    this._PlaygroundService.makeSize(this.playgroundView.nativeElement.offsetLeft);
-    // console.log (this.playgroundView.nativeElement.getBoundingClientRect().height, "this.playgroundView.nativeElement.covman");
+  ngOnInit() { 
 
-    */
-
-   
-    
   }
 
   ngAfterViewInit() { 
     interval(100).subscribe( () => this.move() );
+
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
         console.log(messageKey, "pacman richtung");
@@ -57,60 +49,49 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   }
 
   move(){   
+
+      // asking for direction
       switch (this.positionDirection) {
         case "ArrowRight":
-          this.positionx = this.covmanView.nativeElement.offsetLeft + 10; 
-          this.movePermissionHorizotal = true;
+          this.positionx = this.covmanView.nativeElement.offsetLeft + 10;          
           break;
         case "ArrowLeft":
-          this.positionx = this.covmanView.nativeElement.offsetLeft - 10; 
-          this.movePermissionHorizotal = true;        
+          this.positionx = this.covmanView.nativeElement.offsetLeft - 10;          
           break;
         case "ArrowUp":
-          this.positiony = this.covmanView.nativeElement.offsetTop - 10; 
-          this.movePermissionHorizotal = false;         
+          this.positiony = this.covmanView.nativeElement.offsetTop - 10;
           break;
         case "ArrowDown":
-          this.positiony = this.covmanView.nativeElement.offsetTop + 10; 
-          this.movePermissionHorizotal = false;                   
+          this.positiony = this.covmanView.nativeElement.offsetTop + 10;
           break;
-      }    
+      } 
+
+    // asking for movepermission
+      this.nextMove(this.positionx, this.positiony);  
       
-      // asking for move
-      this.movePermission = this._CovpositionService.givePositon(       
-          this.positionx,                              
-          this.positiony,
-          this.playgroundView.nativeElement.getBoundingClientRect().width,
-          this.playgroundView.nativeElement.getBoundingClientRect().height                              
-          );             
-      
-      if(this.movePermission && this.movePermissionHorizotal ) 
+      if(this.nextMovePermission) 
       {      
-        this.positionX = this.positionx+  "px";                
+        this.positionX = this.positionx +  "px"; 
+        this.positionY = this.positiony +  "px";                      
       }
       else {
           this.positionx = this.covmanView.nativeElement.offsetLeft;
           this.positionX = this.positionx+  "px"; 
-      }
-
-      if(this.movePermission && !this.movePermissionHorizotal ) 
-      {      
-        this.positionY = this.positiony+  "px";
-      }
-      else {
           this.positiony = this.covmanView.nativeElement.offsetTop;
           this.positionY = this.positiony+  "px"; 
-      }   
+      }
 
-    // -- end asking for move
+    // sending postion for count points
+    let covManPosition = {positionx:this.positionx, positiony: this.positiony};  
+    this._PointCountService.covManPosition(covManPosition);
 
-      //*** asking for pick a point
-      this._PointServiceService.catchPoint(
-        this.positionx,                              
-        this.positiony
-      );
+    // asking for enemy
+    this.enemyview.sayHello(this.positionx, this.positiony);
 
-      
   }  
+
+  nextMove(positionx:number, positiony:number){     
+    this.nextMovePermission = this._MovePermissionService.playMove(positionx, positiony);
+  }
 
 }

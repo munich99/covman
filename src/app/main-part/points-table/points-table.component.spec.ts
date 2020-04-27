@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { PointsCountComponent } from './points-count.component';
+import { PointsTableComponent } from './points-table.component';
 
-describe('PointsCountComponent', () => {
-  let component: PointsCountComponent;
-  let fixture: ComponentFixture<PointsCountComponent>;
+describe('PointsTableComponent', () => {
+  let component: PointsTableComponent;
+  let fixture: ComponentFixture<PointsTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PointsCountComponent ]
+      declarations: [ PointsTableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PointsCountComponent);
+    fixture = TestBed.createComponent(PointsTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
