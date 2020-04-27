@@ -2,8 +2,8 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angula
 import { interval } from 'rxjs';
 
 import { KeystrokeService } from '../../services/keystroke.service';
-import { PointServiceService } from '../../services/point-service.service';
 import { MovePermissionService } from '../../_services/move-permission.service';
+import { PointCountService } from '../../_services/point-count.service';
 
 
 @Component({
@@ -24,9 +24,9 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   nextMovePermission:boolean;
 
-  constructor(public _KeystrokeService:KeystrokeService,              
-              public _PointServiceService:PointServiceService,
-              public _MovePermissionService:MovePermissionService
+  constructor(public _KeystrokeService:KeystrokeService,  
+              public _MovePermissionService:MovePermissionService,
+              public _PointCountService:PointCountService
                ) { }
 
   ngOnInit() { }
@@ -59,7 +59,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
           break;
       } 
 
-      // asking for movepermission
+    // asking for movepermission
       this.nextMove(this.positionx, this.positiony);  
       
       if(this.nextMovePermission) 
@@ -73,6 +73,11 @@ export class CovmanComponent implements OnInit, AfterViewInit {
           this.positiony = this.covmanView.nativeElement.offsetTop;
           this.positionY = this.positiony+  "px"; 
       }
+
+    // sending postion for count points
+    let covManPosition = {positionx:this.positionx, positiony: this.positiony};  
+    this._PointCountService.covManPosition(covManPosition);
+
   }  
 
   nextMove(positionx:number, positiony:number){     
