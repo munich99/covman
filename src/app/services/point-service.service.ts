@@ -29,7 +29,7 @@ export class PointServiceService {
       if(this.positionX == this.pointXY[i]["pointX"] && this.positionY == this.pointXY[i]["pointY"])
       {
         console.log(
-          this.positionY + " match yy " + this.pointXY[i]["pointY"] + " " +
+          this.positionY + " sylvia = liebe yy " + this.pointXY[i]["pointY"] + " " +
           this.positionX + " match xx " + this.pointXY[i]["pointX"]
           );     
           this.CountPoint(4);
