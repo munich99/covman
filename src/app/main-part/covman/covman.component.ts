@@ -33,6 +33,8 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   
   lives:number = 3;
 
+  breakLittle:number;
+
   nextMovePermission:boolean;
 
   constructor(public _KeystrokeService:KeystrokeService,  
@@ -46,15 +48,19 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit() { 
-    interval(100).subscribe( () => this.move() );
+  public startCovman = interval(100).subscribe( () => this.move() );
 
+  ngAfterViewInit() { 
+    
+    this.startCovman;
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
         console.log(messageKey, "pacman richtung");
         this.positionDirection = messageKey;
       });  
   }
+
+  
 
   move(){   
 
@@ -102,6 +108,17 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       this.positiony = 40;
       this.positionDirection = "ArrowRight";
       this.lives--;
+      // for little break on Screen
+      this.breakLittle = this.lives; 
+      this.startCovman.unsubscribe();
+      setTimeout(
+        () => {
+          this.startCovman = interval(100).subscribe( () => this.move() );
+          this.breakLittle = null;
+
+        },2500
+      );
+
       if(this.lives<=0) this.newGame();      
     }
     

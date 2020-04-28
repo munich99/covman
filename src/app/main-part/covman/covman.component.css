@@ -10,3 +10,22 @@ div {
     background-color: yellow;
   }
 
+  .first_live{
+     background-color: rgba(255, 255, 255, 0.5);
+     width: 80%;
+     height: 80%;
+     padding: 5%;
+     margin: 5%;
+     text-align: center; 
+
+  }
+  .first_live p{
+   display: block; 
+   margin-top: 20%;
+   padding: 20% 0;  
+   color: black;
+   background-color: rgb(236, 11, 11);
+   font-size: 4em;
+   font-weight: bold;
+  }
+
