@@ -19,7 +19,12 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   @ViewChild('covman', {static: true}) covmanView:ElementRef;
   @ViewChild('playground', {static: true}) playgroundView:ElementRef;
-  @ViewChild(CovEnemyComponent, {static: true}) enemyview:CovEnemyComponent;
+  @ViewChild('enemy1', { read: CovEnemyComponent, static: true }) enemyview1:CovEnemyComponent;
+  @ViewChild('enemy2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
+
+
+
+  // @ViewChild('userCard', { read: UserCard, static: false }) userCard: UserCard;
 
   positionx:number = 40; 
   positiony:number = 40; 
@@ -80,19 +85,23 @@ export class CovmanComponent implements OnInit, AfterViewInit {
     let covManPosition = {positionx:this.positionx, positiony: this.positiony};  
     this._PointCountService.covManPosition(covManPosition);
 
-    // asking for enemy and still to live
-    let liveYes:boolean = this.enemyview.loseLive(this.positionx, this.positiony); 
-    if (!liveYes)  {
-      this.positionx = 40; 
-      this.positiony = 40;
-      this.positionDirection = "ArrowRight";
-      this.lives--;
-    }
+    // asking for enemy and still to live    
+    this.startAgain( this.enemyview1.loseLive(this.positionx, this.positiony) ); 
+    this.startAgain( this.enemyview2.loseLive(this.positionx, this.positiony) );  
 
     // setting new position
     this.positionX = this.positionx +  "px"; 
     this.positionY = this.positiony +  "px";  
 
   }  
+
+  startAgain(liveYes:boolean){
+    if (!liveYes) {
+      this.positionx = 40; 
+      this.positiony = 40;
+      this.positionDirection = "ArrowRight";
+      this.lives--;
+    }
+  }
 
 }
