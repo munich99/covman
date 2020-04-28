@@ -81,7 +81,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
     this._PointCountService.covManPosition(covManPosition);
 
     // asking for enemy and still to live
-    let liveYes:boolean = this.enemyview.sayHello(this.positionx, this.positiony); 
+    let liveYes:boolean = this.enemyview.loseLive(this.positionx, this.positiony); 
     if (!liveYes)  {
       this.positionx = 40; 
       this.positiony = 40;
