@@ -6,6 +6,13 @@
   <app-points></app-points>
   <app-cov-enemy #enemy1></app-cov-enemy>
   <app-cov-enemy #enemy2></app-cov-enemy>
+
+  <ng-template [ngIf]="breakLittle">
+    <div class="first_live">
+      <p>Nur noch {{breakLittle}} Leben!</p>
+    </div>
+  </ng-template>
+
 </div>
 <app-points-table [liveToDie] = lives></app-points-table>
 <button (click)="newGame()">new Game</button>
