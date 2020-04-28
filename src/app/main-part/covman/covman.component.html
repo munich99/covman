@@ -9,9 +9,20 @@
 
   <ng-template [ngIf]="breakLittle">
     <div class="first_live">
-      <p>Nur noch {{breakLittle}} Leben!</p>
+      <p>Nur noch {{lives}} Leben!</p>
     </div>
   </ng-template>
+
+  <ng-template [ngIf]="!breakLittle && lives==0">
+    <div class="first_live">
+      <p>VERLOREN<br>
+        <button (click)="newGame()">neues Spiel?</button>
+      </p>
+      
+    </div>
+  </ng-template>
+
+
 
 </div>
 <app-points-table [liveToDie] = lives></app-points-table>

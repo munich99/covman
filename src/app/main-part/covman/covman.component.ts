@@ -31,9 +31,9 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   positionY = this.positiony + "px";
   positionDirection = "ArrowRight";
   
-  lives:number = 3;
+  lives:number=3;
 
-  breakLittle:number;
+  breakLittle:boolean=false;
 
   nextMovePermission:boolean;
 
@@ -108,18 +108,22 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       this.positiony = 40;
       this.positionDirection = "ArrowRight";
       this.lives--;
-      // for little break on Screen
-      this.breakLittle = this.lives; 
-      this.startCovman.unsubscribe();
-      setTimeout(
-        () => {
-          this.startCovman = interval(100).subscribe( () => this.move() );
-          this.breakLittle = null;
 
-        },2500
-      );
-
-      if(this.lives<=0) this.newGame();      
+      if(this.lives<=0) {    
+        this.breakLittle = false;    
+        this.startCovman.unsubscribe();        
+      }
+      else{
+        // for little break on Screen
+        this.breakLittle = true; 
+        this.startCovman.unsubscribe();
+        setTimeout(
+          () => {
+            this.startCovman = interval(100).subscribe( () => this.move() );
+            this.breakLittle = false;
+          },2500
+        );
+      };      
     }
     
   }
