@@ -1,4 +1,7 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+// import { Location } from '@angular/common';
+
 import { interval } from 'rxjs';
 
 import { KeystrokeService } from '../../services/keystroke.service';
@@ -22,10 +25,6 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   @ViewChild('enemy1', { read: CovEnemyComponent, static: true }) enemyview1:CovEnemyComponent;
   @ViewChild('enemy2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
 
-
-
-  // @ViewChild('userCard', { read: UserCard, static: false }) userCard: UserCard;
-
   positionx:number = 40; 
   positiony:number = 40; 
   positionX = this.positionx + "px";
@@ -38,7 +37,9 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   constructor(public _KeystrokeService:KeystrokeService,  
               public _MovePermissionService:MovePermissionService,
-              public _PointCountService:PointCountService
+              public _PointCountService:PointCountService,
+              public _Router:Router,
+              // public _Location:Location
                ) { }
 
   ngOnInit() { 
@@ -93,7 +94,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
     this.positionX = this.positionx +  "px"; 
     this.positionY = this.positiony +  "px";  
 
-  }  
+  } // end of Move()
 
   startAgain(liveYes:boolean){
     if (!liveYes) {
@@ -101,7 +102,19 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       this.positiony = 40;
       this.positionDirection = "ArrowRight";
       this.lives--;
+      if(this.lives<=0) this.newGame();      
     }
+    
+  }
+
+
+  newGame(){
+    // skipLocationChange?: boolean	-- When true, navigates without pushing a new state into history.
+    this._Router.navigateByUrl("/", {skipLocationChange:true})
+    .then( ()=>{       
+      this._Router.navigate(['/game']);     
+      // this._Router.navigate(['decodeURI(this._Location.path())']);
+    })
   }
 
 }
