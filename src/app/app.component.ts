@@ -8,7 +8,7 @@ import { KeystrokeService } from './services/keystroke.service'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'covman'; 
+  title = 'Survival Man'; 
   
   constructor(public _KeystrokeService:KeystrokeService){    
     }

@@ -17,29 +17,19 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 1rem;
-    padding: 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
   .spacer {
     flex: 1;
   }
 </style>
+<p>You are the</p>
+<h1>{{title}}</h1>
 
-<h1>start {{title}}</h1>
+<!--button routerLink ="/user">Go to Preferences</button><br-->
 
-<button routerLink ="/user">Go to Preferences</button><br>
-<button routerLink ="/game">Go to Game</button>
+<p class="start">
+  <button routerLink ="/game">Run For You Life</button><br>
+  (start game)
+</p>
 
 <router-outlet></router-outlet>
 
