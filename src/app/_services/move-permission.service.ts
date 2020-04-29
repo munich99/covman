@@ -29,7 +29,7 @@ playMove(positionx:number, positiony:number){
     if (
       positionx >= this.lineXY[i]["xS"]
       && positionx < (this.lineXY[i]["xS"] + this.lineXY[i]["xW"])
-      && positiony >= this.lineXY[i]["yS"]
+      && positiony > this.lineXY[i]["yS"]
       && positiony < (this.lineXY[i]["yS"] + this.lineXY[i]["yH"])
        ) this.linePosition = false;    
     i++;    

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 
 import { MovePermissionService } from '../../_services/move-permission.service';
+import { RandomService} from '../../_services/random.service';
 
 @Component({
   selector: 'app-lines',
@@ -9,25 +10,21 @@ import { MovePermissionService } from '../../_services/move-permission.service';
 })
 export class LinesComponent implements OnInit {
   
-  dimensions = [
-    {xS:130, xW:10, yS:0, yH:110},
-    {xS:200, xW:90, yS:130, yH:10},
-    {xS:40, xW:360, yS:200, yH:10}
-  ];
+  dimensions;
   
 
   constructor(
     public _ElementRef:ElementRef,    
-    public _MovePermissionService:MovePermissionService
+    public _MovePermissionService:MovePermissionService,
+    public _RandomService:RandomService
     ) { }
 
   ngOnInit() {  
     let PlaySizeWidth = this._ElementRef.nativeElement.offsetWidth;
     let PlaySizeHeight = this._ElementRef.nativeElement.offsetHeight;
-
-    this._MovePermissionService.playLines(this.dimensions)
-
-     
+    
+    this.dimensions = this._RandomService.randomEngine(); 
+    this._MovePermissionService.playLines(this.dimensions);
   }
 
   ngAfterViewInit(){

@@ -1,6 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 
 import { MovePermissionService } from '../_services/move-permission.service';
+import { RandomService} from '../_services/random.service';
 
 
 
@@ -14,7 +15,8 @@ export class PlaygroundDirective {
 
   constructor(
     elementRef: ElementRef,
-    public _MovePermissionService:MovePermissionService
+    public _MovePermissionService:MovePermissionService,
+    public _RandomService:RandomService
     ) {
 
     
@@ -22,6 +24,7 @@ export class PlaygroundDirective {
       let PlaygroundHeight = 420;
       
       this._MovePermissionService.playBorder(PlaygroundWidth, PlaygroundHeight);
+      this._RandomService.playBorder(PlaygroundWidth, PlaygroundHeight);
 
     
 
