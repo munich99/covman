@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Lines } from '../_interfaces/lines';
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +29,7 @@ export class RandomService {
   randomEngine(){  
    
     let preDimensions;
-    let Dimensions:object[]=[{xS:130, xW:10, yS:0, yH:110}];     
+    let Dimensions:Lines[]=[];     
     let i:number= 0; 
     while(i <= 4){
       preDimensions = this.randomEngineXY( (this.PlaygroundWidth/10), (this.PlaygroundHeight/10) );
@@ -54,7 +56,7 @@ export class RandomService {
     let randomValueStartD = (Math.floor(Math.random() * (max - min +1)) + min);
 
     let randomValue:object = 
-      {xS:(randomValueStart*10), xW:(randomValueEnd*10), yS:randomValueStartD, yH:10}
+      {xS:(randomValueStart*10), xW:(randomValueEnd*10), yS:(randomValueStartD*10), yH:10}
     
     return randomValue;    
   }
