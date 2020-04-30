@@ -37,6 +37,9 @@ export class PointCountService {
         this.pointCounts(4);
       }
       i++;
+      if(Object.keys(this.pointsPositionList).length === 0){
+        console.log("next round")
+      }
     }
   }
 
