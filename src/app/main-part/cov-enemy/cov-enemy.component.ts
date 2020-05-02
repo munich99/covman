@@ -54,8 +54,7 @@ export class CovEnemyComponent implements OnInit {
     {      
       this.positionx = this.enemyView.nativeElement.offsetLeft;
       this.positiony = this.enemyView.nativeElement.offsetTop; 
-      this.RandomCovEnemy();  
-      console.log(this.positionDirection)
+      this.RandomCovEnemy();        
     }
     
     if( this.positionx == xy['x'] && this.positiony == xy['y'] ) livematch= true; // ask after
