@@ -53,7 +53,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() { 
     
-    this.startCovman;
+    
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
         console.log(messageKey, "pacman richtung");
