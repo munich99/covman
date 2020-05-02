@@ -24,8 +24,7 @@ export class PointCountService {
     //this.matchEnemy(covmanPosition);  
   }
 
-  matchPoint(covmanposition:object){
-    console.log(covmanposition,"covmanposition")
+  matchPoint(covmanposition:object){    
    
     let i=0;
     while(this.pointsPositionList[i]){      
