@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MovePermissionService } from '../../_services/move-permission.service';
+import { PointCountService } from '../../_services/point-count.service';
 
 
 @Component({
@@ -20,22 +21,17 @@ export class CovEnemyComponent implements OnInit {
   positionDirection:number = 1;
   nextMovePermission:boolean;
 
-  constructor(public _MovePermissionService:MovePermissionService) { }
+  constructor(
+    public _MovePermissionService:MovePermissionService,
+    public _PointCountService:PointCountService) { }
 
   ngOnInit() { }
 
+  
   loseLive(x:number, y:number){  
     this.moveEnemy();   
-    if (this.positionx == x && this.positiony == y) return false;
-    else return true;
-  }
-
-
-  RandomCovEnemy(){
-    let min = Math.ceil(1);
-    let max = Math.floor(4);
-    let enemyDirection = Math.floor(Math.random() * (max - min +1)) + min;
-    return enemyDirection;
+   // if (this.positionx == x && this.positiony == y) return false;
+   // else return true;
   }
 
   moveEnemy(){   
@@ -56,8 +52,6 @@ export class CovEnemyComponent implements OnInit {
         break;
     } 
 
-    
-
     // asking for movepermission       
     this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
     if(!this.nextMovePermission) 
@@ -70,6 +64,18 @@ export class CovEnemyComponent implements OnInit {
     // setting new position
     this.positionX = this.positionx +  "px"; 
     this.positionY = this.positiony +  "px";
+
+    //giving new position to point-count service
+    let covManEnemyPosition = {positionx:this.positionx, positiony: this.positiony};
+    this._PointCountService.enemyPosition(covManEnemyPosition);
+
+  }
+
+  RandomCovEnemy(){
+    let min = Math.ceil(1);
+    let max = Math.floor(4);
+    let enemyDirection = Math.floor(Math.random() * (max - min +1)) + min;
+    return enemyDirection;
   }
 
 }

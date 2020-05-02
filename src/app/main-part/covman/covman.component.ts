@@ -23,7 +23,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   @ViewChild('covman', {static: true}) covmanView:ElementRef;
   @ViewChild('playground', {static: true}) playgroundView:ElementRef;
   @ViewChild('enemy1', { read: CovEnemyComponent, static: true }) enemyview1:CovEnemyComponent;
-  @ViewChild('enemy2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
+ // @ViewChild('enemy2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
 
   positionx:number = 40; 
   positiony:number = 40; 
@@ -32,6 +32,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
   positionDirection = "ArrowRight";
   
   lives:number=3;
+  levels:number=1;
 
   breakLittle:boolean=false;
 
@@ -88,17 +89,25 @@ export class CovmanComponent implements OnInit, AfterViewInit {
         this.positiony = this.covmanView.nativeElement.offsetTop;                    
       }
 
+    
+
     // sending postion for count points
     let covManPosition = {positionx:this.positionx, positiony: this.positiony};  
     this._PointCountService.covManPosition(covManPosition);
 
-    // asking for enemy and still to live    
-    this.startAgain( this.enemyview1.loseLive(this.positionx, this.positiony) ); 
-    this.startAgain( this.enemyview2.loseLive(this.positionx, this.positiony) );  
+    // asking for enemy and still to live  
+    // muss geändert werden in point counts ------------------------  
+   // this.startAgain( this.enemyview1.loseLive(this.positionx, this.positiony) ); 
+    // this.startAgain( this.enemyview2.loseLive(this.positionx, this.positiony) );  
+    // ---------------------------------------
+    
+    //this.enemyview2.moveEnemy();
 
     // setting new position
     this.positionX = this.positionx +  "px"; 
     this.positionY = this.positiony +  "px";  
+    
+    this.enemyview1.moveEnemy();
 
   } // end of Move()
 
