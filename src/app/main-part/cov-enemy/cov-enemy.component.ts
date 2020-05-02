@@ -14,11 +14,11 @@ export class CovEnemyComponent implements OnInit {
 
   // enemyies:object=[{name:1}];
 
-  positionx:number = 300; 
+  positionx:number = 310; 
   positiony:number = 40; 
   
   positionDirection:number = 1;
-  nextMovePermission:boolean;
+  nextMovePermission:boolean= true;
 
   constructor(
     public _MovePermissionService:MovePermissionService,
@@ -26,13 +26,23 @@ export class CovEnemyComponent implements OnInit {
 
   ngOnInit() { }
 
-  moveEnemy(){   
-    this.positionx = this.enemyView.nativeElement.offsetLeft - 10;
-    return this.positionx;
+  moveEnemy(movecovmanposition:number){  
+    let livematch:boolean;
+    if(this.positionx==movecovmanposition) livematch= true;    
+    
+    // asking for movepermission    
+    this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
+    if(!this.nextMovePermission) 
+    {      
+      this.positionx = this.enemyView.nativeElement.offsetLeft;
+      this.positiony = this.enemyView.nativeElement.offsetTop;                    
+    }
+    else this.positionx = this.enemyView.nativeElement.offsetLeft - 10;
 
-    //sending new position to point-count service
-    // let covManEnemyPosition = {positionx:this.positionx, positiony: this.positiony};
-    // this._PointCountService.enemyPosition(covManEnemyPosition);
+    if(this.positionx==movecovmanposition) livematch= true;
+  
+    // return to main
+    return livematch;   
     
   }
     

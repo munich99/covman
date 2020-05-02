@@ -23,7 +23,7 @@ export class MovePermissionService {
   }
 
   playMove(positionx:number, positiony:number){  
-
+/*
     let i:number = 0;
     while (this.lineXY[i]) { 
       if (
@@ -36,19 +36,20 @@ export class MovePermissionService {
 
       i++;    
     }
+    */
 
     if(
-      positionx < this.PlaygroundWidth
-      && positionx >= 0
+      positionx < (this.PlaygroundWidth -10)
+      && positionx > 0
       && positiony < this.PlaygroundHeight
       && positiony >=0    
-      && this.linePosition
+      //&& this.linePosition
       ) {
-        this.linePosition = true;
+        //this.linePosition = true;
         return true
       }
     else {
-      this.linePosition = true;
+      // this.linePosition = true;
       return false};
   }
 

@@ -25,7 +25,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   breakLittle:boolean=false;
 
-  nextMovePermission:boolean;
+  nextMovePermission:boolean=true;
 
   constructor(public _KeystrokeService:KeystrokeService,  
               public _MovePermissionService:MovePermissionService,
@@ -34,14 +34,20 @@ export class CovmanComponent implements OnInit, AfterViewInit {
               // public _Location:Location
                ) { }
 
+  moveCovman(){      
 
-  moveCovman(){   
-  this.positionx = this.covmanView.nativeElement.offsetLeft + 10; 
+  // asking for movepermission       
+  this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
+  if(!this.nextMovePermission) 
+  {      
+    this.positionx = this.covmanView.nativeElement.offsetLeft;
+    this.positiony = this.covmanView.nativeElement.offsetTop;                    
+  }
+  else this.positionx = this.covmanView.nativeElement.offsetLeft + 10;
+
+  // return to main for check enemy
   return this.positionx;
-
-  // sending postion for count points
-  // let covManPosition = {positionx:this.positionx, positiony:this.positiony};  
-  // this._PointCountService.covManPosition(covManPosition); 
+ 
   }
 
   ngOnInit() { 
@@ -84,13 +90,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
       this.enemyview1.moveEnemy();
 
-    // asking for movepermission       
-      this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
-      if(!this.nextMovePermission) 
-      {      
-        this.positionx = this.covmanView.nativeElement.offsetLeft;
-        this.positiony = this.covmanView.nativeElement.offsetTop;                    
-      }
+
 
     
 
