@@ -62,6 +62,7 @@ export class CovEnemyComponent implements OnInit {
         this.positiony = this.enemywalkView.nativeElement.offsetTop + 10;
         break;
     } 
+    
 
     // asking for movepermission       
     this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
