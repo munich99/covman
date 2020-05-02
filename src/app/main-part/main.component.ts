@@ -26,6 +26,7 @@ export class MainComponent implements OnInit {
     this._PointCountService.matchPoint(moveCovmanPosition);
 
     if(liveCatch) console.log("oh no!!!");
+    
   } ); 
 
   ngOnInit() {
