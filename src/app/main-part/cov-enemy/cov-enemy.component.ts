@@ -17,78 +17,57 @@ export class CovEnemyComponent implements OnInit {
   positionx:number = 310; 
   positiony:number = 40;   
   
-  positionDirection:number = 1;
+  positionDirection:number;
   nextMovePermission:boolean= true;
 
   constructor(
     public _MovePermissionService:MovePermissionService,
     public _PointCountService:PointCountService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.RandomCovEnemy()
+   }
 
   moveEnemy(xy:object){  
     let livematch:boolean;
     
-    if( this.positionx == xy['x'] && this.positiony == xy['y'] ) livematch= true; 
+    if( this.positionx == xy['x'] && this.positiony == xy['y'] ) livematch= true; // ask before
 
-    this.positionx = this.enemyView.nativeElement.offsetLeft - 10;  
+    switch (this.positionDirection) {
+      case 1: // "ArrowRight"
+        this.positionx = this.enemyView.nativeElement.offsetLeft + 10;          
+        break;
+      case 2: // "ArrowLeft"
+        this.positionx = this.enemyView.nativeElement.offsetLeft - 10;          
+        break;
+      case 3: // "ArrowUp"
+        this.positiony = this.enemyView.nativeElement.offsetTop - 10;
+        break;
+      case 4: // "ArrowDown"
+        this.positiony = this.enemyView.nativeElement.offsetTop + 10;
+        break;
+    } 
     
     // asking for movepermission    
     this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
     if(!this.nextMovePermission) 
     {      
       this.positionx = this.enemyView.nativeElement.offsetLeft;
-      this.positiony = this.enemyView.nativeElement.offsetTop;                    
+      this.positiony = this.enemyView.nativeElement.offsetTop; 
+      this.RandomCovEnemy();  
+      console.log(this.positionDirection)
     }
     
-    if( this.positionx == xy['x'] && this.positiony == xy['y'] ) livematch= true;
+    if( this.positionx == xy['x'] && this.positiony == xy['y'] ) livematch= true; // ask after
   
     // return to main
     return livematch;  
-  }
-    
-    /*
-  // asking for direction
-    switch (this.positionDirection) {
-      case 1: // "ArrowRight"
-        this.positionx = this.enemywalkView.nativeElement.offsetLeft + 10;          
-        break;
-      case 2: // "ArrowLeft"
-        this.positionx = this.enemywalkView.nativeElement.offsetLeft - 10;          
-        break;
-      case 3: // "ArrowUp"
-        this.positiony = this.enemywalkView.nativeElement.offsetTop - 10;
-        break;
-      case 4: // "ArrowDown"
-        this.positiony = this.enemywalkView.nativeElement.offsetTop + 10;
-        break;
-    } 
+  }    
 
-
-    // asking for movepermission       
-    this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
-    if(!this.nextMovePermission) 
-    {  
-      this.positionx = this.enemywalkView.nativeElement.offsetLeft;
-      this.positiony = this.enemywalkView.nativeElement.offsetTop;  
-      this.positionDirection = this.RandomCovEnemy();                  
-    }   
-
-    // setting new position
-
-
-    //giving new position to point-count service
-    let covManEnemyPosition = {positionx:this.positionx, positiony: this.positiony};
-    this._PointCountService.enemyPosition(covManEnemyPosition);
-
-  }
-
-*/
   RandomCovEnemy(){
     let min = Math.ceil(1);
     let max = Math.floor(4);
-    let enemyDirection = Math.floor(Math.random() * (max - min +1)) + min;
-    return enemyDirection;
+    this.positionDirection = Math.floor(Math.random() * (max - min +1)) + min;    
   } 
 
 }
