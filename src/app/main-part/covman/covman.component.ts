@@ -2,16 +2,9 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angula
 import { Router } from '@angular/router';
 // import { Location } from '@angular/common';
 
-import { interval } from 'rxjs';
-
 import { KeystrokeService } from '../../services/keystroke.service';
 import { MovePermissionService } from '../../_services/move-permission.service';
 import { PointCountService } from '../../_services/point-count.service';
-
-import { CovEnemyComponent } from '../cov-enemy/cov-enemy.component';
-
-
-
 
 @Component({
   selector: 'app-covman',
@@ -20,15 +13,11 @@ import { CovEnemyComponent } from '../cov-enemy/cov-enemy.component';
 })
 export class CovmanComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('covman', {static: true}) covmanView:ElementRef;
-  @ViewChild('playground', {static: true}) playgroundView:ElementRef;
-  @ViewChild('enemy1', { read: CovEnemyComponent, static: true }) enemyview1:CovEnemyComponent;
- // @ViewChild('enemy2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
+  @ViewChild('covman', {static: true}) covmanView:ElementRef;  
 
   positionx:number = 40; 
   positiony:number = 40; 
-  positionX = this.positionx + "px";
-  positionY = this.positiony + "px";
+
   positionDirection = "ArrowRight";
   
   lives:number=3;
@@ -45,13 +34,22 @@ export class CovmanComponent implements OnInit, AfterViewInit {
               // public _Location:Location
                ) { }
 
+
+  moveCovman(){   
+  this.positionx = this.covmanView.nativeElement.offsetLeft + 10; 
+  return this.positionx;
+
+  // sending postion for count points
+  // let covManPosition = {positionx:this.positionx, positiony:this.positiony};  
+  // this._PointCountService.covManPosition(covManPosition); 
+  }
+
   ngOnInit() { 
 
   }
 
-  public startCovman = interval(100).subscribe( () => this.move() );
-
   ngAfterViewInit() { 
+    /*
     
     
     this._KeystrokeService.keyStroke$.subscribe(
@@ -59,11 +57,14 @@ export class CovmanComponent implements OnInit, AfterViewInit {
         console.log(messageKey, "pacman richtung");
         this.positionDirection = messageKey;
       });  
+      */
   }
 
-  
+  /*
 
   move(){   
+
+    
 
       // asking for direction
       switch (this.positionDirection) {
@@ -80,6 +81,8 @@ export class CovmanComponent implements OnInit, AfterViewInit {
           this.positiony = this.covmanView.nativeElement.offsetTop + 10;
           break;
       } 
+
+      this.enemyview1.moveEnemy();
 
     // asking for movepermission       
       this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
@@ -107,7 +110,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
     this.positionX = this.positionx +  "px"; 
     this.positionY = this.positiony +  "px";  
     
-    this.enemyview1.moveEnemy();
+    
 
   } // end of Move()
 
@@ -146,5 +149,6 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       // this._Router.navigate(['decodeURI(this._Location.path())']);
     })
   }
+  */
 
 }

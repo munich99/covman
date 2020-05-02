@@ -1,11 +1,9 @@
-<div appPlayground #playground>
-  <div #covman [ngStyle]="{left:positionX, top:positionY}" style="background-color: chocolate; width: 10px;">
-    X
-  </div>  
-  <app-lines [ngStyle]="{color:'red', width:'100%', height:'100%', position:'absolute'}"></app-lines>
+
+  <div #covman [ngStyle]="{left:(positionx + 'px'), top:(positiony + 'px')}"></div>  
+  <!--app-lines [ngStyle]="{color:'red', width:'100%', height:'100%', position:'absolute'}"></app-lines>
   <app-points></app-points>
   <app-cov-enemy #enemy1></app-cov-enemy>    
-  <!--app-cov-enemy #enemy2></app-cov-enemy-->
+ 
 
   <ng-template [ngIf]="breakLittle">
     <div class="first_live">
@@ -24,9 +22,9 @@
 
 
 
-</div>
+
 <app-points-table [liveToDie] = lives></app-points-table>
-<button (click)="newGame()">new Game</button>
+<button (click)="newGame()">new Game</button-->
 
 
 

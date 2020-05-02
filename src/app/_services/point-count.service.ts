@@ -20,12 +20,14 @@ export class PointCountService {
   }
 
   enemyPosition(enemyposition:object){ 
+    console.log(enemyposition,"enemy");
     this.enemyPositionArray = enemyposition;    
   }  
 
   covManPosition(covmanPosition:object){ 
-    this.matchPoint(covmanPosition); 
-    this.matchEnemy(covmanPosition);  
+    console.log(covmanPosition);
+    //this.matchPoint(covmanPosition); 
+    //this.matchEnemy(covmanPosition);  
   }
 
   matchPoint(covmanposition:object){

@@ -10,14 +10,13 @@ import { PointCountService } from '../../_services/point-count.service';
 })
 export class CovEnemyComponent implements OnInit {  
 
-  @ViewChild('enemywalk', {static: true}) enemywalkView:ElementRef;
+  @ViewChild('enemy', {static: true}) enemyView:ElementRef;
 
   // enemyies:object=[{name:1}];
 
-  positionx:number = 40; 
-  positiony:number = 20; 
-  positionX = this.positionx + "px";
-  positionY = this.positiony + "px";
+  positionx:number = 300; 
+  positiony:number = 40; 
+  
   positionDirection:number = 1;
   nextMovePermission:boolean;
 
@@ -27,15 +26,17 @@ export class CovEnemyComponent implements OnInit {
 
   ngOnInit() { }
 
-  
-  loseLive(x:number, y:number){  
-    this.moveEnemy();   
-   // if (this.positionx == x && this.positiony == y) return false;
-   // else return true;
-  }
-
   moveEnemy(){   
+    this.positionx = this.enemyView.nativeElement.offsetLeft - 10;
+    return this.positionx;
+
+    //sending new position to point-count service
+    // let covManEnemyPosition = {positionx:this.positionx, positiony: this.positiony};
+    // this._PointCountService.enemyPosition(covManEnemyPosition);
     
+  }
+    
+    /*
   // asking for direction
     switch (this.positionDirection) {
       case 1: // "ArrowRight"
@@ -62,8 +63,7 @@ export class CovEnemyComponent implements OnInit {
     }   
 
     // setting new position
-    this.positionX = this.positionx +  "px"; 
-    this.positionY = this.positiony +  "px";
+
 
     //giving new position to point-count service
     let covManEnemyPosition = {positionx:this.positionx, positiony: this.positiony};
@@ -76,6 +76,6 @@ export class CovEnemyComponent implements OnInit {
     let max = Math.floor(4);
     let enemyDirection = Math.floor(Math.random() * (max - min +1)) + min;
     return enemyDirection;
-  }
+  } */
 
 }
