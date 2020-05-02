@@ -39,8 +39,8 @@ export class MovePermissionService {
     */
 
     if(
-      positionx < (this.PlaygroundWidth -10)
-      && positionx > 0
+      positionx < (this.PlaygroundWidth)
+      && positionx >= 0
       && positiony < this.PlaygroundHeight
       && positiony >=0    
       //&& this.linePosition

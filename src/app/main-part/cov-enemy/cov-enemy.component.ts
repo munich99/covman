@@ -15,7 +15,7 @@ export class CovEnemyComponent implements OnInit {
   // enemyies:object=[{name:1}];
 
   positionx:number = 310; 
-  positiony:number = 40; 
+  positiony:number = 40;   
   
   positionDirection:number = 1;
   nextMovePermission:boolean= true;
@@ -26,9 +26,12 @@ export class CovEnemyComponent implements OnInit {
 
   ngOnInit() { }
 
-  moveEnemy(movecovmanposition:number){  
+  moveEnemy(xy:object){  
     let livematch:boolean;
-    if(this.positionx==movecovmanposition) livematch= true;    
+    
+    if( this.positionx == xy['x'] && this.positiony == xy['y'] ) livematch= true; 
+
+    this.positionx = this.enemyView.nativeElement.offsetLeft - 10;  
     
     // asking for movepermission    
     this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
@@ -37,13 +40,11 @@ export class CovEnemyComponent implements OnInit {
       this.positionx = this.enemyView.nativeElement.offsetLeft;
       this.positiony = this.enemyView.nativeElement.offsetTop;                    
     }
-    else this.positionx = this.enemyView.nativeElement.offsetLeft - 10;
-
-    if(this.positionx==movecovmanposition) livematch= true;
+    
+    if( this.positionx == xy['x'] && this.positiony == xy['y'] ) livematch= true;
   
     // return to main
-    return livematch;   
-    
+    return livematch;  
   }
     
     /*
@@ -62,7 +63,7 @@ export class CovEnemyComponent implements OnInit {
         this.positiony = this.enemywalkView.nativeElement.offsetTop + 10;
         break;
     } 
-    
+
 
     // asking for movepermission       
     this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
@@ -82,11 +83,12 @@ export class CovEnemyComponent implements OnInit {
 
   }
 
+*/
   RandomCovEnemy(){
     let min = Math.ceil(1);
     let max = Math.floor(4);
     let enemyDirection = Math.floor(Math.random() * (max - min +1)) + min;
     return enemyDirection;
-  } */
+  } 
 
 }

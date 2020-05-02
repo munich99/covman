@@ -34,19 +34,34 @@ export class CovmanComponent implements OnInit, AfterViewInit {
               // public _Location:Location
                ) { }
 
-  moveCovman(){      
+  moveCovman(){  
+    
+    switch (this.positionDirection) {
+      case "ArrowRight":
+        this.positionx = this.covmanView.nativeElement.offsetLeft + 10;          
+        break;
+      case "ArrowLeft":
+        this.positionx = this.covmanView.nativeElement.offsetLeft - 10;          
+        break;
+      case "ArrowUp":
+        this.positiony = this.covmanView.nativeElement.offsetTop - 10;
+        break;
+      case "ArrowDown":
+        this.positiony = this.covmanView.nativeElement.offsetTop + 10;
+        break;
+    }    
 
-  // asking for movepermission       
-  this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
-  if(!this.nextMovePermission) 
-  {      
-    this.positionx = this.covmanView.nativeElement.offsetLeft;
-    this.positiony = this.covmanView.nativeElement.offsetTop;                    
-  }
-  else this.positionx = this.covmanView.nativeElement.offsetLeft + 10;
+    // asking for movepermission       
+    this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
+    
+    if(!this.nextMovePermission) 
+    {      
+      this.positionx = this.covmanView.nativeElement.offsetLeft;
+      this.positiony = this.covmanView.nativeElement.offsetTop;                    
+    };
 
-  // return to main for check enemy
-  return this.positionx;
+    // return to main for check enemy
+    return {x:this.positionx, y:this.positiony};
  
   }
 
@@ -54,16 +69,12 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit() { 
-    /*
-    
-    
+  ngAfterViewInit() {     
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
         console.log(messageKey, "pacman richtung");
         this.positionDirection = messageKey;
-      });  
-      */
+      });       
   }
 
   /*

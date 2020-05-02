@@ -17,19 +17,15 @@ export class MainComponent implements OnInit {
 
   constructor() { }
   
-  public startCovman = interval(100).subscribe( () => {
-    
+  public startCovman = interval(100).subscribe( () => {    
     let moveCovmanPosition = this.covmanview.moveCovman();
     let liveCatch = this.enemyview.moveEnemy(moveCovmanPosition) // nessesery sending covmanposition to enemy for checking match
 
-    if(liveCatch) alert("oh no!!!");
-
+    if(liveCatch) console.log("oh no!!!");
   } );
  
 
   ngOnInit() {
   }
-
-
 
 }
