@@ -18,12 +18,6 @@ export class PointCountService {
     this.pointsPositionList = pointsXY;     
   }
 
-  covManPosition(covmanPosition:object){ 
-    console.log(covmanPosition);
-    //this.matchPoint(covmanPosition); 
-    //this.matchEnemy(covmanPosition);  
-  }
-
   matchPoint(covmanposition:object){    
    
     let i=0;
@@ -35,9 +29,9 @@ export class PointCountService {
         this.pointCounts(4);
       }
       i++;
-     // if(Object.keys(this.pointsPositionList).length === 0){
-     //   console.log("next round")
-     // }
+     if(Object.keys(this.pointsPositionList).length === 0){
+       return true;
+     }
     } 
   }
   

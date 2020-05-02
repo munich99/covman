@@ -23,9 +23,13 @@ export class MainComponent implements OnInit {
   public startCovman = interval(100).subscribe( () => {    
     let moveCovmanPosition = this.covmanview.moveCovman();
     let liveCatch = this.enemyview.moveEnemy(moveCovmanPosition) // nessesery sending covmanposition to enemy for checking match
-    this._PointCountService.matchPoint(moveCovmanPosition);
-
+    let levelNext = this._PointCountService.matchPoint(moveCovmanPosition);
+    
     if(liveCatch) console.log("oh no!!!");
+
+    if(levelNext) {
+      console.log("next!!!");
+    }
     
   } ); 
 
