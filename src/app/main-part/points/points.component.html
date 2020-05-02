@@ -1,16 +1,7 @@
-<!--div *ngFor="let line of dimensions"
-      [ngStyle]="{
-        left:(line.xS + 'px'),
-        top:(line.yS + 'px'),
-        width:(line.xW + 'px'),        
-        height:(line.yH + 'px')
-        }"
-  ></div-->
-
   <div *ngFor="let point of points"
       [ngStyle]="{
-        left:(point.positionx + 'px'),
-        top:(point.positiony + 'px')
+        left:(point.x + 'px'),
+        top:(point.y + 'px')
         }"
   ></div>
 

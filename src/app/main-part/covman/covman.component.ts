@@ -2,16 +2,9 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angula
 import { Router } from '@angular/router';
 // import { Location } from '@angular/common';
 
-import { interval } from 'rxjs';
-
 import { KeystrokeService } from '../../services/keystroke.service';
 import { MovePermissionService } from '../../_services/move-permission.service';
 import { PointCountService } from '../../_services/point-count.service';
-
-import { CovEnemyComponent } from '../cov-enemy/cov-enemy.component';
-
-
-
 
 @Component({
   selector: 'app-covman',
@@ -20,22 +13,19 @@ import { CovEnemyComponent } from '../cov-enemy/cov-enemy.component';
 })
 export class CovmanComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('covman', {static: true}) covmanView:ElementRef;
-  @ViewChild('playground', {static: true}) playgroundView:ElementRef;
-  @ViewChild('enemy1', { read: CovEnemyComponent, static: true }) enemyview1:CovEnemyComponent;
-  @ViewChild('enemy2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
+  @ViewChild('covman', {static: true}) covmanView:ElementRef;  
 
   positionx:number = 40; 
   positiony:number = 40; 
-  positionX = this.positionx + "px";
-  positionY = this.positiony + "px";
+
   positionDirection = "ArrowRight";
   
   lives:number=3;
+  levels:number=1;
 
   breakLittle:boolean=false;
 
-  nextMovePermission:boolean;
+  nextMovePermission:boolean=true;
 
   constructor(public _KeystrokeService:KeystrokeService,  
               public _MovePermissionService:MovePermissionService,
@@ -44,25 +34,54 @@ export class CovmanComponent implements OnInit, AfterViewInit {
               // public _Location:Location
                ) { }
 
+  moveCovman(){  
+    
+    switch (this.positionDirection) {
+      case "ArrowRight":
+        this.positionx = this.covmanView.nativeElement.offsetLeft + 10;          
+        break;
+      case "ArrowLeft":
+        this.positionx = this.covmanView.nativeElement.offsetLeft - 10;          
+        break;
+      case "ArrowUp":
+        this.positiony = this.covmanView.nativeElement.offsetTop - 10;
+        break;
+      case "ArrowDown":
+        this.positiony = this.covmanView.nativeElement.offsetTop + 10;
+        break;
+    }    
+
+    // asking for movepermission       
+    this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
+    
+    if(!this.nextMovePermission) 
+    {      
+      this.positionx = this.covmanView.nativeElement.offsetLeft;
+      this.positiony = this.covmanView.nativeElement.offsetTop;                    
+    };
+
+    // return to main for check enemy
+    return {x:this.positionx, y:this.positiony};
+ 
+  }
+
   ngOnInit() { 
 
   }
 
-  public startCovman = interval(100).subscribe( () => this.move() );
-
-  ngAfterViewInit() { 
-    
-    this.startCovman;
+  ngAfterViewInit() {     
     this._KeystrokeService.keyStroke$.subscribe(
       messageKey =>{
         console.log(messageKey, "pacman richtung");
         this.positionDirection = messageKey;
-      });  
+      });       
   }
 
-  
+  /*
 
   move(){   
+
+    
 
       // asking for direction
       switch (this.positionDirection) {
@@ -80,25 +99,29 @@ export class CovmanComponent implements OnInit, AfterViewInit {
           break;
       } 
 
-    // asking for movepermission       
-      this.nextMovePermission = this._MovePermissionService.playMove(this.positionx, this.positiony);      
-      if(!this.nextMovePermission) 
-      {      
-        this.positionx = this.covmanView.nativeElement.offsetLeft;
-        this.positiony = this.covmanView.nativeElement.offsetTop;                    
-      }
+      this.enemyview1.moveEnemy();
+
+
+
+    
 
     // sending postion for count points
     let covManPosition = {positionx:this.positionx, positiony: this.positiony};  
     this._PointCountService.covManPosition(covManPosition);
 
-    // asking for enemy and still to live    
-    this.startAgain( this.enemyview1.loseLive(this.positionx, this.positiony) ); 
-    this.startAgain( this.enemyview2.loseLive(this.positionx, this.positiony) );  
+    // asking for enemy and still to live  
+    // muss geändert werden in point counts ------------------------  
+   // this.startAgain( this.enemyview1.loseLive(this.positionx, this.positiony) ); 
+    // this.startAgain( this.enemyview2.loseLive(this.positionx, this.positiony) );  
+    // ---------------------------------------
+    
+    //this.enemyview2.moveEnemy();
 
     // setting new position
     this.positionX = this.positionx +  "px"; 
     this.positionY = this.positiony +  "px";  
+    
+    
 
   } // end of Move()
 
@@ -137,5 +160,6 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       // this._Router.navigate(['decodeURI(this._Location.path())']);
     })
   }
+  */
 
 }

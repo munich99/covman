@@ -7,9 +7,10 @@ import { Subject } from 'rxjs';
 export class PointCountService {
 
   pointsPositionList:object[];
-
+  
   private pointGetSource = new Subject<number>();
   pointGet$ = this.pointGetSource.asObservable();
+
 
   constructor() { }
 
@@ -17,17 +18,15 @@ export class PointCountService {
     this.pointsPositionList = pointsXY;     
   }
 
-  enemyPosition(){    
-
+  covManPosition(covmanPosition:object){ 
+    console.log(covmanPosition);
+    //this.matchPoint(covmanPosition); 
+    //this.matchEnemy(covmanPosition);  
   }
-
-  covManPosition(covmanPosition:object){    
-    this.matchPoint(covmanPosition);    
-  }
-
-
 
   matchPoint(covmanposition:object){
+    console.log(covmanposition,"covmanposition")
+   
     let i=0;
     while(this.pointsPositionList[i]){      
       if( JSON.stringify(this.pointsPositionList[i]) === JSON.stringify(covmanposition) ) {   
@@ -37,12 +36,13 @@ export class PointCountService {
         this.pointCounts(4);
       }
       i++;
-      if(Object.keys(this.pointsPositionList).length === 0){
-        console.log("next round")
-      }
-    }
+     // if(Object.keys(this.pointsPositionList).length === 0){
+     //   console.log("next round")
+     // }
+    } 
   }
-
+  
+  // tabelle
   pointCounts(pointcounts:number){
     this.pointGetSource.next(pointcounts);    
   }

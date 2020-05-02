@@ -8,6 +8,7 @@ import { LinesComponent } from './main-part/lines/lines.component';
 import { PointsComponent } from './main-part/points/points.component';
 import { PointsTableComponent } from './main-part/points-table/points-table.component';
 import { CovEnemyComponent } from './main-part/cov-enemy/cov-enemy.component';
+import { MainComponent } from './main-part/main.component';
 
 import { PlaygroundDirective } from './custom-directives/playground.directive';
 
@@ -17,7 +18,8 @@ import { UserModule } from './user/user.module';
 
 
 const routes: Routes = [   
-   { path:'game', component: CovmanComponent },
+   { path:'game', component: MainComponent },
+   { path:'hallo', component: CovmanComponent },
    { path:'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule)  },
    { path:'', redirectTo:'', pathMatch:'full'}
  ];
@@ -26,6 +28,7 @@ const routes: Routes = [
 @NgModule({
    declarations: [
       AppComponent,
+      MainComponent,
       CovmanComponent,
       LinesComponent,
       PointsComponent,
