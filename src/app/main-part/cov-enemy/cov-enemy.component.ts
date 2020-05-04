@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+
 import { MovePermissionService } from '../../_services/move-permission.service';
 import { PointCountService } from '../../_services/point-count.service';
+import { RandomService } from '../../_services/random.service';
 
 
 @Component({
@@ -14,7 +16,7 @@ export class CovEnemyComponent implements OnInit {
 
   // enemyies:object=[{name:1}];
 
-  positionx:number = 310; 
+  positionx:number; 
   positiony:number = 40;   
   
   positionDirection:number;
@@ -22,9 +24,13 @@ export class CovEnemyComponent implements OnInit {
 
   constructor(
     public _MovePermissionService:MovePermissionService,
-    public _PointCountService:PointCountService) { }
+    public _PointCountService:PointCountService,
+    public _RandomService:RandomService
+    ) { }
 
   ngOnInit() {
+    this.positionx = this._RandomService.randomEngineSolo("x");
+    this.positiony = this._RandomService.randomEngineSolo("y");
     this.RandomCovEnemyDirection()
    }
 

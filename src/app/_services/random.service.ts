@@ -9,14 +9,6 @@ export class RandomService {
 
   PlaygroundWidth:number;
   PlaygroundHeight:number;
-
- 
-  dimensions2 = [
-    {xS:130, xW:10, yS:0, yH:110},
-    {xS:200, xW:90, yS:130, yH:10},
-    {xS:40, xW:360, yS:200, yH:10}
-  ];
-
   
 
   constructor() { }
@@ -66,6 +58,17 @@ export class RandomService {
     }
     
     return randomValue;    
+  }
+
+  randomEngineSolo(pos:string){
+    let max:number;
+    let min = Math.ceil(0);
+    if(pos =="x") max = Math.floor( (this.PlaygroundWidth/10) );
+    if(pos =="y") max = Math.floor( (this.PlaygroundHeight/10) );
+    
+    let solo = (Math.floor(Math.random() * (max - min +1)) + min) * 10; 
+    console.log(solo, "soloX");
+    return solo;
   }
 
 }
