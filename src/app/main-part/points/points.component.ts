@@ -10,8 +10,7 @@ export class PointsComponent implements OnInit {
 
   points=[
     {x:80, y:50},
-    {x:200, y:120},
-    {x:40, y:200},
+    {x:190, y:50}
   ]
 
   constructor(    
@@ -19,7 +18,18 @@ export class PointsComponent implements OnInit {
     ) { }
 
   ngOnInit() {    
-    this._PointCountService.pointsPosition(this.points)
+    this._PointCountService.pointsPosition(this.points);
+
+    // für den neustart
+    this._PointCountService.levelGet$.subscribe( next => {
+      this.points=[
+        {x:80, y:50},
+        {x:190, y:50}
+      ];
+      this._PointCountService.pointsPosition(this.points);
+    }) 
+
+    
   }
 
 }

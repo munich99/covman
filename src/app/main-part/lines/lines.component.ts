@@ -1,7 +1,8 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
 
 import { MovePermissionService } from '../../_services/move-permission.service';
-import { RandomService} from '../../_services/random.service';
+import { RandomService } from '../../_services/random.service';
+import { PointCountService } from '../../_services/point-count.service';
 
 @Component({
   selector: 'app-lines',
@@ -9,14 +10,18 @@ import { RandomService} from '../../_services/random.service';
   styleUrls: ['./lines.component.css']
 })
 export class LinesComponent implements OnInit {
+
+  @Input() bankName: string;
   
   dimensions;
+  
   
 
   constructor(
     public _ElementRef:ElementRef,    
     public _MovePermissionService:MovePermissionService,
-    public _RandomService:RandomService
+    public _RandomService:RandomService,
+    public _PointCountService:PointCountService
     ) { }
 
   ngOnInit() {  
@@ -25,6 +30,15 @@ export class LinesComponent implements OnInit {
     
     this.dimensions = this._RandomService.randomEngine(); 
     this._MovePermissionService.playLines(this.dimensions);
+
+    this._PointCountService.levelGet$.subscribe(next=>{
+      
+        this.dimensions = this._RandomService.randomEngine();
+        this._MovePermissionService.playLines(this.dimensions);
+     
+      
+    })
+    
   }
 
   ngAfterViewInit(){

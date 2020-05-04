@@ -32,10 +32,24 @@ export class CovmanComponent implements OnInit, AfterViewInit {
               public _PointCountService:PointCountService,
               public _Router:Router,
               // public _Location:Location
-               ) { }
+               ) { }  
 
-  moveCovman(){  
-    
+  ngOnInit() { 
+    this._PointCountService.levelGet$.subscribe(next =>{
+      this.positionx = 40; 
+      this.positiony = 40; 
+    })
+
+  }
+
+  ngAfterViewInit() {     
+    this._KeystrokeService.keyStroke$.subscribe(
+      messageKey =>{        
+        this.positionDirection = messageKey;
+      });       
+  }
+
+  moveCovman(){ 
     switch (this.positionDirection) {
       case "ArrowRight":
         this.positionx = this.covmanView.nativeElement.offsetLeft + 10;          
@@ -63,18 +77,6 @@ export class CovmanComponent implements OnInit, AfterViewInit {
     // return to main for check enemy
     return {x:this.positionx, y:this.positiony};
  
-  }
-
-  ngOnInit() { 
-
-  }
-
-  ngAfterViewInit() {     
-    this._KeystrokeService.keyStroke$.subscribe(
-      messageKey =>{
-        console.log(messageKey, "pacman richtung");
-        this.positionDirection = messageKey;
-      });       
   }
 
   /*
