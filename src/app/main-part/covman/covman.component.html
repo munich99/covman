@@ -1,30 +1,6 @@
-
-  <div #covman [ngStyle]="{left:(positionx + 'px'), top:(positiony + 'px')}"></div>  
-  <!--app-lines [ngStyle]="{color:'red', width:'100%', height:'100%', position:'absolute'}"></app-lines>
-  <app-points></app-points>
-  <app-cov-enemy #enemy1></app-cov-enemy>    
- 
-
-  <ng-template [ngIf]="breakLittle">
-    <div class="first_live">
-      <p>Nur noch {{lives}} Leben!</p>
-    </div>
-  </ng-template>
-
-  <ng-template [ngIf]="!breakLittle && lives==0">
-    <div class="first_live">
-      <p>VERLOREN<br>
-        <button (click)="newGame()">neues Spiel?</button>
-      </p>
-      
-    </div>
-  </ng-template>
+<div #covman [ngStyle]="{left:(positionx + 'px'), top:(positiony + 'px')}"></div> 
 
 
-
-
-<app-points-table [liveToDie] = lives></app-points-table>
-<button (click)="newGame()">new Game</button-->
 
 
 
