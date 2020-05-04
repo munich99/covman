@@ -28,8 +28,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   level:number = 1;
   pointCount:boolean;
   startCovman = null;
-  liveCatch = null;
-  liveCatch2 = null;  
+  enemies = [1,2];
 
   constructor(
     public _PointCountService:PointCountService,
@@ -48,9 +47,8 @@ export class MainComponent implements OnInit, AfterViewInit {
         
     });    
 
-    this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition);
-          
-    // if(this.liveCatch || this.liveCatch2) this.loseLive();
+    this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition);          
+    
     if(this.pointCount) this.nextLevel();  
   }
 
@@ -62,8 +60,7 @@ export class MainComponent implements OnInit, AfterViewInit {
    ngAfterViewInit(){    
    }
 
-  loseLive(){
-    console.log("oh no!!!");
+  loseLive(){    
     this.stillLive--;    
     this.startCovman.unsubscribe();   
     this.breakLittle = true;
@@ -89,12 +86,11 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.startCovman.unsubscribe();
     this.breakLittle = true;
     this.level++;
+    this.enemies.push(this.enemies.length + 1);
     setTimeout( () => {  
         this.breakLittle = !this.breakLittle;
         this.startCovman = interval(100).subscribe( () => { this.move() });
       },2500
     )
-
   }
-
 }
