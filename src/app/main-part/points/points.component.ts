@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { PointCountService } from '../../_services/point-count.service';
 import { RandomService } from '../../_services/random.service';
+import { MovePermissionService } from '../../_services/move-permission.service';
 
 @Component({
   selector: 'app-points',
@@ -13,7 +14,8 @@ export class PointsComponent implements OnInit {
 
   constructor(    
     public _RandomService:RandomService,
-    public _PointCountService:PointCountService
+    public _PointCountService:PointCountService,
+    public _MovePermissionService:MovePermissionService
     ) { }
 
   pointsMake(){
@@ -23,9 +25,18 @@ export class PointsComponent implements OnInit {
         x:this._RandomService.randomEngineSolo("x"),
         y:this._RandomService.randomEngineSolo("y")
       };
-      this.points.push(pointNew);
-      i++;
+
+      // ask for set point permission
+      let nextSetPermission = this._MovePermissionService.playMove(pointNew);
+      console.log(nextSetPermission, "nextSetPermission")
+
+      if(nextSetPermission) {
+        this.points.push(pointNew);
+        i++;
+      }
+      
     }
+
   }
 
   ngOnInit() {    

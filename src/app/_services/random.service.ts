@@ -63,11 +63,11 @@ export class RandomService {
   randomEngineSolo(pos:string){
     let max:number;
     let min = Math.ceil(0);
-    if(pos =="x") max = Math.floor( (this.PlaygroundWidth/10) );
-    if(pos =="y") max = Math.floor( (this.PlaygroundHeight/10) );
+    if(pos =="x") max = (Math.floor( (this.PlaygroundWidth/10) -1) );
+    if(pos =="y") max = (Math.floor( (this.PlaygroundHeight/10) -1) );
     
     let solo = (Math.floor(Math.random() * (max - min +1)) + min) * 10; 
-    console.log(solo, "soloX");
+    
     return solo;
   }
 
