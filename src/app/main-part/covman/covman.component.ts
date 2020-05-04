@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { KeystrokeService } from '../../services/keystroke.service';
 import { MovePermissionService } from '../../_services/move-permission.service';
-import { PointCountService } from '../../_services/point-count.service';
+// import { PointCountService } from '../../_services/point-count.service';
 
 @Component({
   selector: 'app-covman',
@@ -29,16 +29,18 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   constructor(public _KeystrokeService:KeystrokeService,  
               public _MovePermissionService:MovePermissionService,
-              public _PointCountService:PointCountService,
+              // public _PointCountService:PointCountService,
               public _Router:Router,
               // public _Location:Location
                ) { }  
 
   ngOnInit() { 
+    /*
     this._PointCountService.levelGet$.subscribe(next =>{
       this.positionx = 40; 
       this.positiony = 40; 
     })
+    */
 
   }
 

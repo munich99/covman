@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { interval } from 'rxjs';
 
 import { CovmanComponent } from './covman/covman.component';
@@ -18,19 +19,49 @@ export class MainComponent implements OnInit {
   @ViewChild('covmanwalk', { read: CovmanComponent, static: true }) covmanview:CovmanComponent;
   @ViewChild('enemywalk', { read: CovEnemyComponent, static: true }) enemyview:CovEnemyComponent;
 
-  constructor(public _PointCountService:PointCountService ) { }
+  breakLittle:boolean;
+  stillLive:number = 3;  
+
+  constructor(
+    public _PointCountService:PointCountService,
+    public _Router:Router ) { }
   
-  public startCovman = interval(100).subscribe( () => {    
+  startCovman = interval(100).subscribe( () => { this.move() }); 
+
+  move(){
     let moveCovmanPosition = this.covmanview.moveCovman();
     let liveCatch = this.enemyview.moveEnemy(moveCovmanPosition) // nessesery sending covmanposition to enemy for checking match
     let pointCount = this._PointCountService.matchPoint(moveCovmanPosition);
           
-    if(liveCatch) console.log("oh no!!!");
-    if(pointCount) console.log("next level");
-    
-  } ); 
+    if(liveCatch) this.loseLive()
+
+    if(pointCount) console.log("next level");  
+  }
 
   ngOnInit() {
+    
+  }
+
+  loseLive(){
+    console.log("oh no!!!");
+    this.stillLive--;    
+    this.startCovman.unsubscribe();   
+    this.breakLittle = true;
+    setTimeout( () => {        
+        if(this.stillLive >= 1) {
+          this.breakLittle = !this.breakLittle;
+          this.startCovman = interval(100).subscribe( () => { this.move() });
+        }
+      },2500
+    );
+  }
+
+  newGame(){
+    this._Router.navigateByUrl("/", {skipLocationChange:true})
+    .then( ()=>{       
+      this._Router.navigate(['/game']);     
+      // this._Router.navigate(['decodeURI(this._Location.path())']);
+    });        
   }
 
 }
