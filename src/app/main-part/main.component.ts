@@ -19,6 +19,7 @@ export class MainComponent implements OnInit {
 
   @ViewChild('covmanwalk', { read: CovmanComponent, static: true }) covmanview:CovmanComponent;
   @ViewChild('enemywalk', { read: CovEnemyComponent, static: true }) enemyview:CovEnemyComponent;
+  @ViewChild('enemywalk2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
   @ViewChild('linewalk', { read: LinesComponent, static: true }) lineview:LinesComponent;  
 
   breakLittle:boolean;
@@ -26,18 +27,29 @@ export class MainComponent implements OnInit {
   level:number = 1;
   pointCount:boolean;
   startCovman = null;
+  liveCatch = null;
+  liveCatch2 = null;
 
   constructor(
     public _PointCountService:PointCountService,
     public _Router:Router ) { }
 
   move(){
-    let moveCovmanPosition = this.covmanview.moveCovman();
-    let liveCatch = this.enemyview.moveEnemy(moveCovmanPosition) // nessesery sending covmanposition to enemy for checking match
+    let moveCovmanPosition = this.covmanview.moveCovman();  
+
+    // für alle enemies
+    this.liveCatch = this.enemyview.moveEnemy(moveCovmanPosition) // nessesery sending covmanposition to enemy for checking match
+    
+    this.liveCatch2 = this.enemyview2.moveEnemy(moveCovmanPosition)
+    console.log(this.liveCatch2, "this.liveCatch")
+
+
+
+
+
     this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition);
           
-    if(liveCatch) this.loseLive();
-
+    if(this.liveCatch || this.liveCatch2) this.loseLive();
     if(this.pointCount) this.nextLevel();  
   }
 

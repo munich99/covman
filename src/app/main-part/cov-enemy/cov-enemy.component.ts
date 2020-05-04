@@ -12,12 +12,12 @@ import { RandomService } from '../../_services/random.service';
 })
 export class CovEnemyComponent implements OnInit {  
 
-  @ViewChild('enemy', {static: true}) enemyView:ElementRef;
+  @ViewChild('enemy1', {static: true}) enemyView:ElementRef;  
 
   // enemyies:object=[{name:1}];
 
   positionx:number; 
-  positiony:number = 40;   
+  positiony:number;   
   
   positionDirection:number;
   nextMovePermission:boolean= true;
