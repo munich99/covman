@@ -22,15 +22,15 @@ export class MovePermissionService {
     this.lineXY = dimensions; 
   }
 
-  playMove(positionx:number, positiony:number){  
+  playMove(positionxy:object){  
 
     let i:number = 0;
     while (this.lineXY[i]) { 
       if (
-        positionx >= this.lineXY[i]["xS"]
-        && positionx < (this.lineXY[i]["xS"] + this.lineXY[i]["xW"])
-        && positiony >= this.lineXY[i]["yS"]
-        && positiony < (this.lineXY[i]["yS"] + this.lineXY[i]["yH"])
+        positionxy['x'] >= this.lineXY[i]["xS"]
+        && positionxy['x'] < (this.lineXY[i]["xS"] + this.lineXY[i]["xW"])
+        && positionxy['y'] >= this.lineXY[i]["yS"]
+        && positionxy['y'] < (this.lineXY[i]["yS"] + this.lineXY[i]["yH"])
         ) 
           this.linePosition = false;  
 
@@ -39,10 +39,10 @@ export class MovePermissionService {
    
 
     if(
-      positionx < (this.PlaygroundWidth)
-      && positionx >= 0
-      && positiony < this.PlaygroundHeight
-      && positiony >=0    
+      positionxy['x'] < (this.PlaygroundWidth)
+      && positionxy['x'] >= 0
+      && positionxy['y'] < this.PlaygroundHeight
+      && positionxy['y'] >=0    
       && this.linePosition
       ) {
         this.linePosition = true;

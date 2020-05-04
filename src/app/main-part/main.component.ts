@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
 
@@ -15,41 +15,40 @@ import { PointCountService } from '../_services/point-count.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, AfterViewInit {
 
   @ViewChild('covmanwalk', { read: CovmanComponent, static: true }) covmanview:CovmanComponent;
-  @ViewChild('enemywalk', { read: CovEnemyComponent, static: true }) enemyview:CovEnemyComponent;
-  @ViewChild('enemywalk2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
-  @ViewChild('linewalk', { read: LinesComponent, static: true }) lineview:LinesComponent;  
+  // @ViewChild('enemywalk', { read: CovEnemyComponent, static: true }) enemyview:CovEnemyComponent;
+  // @ViewChild('enemywalk2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
+  @ViewChild('linewalk', { read: LinesComponent, static: true }) lineview:LinesComponent; 
+  @ViewChildren(CovEnemyComponent) enemieswalk: QueryList<any>;
 
   breakLittle:boolean;
   stillLive:number = 3;  
   level:number = 1;
   pointCount:boolean;
   startCovman = null;
-  liveCatch = null;
-  liveCatch2 = null;
+  enemies = [1,2];
 
   constructor(
     public _PointCountService:PointCountService,
     public _Router:Router ) { }
 
   move(){
-    let moveCovmanPosition = this.covmanview.moveCovman();  
-
-    // für alle enemies
-    this.liveCatch = this.enemyview.moveEnemy(moveCovmanPosition) // nessesery sending covmanposition to enemy for checking match
+    let moveCovmanPosition = this.covmanview.moveCovman(); 
     
-    this.liveCatch2 = this.enemyview2.moveEnemy(moveCovmanPosition)
-    console.log(this.liveCatch2, "this.liveCatch")
+    this.enemieswalk.forEach( e => {
 
+      let enemyPositionAlt = e.positionxy;      
+      if( JSON.stringify(enemyPositionAlt) == JSON.stringify(moveCovmanPosition) ) this.loseLive();
 
+      let enemyPositionNeu:object = e.moveEnemy();      
+      if( JSON.stringify(enemyPositionNeu) == JSON.stringify(moveCovmanPosition) ) this.loseLive(); 
+        
+    });    
 
-
-
-    this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition);
-          
-    if(this.liveCatch || this.liveCatch2) this.loseLive();
+    this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition);          
+    
     if(this.pointCount) this.nextLevel();  
   }
 
@@ -58,15 +57,18 @@ export class MainComponent implements OnInit {
     this.startCovman = interval(100).subscribe( () => { this.move() });
    }
 
-  loseLive(){
-    console.log("oh no!!!");
+   ngAfterViewInit(){    
+   }
+
+  loseLive(){    
     this.stillLive--;    
     this.startCovman.unsubscribe();   
     this.breakLittle = true;
     setTimeout( () => {        
         if( this.stillLive >= 1 ) {
           this.breakLittle = !this.breakLittle;
-          this.startCovman = interval(100).subscribe( () => { this.move() });
+          this.covmanview.positionxy = {x:10, y:10};
+          this.startCovman = interval(100).subscribe( () => { this.move(); });
         }
       },2500
     );
@@ -84,12 +86,11 @@ export class MainComponent implements OnInit {
     this.startCovman.unsubscribe();
     this.breakLittle = true;
     this.level++;
+    this.enemies.push(this.enemies.length + 1);
     setTimeout( () => {  
         this.breakLittle = !this.breakLittle;
         this.startCovman = interval(100).subscribe( () => { this.move() });
       },2500
     )
-
   }
-
 }
