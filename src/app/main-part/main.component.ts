@@ -18,8 +18,6 @@ import { PointCountService } from '../_services/point-count.service';
 export class MainComponent implements OnInit, AfterViewInit {
 
   @ViewChild('covmanwalk', { read: CovmanComponent, static: true }) covmanview:CovmanComponent;
-  // @ViewChild('enemywalk', { read: CovEnemyComponent, static: true }) enemyview:CovEnemyComponent;
-  // @ViewChild('enemywalk2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
   @ViewChild('linewalk', { read: LinesComponent, static: true }) lineview:LinesComponent; 
   @ViewChildren(CovEnemyComponent) enemieswalk: QueryList<any>;
 
@@ -87,6 +85,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.breakLittle = true;
     this.level++;
     this.enemies.push(this.enemies.length + 1);
+    this.covmanview.positionxy = {x:10, y:10};
     setTimeout( () => {  
         this.breakLittle = !this.breakLittle;
         this.startCovman = interval(100).subscribe( () => { this.move() });
