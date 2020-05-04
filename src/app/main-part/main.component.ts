@@ -21,7 +21,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   // @ViewChild('enemywalk', { read: CovEnemyComponent, static: true }) enemyview:CovEnemyComponent;
   // @ViewChild('enemywalk2', { read: CovEnemyComponent, static: true }) enemyview2:CovEnemyComponent;
   @ViewChild('linewalk', { read: LinesComponent, static: true }) lineview:LinesComponent; 
-  @ViewChildren(CovEnemyComponent) hellos: QueryList<any>;
+  @ViewChildren(CovEnemyComponent) enemieswalk: QueryList<any>;
 
   breakLittle:boolean;
   stillLive:number = 3;  
@@ -36,35 +36,17 @@ export class MainComponent implements OnInit, AfterViewInit {
     public _Router:Router ) { }
 
   move(){
-    let moveCovmanPosition = this.covmanview.moveCovman();  
+    let moveCovmanPosition = this.covmanview.moveCovman(); 
     
-/*
-    let enemyPositionAlt:object[] = [];
-    enemyPositionAlt.push(this.enemyview.staticEnemy());
-    enemyPositionAlt.push(this.enemyview2.staticEnemy());
+    this.enemieswalk.forEach( e => {
 
-    let enemyPositionNew:object[] = [];
-    enemyPositionNew.push(this.enemyview.moveEnemy());
-    enemyPositionNew.push(this.enemyview2.moveEnemy()); 
+      let enemyPositionAlt = e.positionxy;      
+      if( JSON.stringify(enemyPositionAlt) == JSON.stringify(moveCovmanPosition) ) this.loseLive();
 
-    let i:number =0;
-    while(i<=1){
-      if( 
-        JSON.stringify(moveCovmanPosition) == JSON.stringify(enemyPositionNew[i]) ||
-        JSON.stringify(moveCovmanPosition) == JSON.stringify(enemyPositionAlt[i])
-      ) console.log("erwischt 2");
-
-      i++;
-    }
-
-
-    */
-
-    
-    
-
-   
-    
+      let enemyPositionNeu:object = e.moveEnemy();      
+      if( JSON.stringify(enemyPositionNeu) == JSON.stringify(moveCovmanPosition) ) this.loseLive(); 
+        
+    });    
 
     this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition);
           
@@ -77,8 +59,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.startCovman = interval(100).subscribe( () => { this.move() });
    }
 
-   ngAfterViewInit(){
-    this.hellos.forEach( e => console.log(e));
+   ngAfterViewInit(){    
    }
 
   loseLive(){
@@ -89,7 +70,8 @@ export class MainComponent implements OnInit, AfterViewInit {
     setTimeout( () => {        
         if( this.stillLive >= 1 ) {
           this.breakLittle = !this.breakLittle;
-          this.startCovman = interval(100).subscribe( () => { this.move() });
+          this.covmanview.positionxy = {x:10, y:10};
+          this.startCovman = interval(100).subscribe( () => { this.move(); });
         }
       },2500
     );

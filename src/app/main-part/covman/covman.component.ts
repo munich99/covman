@@ -15,7 +15,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   @ViewChild('covman', {static: true}) covmanView:ElementRef;  
 
-  positionxy:object = {x:40, y:100};
+  positionxy:object = {x:10, y:10};
 
   positionDirection = "ArrowRight";
  
@@ -29,12 +29,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
                ) { }  
 
   ngOnInit() { 
-    /*
-    this._PointCountService.levelGet$.subscribe(next =>{
-      this.positionx = 40; 
-      this.positiony = 40; 
-    })
-    */
+
   }
 
   ngAfterViewInit() {     

@@ -17,7 +17,7 @@ export class CovEnemyComponent implements OnInit {
   // enemyies:object=[{name:1}];
 
   
-  positionxy:object[]=[];
+  positionxy:object;
   
   positionDirection:number;
   nextMovePermission:boolean= true;
@@ -29,22 +29,19 @@ export class CovEnemyComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    let positionx = this._RandomService.randomEngineSolo("x");
-    let positiony = this._RandomService.randomEngineSolo("y");
-    this.positionxy.push({x:positionx, y:positiony})
-
+    this.positionxy = {
+        x:this._RandomService.randomEngineSolo("x"),
+        y:this._RandomService.randomEngineSolo("y")
+      };
 
     this.RandomCovEnemyDirection()
    }
 
   staticEnemy(){
-
     return this.positionxy;
-
   }
 
-  moveEnemy(){  
-
+  moveEnemy(){ 
     switch (this.positionDirection) {
       case 1: // "ArrowRight"
         this.positionxy['x'] = this.enemyView.nativeElement.offsetLeft + 10;          
@@ -68,9 +65,9 @@ export class CovEnemyComponent implements OnInit {
       this.positionxy['y'] = this.enemyView.nativeElement.offsetTop; 
       this.RandomCovEnemyDirection();        
     }    
-  
-    // return to main
-    return this.positionxy;  
+
+    // this.positionxy
+    return this.positionxy;  // return to main
   }    
 
   RandomCovEnemyDirection(){
