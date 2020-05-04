@@ -10,6 +10,7 @@ export class PointsTableComponent implements OnInit {
 
   points:number=10;
   @Input() liveToDie:number;
+  @Input() Level:number;
 
   constructor(
     public _PointCountService:PointCountService 

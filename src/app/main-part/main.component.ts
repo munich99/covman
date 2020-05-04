@@ -21,6 +21,8 @@ export class MainComponent implements OnInit {
 
   breakLittle:boolean;
   stillLive:number = 3;  
+  level:number = 1;
+  pointCount:boolean;
 
   constructor(
     public _PointCountService:PointCountService,
@@ -31,16 +33,14 @@ export class MainComponent implements OnInit {
   move(){
     let moveCovmanPosition = this.covmanview.moveCovman();
     let liveCatch = this.enemyview.moveEnemy(moveCovmanPosition) // nessesery sending covmanposition to enemy for checking match
-    let pointCount = this._PointCountService.matchPoint(moveCovmanPosition);
+    this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition);
           
-    if(liveCatch) this.loseLive()
+    if(liveCatch) this.loseLive();
 
-    if(pointCount) console.log("next level");  
+    if(this.pointCount) this.nextLevel();  
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 
   loseLive(){
     console.log("oh no!!!");
@@ -48,7 +48,7 @@ export class MainComponent implements OnInit {
     this.startCovman.unsubscribe();   
     this.breakLittle = true;
     setTimeout( () => {        
-        if(this.stillLive >= 1) {
+        if( this.stillLive >= 1 ) {
           this.breakLittle = !this.breakLittle;
           this.startCovman = interval(100).subscribe( () => { this.move() });
         }
@@ -62,6 +62,18 @@ export class MainComponent implements OnInit {
       this._Router.navigate(['/game']);     
       // this._Router.navigate(['decodeURI(this._Location.path())']);
     });        
+  }
+
+  nextLevel(){
+    this.startCovman.unsubscribe();
+    this.breakLittle = true;
+    this.level++;
+    setTimeout( () => {  
+        this.breakLittle = !this.breakLittle;
+        this.startCovman = interval(100).subscribe( () => { this.move() });
+      },2500
+    )
+
   }
 
 }

@@ -14,7 +14,6 @@ export class PointCountService {
   private levelGetSource = new Subject<number>();
   levelGet$ = this.levelGetSource.asObservable();
 
-
   constructor() { }
 
   pointsPosition(pointsXY:object[]){
@@ -35,23 +34,16 @@ export class PointCountService {
 
         if(Object.keys(this.pointsPositionList).length === 0) {
           this.levelGetSource.next(1);
-          return true
-        } 
-     
+          return true;
+        }      
       }
       i++; 
-    } 
-    
+    }
   }
-
-
-
-
-
-
   
   // tabelle
   pointCounts(pointcounts:number){
     this.pointGetSource.next(pointcounts);    
   }
+
 }
