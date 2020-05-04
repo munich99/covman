@@ -4,6 +4,7 @@ import { interval } from 'rxjs';
 
 import { CovmanComponent } from './covman/covman.component';
 import { CovEnemyComponent } from './cov-enemy/cov-enemy.component';
+import { LinesComponent } from './lines/lines.component';
 
 import { PointCountService } from '../_services/point-count.service';
 
@@ -18,17 +19,17 @@ export class MainComponent implements OnInit {
 
   @ViewChild('covmanwalk', { read: CovmanComponent, static: true }) covmanview:CovmanComponent;
   @ViewChild('enemywalk', { read: CovEnemyComponent, static: true }) enemyview:CovEnemyComponent;
+  @ViewChild('linewalk', { read: LinesComponent, static: true }) lineview:LinesComponent;  
 
   breakLittle:boolean;
   stillLive:number = 3;  
   level:number = 1;
   pointCount:boolean;
+  startCovman = null;
 
   constructor(
     public _PointCountService:PointCountService,
     public _Router:Router ) { }
-  
-  startCovman = interval(100).subscribe( () => { this.move() }); 
 
   move(){
     let moveCovmanPosition = this.covmanview.moveCovman();
@@ -40,7 +41,10 @@ export class MainComponent implements OnInit {
     if(this.pointCount) this.nextLevel();  
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.lineview.randomLines();
+    this.startCovman = interval(100).subscribe( () => { this.move() });
+   }
 
   loseLive(){
     console.log("oh no!!!");

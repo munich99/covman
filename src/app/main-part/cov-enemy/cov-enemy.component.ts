@@ -25,7 +25,7 @@ export class CovEnemyComponent implements OnInit {
     public _PointCountService:PointCountService) { }
 
   ngOnInit() {
-    this.RandomCovEnemy()
+    this.RandomCovEnemyDirection()
    }
 
   moveEnemy(xy:object){  
@@ -54,7 +54,7 @@ export class CovEnemyComponent implements OnInit {
     {      
       this.positionx = this.enemyView.nativeElement.offsetLeft;
       this.positiony = this.enemyView.nativeElement.offsetTop; 
-      this.RandomCovEnemy();        
+      this.RandomCovEnemyDirection();        
     }
     
     if( this.positionx == xy['x'] && this.positiony == xy['y'] ) livematch= true; // ask after
@@ -63,7 +63,7 @@ export class CovEnemyComponent implements OnInit {
     return livematch;  
   }    
 
-  RandomCovEnemy(){
+  RandomCovEnemyDirection(){
     let min = Math.ceil(1);
     let max = Math.floor(4);
     this.positionDirection = Math.floor(Math.random() * (max - min +1)) + min;    

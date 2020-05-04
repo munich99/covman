@@ -10,12 +10,8 @@ import { PointCountService } from '../../_services/point-count.service';
   styleUrls: ['./lines.component.css']
 })
 export class LinesComponent implements OnInit {
-
-  @Input() bankName: string;
   
   dimensions;
-  
-  
 
   constructor(
     public _ElementRef:ElementRef,    
@@ -24,19 +20,17 @@ export class LinesComponent implements OnInit {
     public _PointCountService:PointCountService
     ) { }
 
-  ngOnInit() {  
-    let PlaySizeWidth = this._ElementRef.nativeElement.offsetWidth;
-    let PlaySizeHeight = this._ElementRef.nativeElement.offsetHeight;
-    
+  randomLines(){
     this.dimensions = this._RandomService.randomEngine(); 
     this._MovePermissionService.playLines(this.dimensions);
+  }
 
-    this._PointCountService.levelGet$.subscribe(next=>{
-      
+  ngOnInit() { 
+
+    // new random after nextlevel loselive
+    this._PointCountService.levelGet$.subscribe(next=>{      
         this.dimensions = this._RandomService.randomEngine();
         this._MovePermissionService.playLines(this.dimensions);
-     
-      
     })
     
   }
