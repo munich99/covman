@@ -48,7 +48,6 @@ export class PointsComponent implements OnInit {
       this.pointsMake();
       this._PointCountService.pointsPosition(this.points);
     }) 
-
     
   }
 

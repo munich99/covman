@@ -19,20 +19,15 @@ export class PlaygroundDirective {
     public _RandomService:RandomService
     ) {
 
+      console.log(window.innerWidth,"window.innerHeight");
+      let screenX:number = window.innerWidth/ 20;
+      console.log(screenX,"window.innerWidth/20");
     
       let PlaygroundWidth = 400;
       let PlaygroundHeight = 420;
       
       this._MovePermissionService.playBorder(PlaygroundWidth, PlaygroundHeight);
       this._RandomService.playBorder(PlaygroundWidth, PlaygroundHeight);
-
-    
-
-
-
-
-
-
 
 
     let wishSizeX = Math.floor( (window.innerWidth-10)/10 ) * 10;
