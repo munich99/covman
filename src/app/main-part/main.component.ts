@@ -7,6 +7,8 @@ import { CovEnemyComponent } from './cov-enemy/cov-enemy.component';
 import { LinesComponent } from './lines/lines.component';
 
 import { PointCountService } from '../_services/point-count.service';
+import { MovePermissionService } from '../_services/move-permission.service';
+import { RandomService} from '../_services/random.service';
 
 
 
@@ -28,9 +30,23 @@ export class MainComponent implements OnInit, AfterViewInit {
   startCovman = null;
   enemies = [1,2];
 
+  screenX:number;
+  screenY:number;
+
   constructor(
     public _PointCountService:PointCountService,
-    public _Router:Router ) { }
+    public _MovePermissionService:MovePermissionService,
+    public _RandomService:RandomService,
+    public _Router:Router ) 
+    {
+      console.log(window.innerWidth,"window.innerHeight");
+      this.screenX = Math.floor( window.innerWidth/ 20 ) *15;
+      this.screenY = 400;
+      console.log(screenX,"window.innerWidth/20");
+
+      this._MovePermissionService.playBorder(this.screenX, this.screenY);
+      this._RandomService.playBorder(this.screenX, this.screenY);
+     }
 
   move(){
     let moveCovmanPosition = this.covmanview.moveCovman(); 
@@ -55,7 +71,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.startCovman = interval(100).subscribe( () => { this.move() });
    }
 
-   ngAfterViewInit(){    
+   ngAfterViewInit(){  
    }
 
   loseLive(){    

@@ -1,4 +1,4 @@
-<div appPlayground #playground>
+<div appPlayground #playground [ngStyle]="{width:(screenX + 'px'), height:(screenY + 'px')}">
   <app-covman #covmanwalk></app-covman>
 
   <app-cov-enemy *ngFor="let enemy of enemies"></app-cov-enemy> 
