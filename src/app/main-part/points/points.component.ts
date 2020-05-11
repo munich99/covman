@@ -1,7 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { PointCountService } from '../../_services/point-count.service';
 import { RandomService } from '../../_services/random.service';
 import { MovePermissionService } from '../../_services/move-permission.service';
+
+import { Covmandetails } from '../../_interfaces/covmandetails';
 
 @Component({
   selector: 'app-points',
@@ -10,7 +12,10 @@ import { MovePermissionService } from '../../_services/move-permission.service';
 })
 export class PointsComponent implements OnInit {
 
-  points:object[]=[];
+  @Input() covmanCell:number;
+
+  points:Covmandetails[]=[];
+  pointsA:Covmandetails[]=[];
 
   constructor(    
     public _RandomService:RandomService,
@@ -22,11 +27,16 @@ export class PointsComponent implements OnInit {
     let i:number=1;
     while(i<=10){
       let pointNew = {
-        x:this._RandomService.randomEngineSolo("x"),
-        y:this._RandomService.randomEngineSolo("y")
+        left:   (this._RandomService.randomEngineSolo("x") + 'px'),
+        top:    (this._RandomService.randomEngineSolo("y") + 'px'),
+        width:  (this.covmanCell + "px"),
+        height: (this.covmanCell + "px")
       };
 
+      this.pointsA.push(pointNew);
+
       // ask for set point permission
+      /*
       let nextSetPermission = this._MovePermissionService.playMove(pointNew, null);
       console.log(nextSetPermission, "nextSetPermission")
 
@@ -34,6 +44,9 @@ export class PointsComponent implements OnInit {
         this.points.push(pointNew);
         i++;
       }
+      */
+
+     i++;
       
     }
 
