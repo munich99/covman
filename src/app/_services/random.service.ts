@@ -25,7 +25,8 @@ export class RandomService {
     let preDimensions;
     let Dimensions:Lines[]=[
       {xS:200, xW:300, yS:30, yH:10},
-      //{xS:50, xW:100, yS:320, yH:lineWith}
+      // {xS:50, xW:100, yS:0, yH:lineWith}
+      {xS:30, xW:10, yS:0, yH:200}
     ];     
     /*
     let i:number= 0; 

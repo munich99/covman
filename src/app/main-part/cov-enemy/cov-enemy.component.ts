@@ -1,8 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 
 import { MovePermissionService } from '../../_services/move-permission.service';
 import { PointCountService } from '../../_services/point-count.service';
 import { RandomService } from '../../_services/random.service';
+
+import { Covmandetails } from '../../_interfaces/covmandetails';
 
 
 @Component({
@@ -11,13 +13,11 @@ import { RandomService } from '../../_services/random.service';
   styleUrls: ['./cov-enemy.component.css']
 })
 export class CovEnemyComponent implements OnInit {  
-
-  @ViewChild('enemy1', {static: true}) enemyView:ElementRef;  
-
-  // enemyies:object=[{name:1}];
-
+  @Input() covmanCell:number;
+  @ViewChild('enemy1', {static: true}) enemyView:ElementRef; 
   
   positionxy:object;
+  covManDetail:Covmandetails;
   
   positionDirection:number;
   nextMovePermission:boolean= true;
@@ -33,6 +33,13 @@ export class CovEnemyComponent implements OnInit {
         x:this._RandomService.randomEngineSolo("x"),
         y:this._RandomService.randomEngineSolo("y")
       };
+
+    this.covManDetail = {
+      left: (this.positionxy['x'] + 'px'),
+      top: (this.positionxy['y'] + 'px'),
+      width: (this.covmanCell + "px"),
+      height: (this.covmanCell + "px")
+    }
 
     this.RandomCovEnemyDirection()
    }
@@ -58,13 +65,17 @@ export class CovEnemyComponent implements OnInit {
     } 
     
     // asking for movepermission    
-    this.nextMovePermission = this._MovePermissionService.playMove(this.positionxy, null);      
+    this.nextMovePermission = this._MovePermissionService.playMove(this.positionxy, this.covmanCell);      
     if(!this.nextMovePermission) 
     {      
       this.positionxy['x'] = this.enemyView.nativeElement.offsetLeft;
       this.positionxy['y'] = this.enemyView.nativeElement.offsetTop; 
       this.RandomCovEnemyDirection();        
     }    
+
+    // position
+    this.covManDetail.left= this.positionxy['x'] + "px";
+    this.covManDetail.top= this.positionxy['y'] + "px";
 
     // this.positionxy
     return this.positionxy;  // return to main

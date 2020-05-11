@@ -63,20 +63,13 @@ export class MainComponent implements OnInit, AfterViewInit {
   setSizes(){
     this.screenXcomplete = window.innerWidth;
 
-    let screenXplay = this.screenXcomplete/20 ;
-    console.log(window.innerWidth,"window.innerWidth");
-    let cellPlay = Math.ceil( (screenXplay*15)/29 );
-    console.log(cellPlay,"cellPlay");
-    this.covmanCell = Math.floor(cellPlay/10) *10;
-    console.log(this.covmanCell,"covmanCell");
-
+    let screenXplay = this.screenXcomplete/20;    
+    let cellPlay = Math.ceil( (screenXplay*15)/29 );    
+    this.covmanCell = Math.floor(cellPlay/10) *10; 
     this.cellPlayBorder = cellPlay - this.covmanCell;
     // if(this.cellPlayBorder<5) this.cellPlayBorder = 5;
     this.cellPlayBorder = 5;
-    console.log(this.cellPlayBorder,"cellPlayBorder");    
-
-    this.screenX = this.covmanCell*29 + this.cellPlayBorder*28;
-    console.log(this.screenX,"cellPlayBorder");
+    this.screenX = this.covmanCell*29 + this.cellPlayBorder*28;    
   }
 
   ngOnInit() {    
@@ -86,7 +79,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this._RandomService.playBorder(this.screenX, this.screenY);
 
     this.lineview.randomLines(this.cellPlayBorder);
-    this.startCovman = interval(100).subscribe( () => { this.move() });
+    this.startCovman = interval(50).subscribe( () => { this.move() });
    }
 
    ngAfterViewInit(){  
