@@ -27,7 +27,7 @@ export class PointsComponent implements OnInit {
       };
 
       // ask for set point permission
-      let nextSetPermission = this._MovePermissionService.playMove(pointNew);
+      let nextSetPermission = this._MovePermissionService.playMove(pointNew, null);
       console.log(nextSetPermission, "nextSetPermission")
 
       if(nextSetPermission) {

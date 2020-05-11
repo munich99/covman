@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 
 import { MovePermissionService } from '../../_services/move-permission.service';
 import { RandomService } from '../../_services/random.service';
@@ -11,6 +11,7 @@ import { PointCountService } from '../../_services/point-count.service';
 })
 export class LinesComponent implements OnInit {
   
+  
   dimensions;
 
   constructor(
@@ -20,16 +21,17 @@ export class LinesComponent implements OnInit {
     public _PointCountService:PointCountService
     ) { }
 
-  randomLines(){
-    this.dimensions = this._RandomService.randomEngine(); 
+  randomLines(cellplayborder:number){
+    this.dimensions = this._RandomService.randomEngine(cellplayborder); 
     this._MovePermissionService.playLines(this.dimensions);
   }
 
   ngOnInit() { 
+        
 
     // new random after nextlevel loselive
     this._PointCountService.levelGet$.subscribe(next=>{      
-        this.dimensions = this._RandomService.randomEngine();
+        this.dimensions = this._RandomService.randomEngine(5);
         this._MovePermissionService.playLines(this.dimensions);
     })
     

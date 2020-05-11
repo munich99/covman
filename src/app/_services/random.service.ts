@@ -18,13 +18,16 @@ export class RandomService {
     this.PlaygroundHeight = Playgroundheight;
   }
 
-  randomEngine(){ 
+  randomEngine(lineWith:number){ 
+    console.log(lineWith, "lineWith");
+    
    
     let preDimensions;
     let Dimensions:Lines[]=[
-      {xS:200, xW:10, yS:0, yH:100},
-      {xS:50, xW:10, yS:320, yH:100}
+      {xS:200, xW:300, yS:30, yH:10},
+      //{xS:50, xW:100, yS:320, yH:lineWith}
     ];     
+    /*
     let i:number= 0; 
     while(i <= 4){
       preDimensions = this.randomEngineXY( (this.PlaygroundWidth/10), (this.PlaygroundHeight/10) );
@@ -33,8 +36,10 @@ export class RandomService {
     }
    
     preDimensions = this.randomEngineXY( (this.PlaygroundWidth/10), (this.PlaygroundHeight/10) );
-    // console.log(Dimensions,"zufi");    
+    // console.log(Dimensions,"zufi");  
+     */  
     return Dimensions;
+   
   }
 
   randomEngineXY(stopx:number, stopy:number){

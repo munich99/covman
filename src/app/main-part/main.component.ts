@@ -31,7 +31,10 @@ export class MainComponent implements OnInit, AfterViewInit {
   enemies = [1,2];
 
   screenX:number;
+  screenXcomplete:number;
   screenY:number;
+  covmanCell:number;
+  cellPlayBorder:number;
 
   constructor(
     public _PointCountService:PointCountService,
@@ -39,35 +42,50 @@ export class MainComponent implements OnInit, AfterViewInit {
     public _RandomService:RandomService,
     public _Router:Router ) 
     {
-      console.log(window.innerWidth,"window.innerHeight");
-      this.screenX = Math.floor( window.innerWidth/ 20 ) *15;
       this.screenY = 400;
-      console.log(screenX,"window.innerWidth/20");
 
-      this._MovePermissionService.playBorder(this.screenX, this.screenY);
-      this._RandomService.playBorder(this.screenX, this.screenY);
      }
 
   move(){
-    let moveCovmanPosition = this.covmanview.moveCovman(); 
+    let moveCovmanPosition = this.covmanview.moveCovman();
     
     this.enemieswalk.forEach( e => {
-
       let enemyPositionAlt = e.positionxy;      
       if( JSON.stringify(enemyPositionAlt) == JSON.stringify(moveCovmanPosition) ) this.loseLive();
-
       let enemyPositionNeu:object = e.moveEnemy();      
-      if( JSON.stringify(enemyPositionNeu) == JSON.stringify(moveCovmanPosition) ) this.loseLive(); 
-        
-    });    
+      if( JSON.stringify(enemyPositionNeu) == JSON.stringify(moveCovmanPosition) ) this.loseLive();        
+    }); 
 
-    this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition);          
-    
+    this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition); 
     if(this.pointCount) this.nextLevel();  
   }
 
-  ngOnInit() {
-    this.lineview.randomLines();
+  setSizes(){
+    this.screenXcomplete = window.innerWidth;
+
+    let screenXplay = this.screenXcomplete/20 ;
+    console.log(window.innerWidth,"window.innerWidth");
+    let cellPlay = Math.ceil( (screenXplay*15)/29 );
+    console.log(cellPlay,"cellPlay");
+    this.covmanCell = Math.floor(cellPlay/10) *10;
+    console.log(this.covmanCell,"covmanCell");
+
+    this.cellPlayBorder = cellPlay - this.covmanCell;
+    // if(this.cellPlayBorder<5) this.cellPlayBorder = 5;
+    this.cellPlayBorder = 5;
+    console.log(this.cellPlayBorder,"cellPlayBorder");    
+
+    this.screenX = this.covmanCell*29 + this.cellPlayBorder*28;
+    console.log(this.screenX,"cellPlayBorder");
+  }
+
+  ngOnInit() {    
+    this.setSizes();
+
+    this._MovePermissionService.playBorder(this.screenX, this.screenY);
+    this._RandomService.playBorder(this.screenX, this.screenY);
+
+    this.lineview.randomLines(this.cellPlayBorder);
     this.startCovman = interval(100).subscribe( () => { this.move() });
    }
 

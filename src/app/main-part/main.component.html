@@ -1,8 +1,16 @@
-<div appPlayground #playground [ngStyle]="{width:(screenX + 'px'), height:(screenY + 'px')}">
-  <app-covman #covmanwalk></app-covman>
+<div appPlayground [ngStyle]="{width:(screenX + 'px'), height:(screenY + 'px')}"
+>
+  <app-covman
+    [covmanCell]="covmanCell"
+    #covmanwalk
+  ></app-covman>
 
   <app-cov-enemy *ngFor="let enemy of enemies"></app-cov-enemy> 
-  <app-lines #linewalk [ngStyle]="{color:'red', width:'100%', height:'100%', position:'absolute'}"></app-lines>
+  <app-lines
+    #linewalk
+    [ngStyle]="{color:'red', width:'100%', height:'100%', position:'absolute'}"    
+  ></app-lines>
+
   <app-points></app-points>
 
   <ng-template [ngIf]="breakLittle && stillLive > 0 && !pointCount">
@@ -27,6 +35,8 @@
 <app-points-table
 [liveToDie] = stillLive
 [Level] = level
+[ngStyle]="{width:( (screenXcomplete - screenX) + 'px'), height:(screenY + 'px')}"
+
 ></app-points-table>
 
 
