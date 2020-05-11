@@ -33,6 +33,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   screenX:number;
   screenXcomplete:number;
   screenY:number;
+  cellPlay:number;
   covmanCell:number;
   cellPlayBorder:number;
 
@@ -41,10 +42,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     public _MovePermissionService:MovePermissionService,
     public _RandomService:RandomService,
     public _Router:Router ) 
-    {
-      this.screenY = 400;
-
-     }
+    {     }
 
   move(){
     let moveCovmanPosition = this.covmanview.moveCovman();
@@ -64,12 +62,15 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.screenXcomplete = window.innerWidth;
 
     let screenXplay = this.screenXcomplete/20;    
-    let cellPlay = Math.ceil( (screenXplay*15)/29 );    
-    this.covmanCell = Math.floor(cellPlay/10) *10; 
-    this.cellPlayBorder = cellPlay - this.covmanCell;
+    this.cellPlay = Math.ceil( (screenXplay*15)/29 );    
+    this.covmanCell = Math.floor(this.cellPlay/10) *10; 
+    // this.cellPlayBorder = this.cellPlay - this.covmanCell;
     // if(this.cellPlayBorder<5) this.cellPlayBorder = 5;
-    this.cellPlayBorder = 5;
-    this.screenX = this.covmanCell*29 + this.cellPlayBorder*28;    
+    this.cellPlayBorder = 10;
+    
+    this.screenX = this.covmanCell*29 + this.cellPlayBorder*28; 
+    this.screenY = this.covmanCell*10 + this.cellPlayBorder*10;
+    
   }
 
   ngOnInit() {    
@@ -78,7 +79,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this._MovePermissionService.playBorder(this.screenX, this.screenY);
     this._RandomService.playBorder(this.screenX, this.screenY);
 
-    this.lineview.randomLines(this.cellPlayBorder);
+    this.lineview.randomLines(this.cellPlayBorder, this.covmanCell );
     this.startCovman = interval(50).subscribe( () => { this.move() });
    }
 

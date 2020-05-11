@@ -21,8 +21,8 @@ export class LinesComponent implements OnInit {
     public _PointCountService:PointCountService
     ) { }
 
-  randomLines(cellplayborder:number){
-    this.dimensions = this._RandomService.randomEngine(cellplayborder); 
+  randomLines(cellplayborder:number, covmancell:number){
+    this.dimensions = this._RandomService.randomEngine(cellplayborder, covmancell); 
     this._MovePermissionService.playLines(this.dimensions);
   }
 
@@ -31,7 +31,7 @@ export class LinesComponent implements OnInit {
 
     // new random after nextlevel loselive
     this._PointCountService.levelGet$.subscribe(next=>{      
-        this.dimensions = this._RandomService.randomEngine(5);
+        this.dimensions = this._RandomService.randomEngine(10,30);
         this._MovePermissionService.playLines(this.dimensions);
     })
     

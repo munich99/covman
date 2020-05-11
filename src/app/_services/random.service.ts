@@ -8,8 +8,7 @@ import { Lines } from '../_interfaces/lines';
 export class RandomService {
 
   PlaygroundWidth:number;
-  PlaygroundHeight:number;
-  
+  PlaygroundHeight:number;  
 
   constructor() { }
 
@@ -18,9 +17,7 @@ export class RandomService {
     this.PlaygroundHeight = Playgroundheight;
   }
 
-  randomEngine(lineWith:number){ 
-    console.log(lineWith, "lineWith");
-    
+  randomEngine(lineWith:number, covmancell:number){ 
    
     let preDimensions;
     let Dimensions:Lines[]=[
@@ -28,42 +25,53 @@ export class RandomService {
       // {xS:50, xW:100, yS:0, yH:lineWith}
       {xS:30, xW:10, yS:0, yH:200}
     ];     
-    /*
+    
     let i:number= 0; 
     while(i <= 4){
-      preDimensions = this.randomEngineXY( (this.PlaygroundWidth/10), (this.PlaygroundHeight/10) );
+      preDimensions = this.randomEngineXY( 
+        this.PlaygroundWidth,
+        this.PlaygroundHeight,
+        (lineWith + covmancell) // covmancellcomplete
+          );
       Dimensions.push(preDimensions);
+      
       i++;
     }
    
-    preDimensions = this.randomEngineXY( (this.PlaygroundWidth/10), (this.PlaygroundHeight/10) );
-    // console.log(Dimensions,"zufi");  
-     */  
+    // preDimensions = this.randomEngineXY( (this.PlaygroundWidth/10), (this.PlaygroundHeight/10) );
+    // console.log(Dimensions,"zufi"); 
     return Dimensions;
-   
   }
 
-  randomEngineXY(stopx:number, stopy:number){
-    let min = Math.ceil(0);
-    let max = Math.floor( (stopx-1) );
-    let randomValueStart = (Math.floor(Math.random() * (max - min +1)) + min);
+  randomEngineXY(playgroundwidth:number, playgroundheight:number, covmancellcomplete:number){
+       
+    let minX = Math.ceil(covmancellcomplete/10);
+    let maxX = Math.floor( (playgroundwidth/10) );
+    let randomValueStartX = (Math.floor(Math.random() * (maxX - minX +1)) + minX) *10;
+
+    let minY = Math.ceil(1);
+    let maxY = Math.floor(playgroundheight/covmancellcomplete -1);
+    let randomValueStartY = ( (Math.floor(Math.random() * (maxY - minY +1)) + minY) *(covmancellcomplete) -10 );
+    
+
+/*
+
 
     min = Math.ceil(1);
     max = Math.floor( (stopx-randomValueStart) );
     let randomValueEnd = (Math.floor(Math.random() * (max - min +1)) + min); 
 
-    min = Math.ceil(0);
-    max = Math.floor( (stopy-1) );
-    let randomValueStartD = (Math.floor(Math.random() * (max - min +1)) + min);
 
+
+*/
     let randomValue:object = {
-      xS:(randomValueStart*10),
-      xW:(randomValueEnd*10),
-      yS:(randomValueStartD*10),
+      xS:randomValueStartX,
+      xW:40, //(randomValueEnd*35),
+      yS:randomValueStartY, // (randomValueStartD*10),
       yH:10
     }
     
-    return randomValue;    
+    return randomValue;
   }
 
   randomEngineSolo(pos:string){

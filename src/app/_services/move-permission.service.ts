@@ -34,13 +34,12 @@ export class MovePermissionService {
         ) this.linePosition = false;        
 
       i++;    
-    }
-   
+    }   
 
     if(
       positionxy['x'] <= (this.PlaygroundWidth) - covmancell
       && positionxy['x'] >= 0
-      && positionxy['y'] < this.PlaygroundHeight
+      && positionxy['y'] <= this.PlaygroundHeight - covmancell -10
       && positionxy['y'] >=0    
       && this.linePosition
       ) {
