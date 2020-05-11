@@ -27,29 +27,15 @@ export class PointsComponent implements OnInit {
     let i:number=1;
     while(i<=10){
       let pointNew = {
-        left:   (this._RandomService.randomEngineSolo("x") + 'px'),
-        top:    (this._RandomService.randomEngineSolo("y") + 'px'),
+        // Dimensions {xS: 200, xW: 300, yS: 30, yH: 10}
+        left:   (this._RandomService.randomEngineXY()["xS"] + 'px'),
+        top:    (this._RandomService.randomEngineXY()["yS"] + 10 + 'px'),
         width:  (this.covmanCell + "px"),
         height: (this.covmanCell + "px")
       };
-
       this.pointsA.push(pointNew);
-
-      // ask for set point permission
-      /*
-      let nextSetPermission = this._MovePermissionService.playMove(pointNew, null);
-      console.log(nextSetPermission, "nextSetPermission")
-
-      if(nextSetPermission) {
-        this.points.push(pointNew);
-        i++;
-      }
-      */
-
-     i++;
-      
+      i++;
     }
-
   }
 
   ngOnInit() {    
@@ -60,8 +46,7 @@ export class PointsComponent implements OnInit {
     this._PointCountService.levelGet$.subscribe( next => {
       this.pointsMake();
       this._PointCountService.pointsPosition(this.points);
-    }) 
-    
+    });
   }
 
 }

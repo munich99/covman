@@ -6,7 +6,6 @@ import { RandomService } from '../../_services/random.service';
 
 import { Covmandetails } from '../../_interfaces/covmandetails';
 
-
 @Component({
   selector: 'app-cov-enemy',
   templateUrl: './cov-enemy.component.html',
@@ -43,10 +42,6 @@ export class CovEnemyComponent implements OnInit {
 
     this.RandomCovEnemyDirection()
    }
-
-  staticEnemy(){
-    return this.positionxy;
-  }
 
   moveEnemy(){ 
     switch (this.positionDirection) {
@@ -86,5 +81,4 @@ export class CovEnemyComponent implements OnInit {
     let max = Math.floor(4);
     this.positionDirection = Math.floor(Math.random() * (max - min +1)) + min;    
   } 
-
 }
