@@ -29,8 +29,8 @@ export class CovEnemyComponent implements OnInit {
 
   ngOnInit() {
     this.positionxy = {
-        x:this._RandomService.randomEngineSolo("x"),
-        y:this._RandomService.randomEngineSolo("y")
+        x:this._RandomService.randomEngineXY()["xS"],
+        y:(this._RandomService.randomEngineXY()["yS"] + 10)
       };
 
     this.covManDetail = {

@@ -37,9 +37,6 @@ export class RandomService {
       
       i++;
     }  
-    
-    console.log(this.Dimensions, "this.Dimensions");
-    
     return this.Dimensions;
   }
 
@@ -66,19 +63,6 @@ export class RandomService {
     }
     
     return randomValue;
-  }
-
-  randomEngineSolo(pos:string){
-    console.log(this.Dimensions);    
-    
-    let max:number;
-    let min = Math.ceil(0);
-    if(pos =="x") max = (Math.floor( (this.PlaygroundWidth/10) -1) );
-    if(pos =="y") max = (Math.floor( (this.PlaygroundHeight/10) -1) );
-    
-    let solo = (Math.floor(Math.random() * (max - min +1)) + min) * 10; 
-    
-    return solo;
   }
 
 }
