@@ -1,3 +1,9 @@
-p {
-    background-color: white;
+:host {
+
+    background-color: #fff;
+    display: block;
+    float: right;   
+}
+div{
+    background-color: khaki;
 }

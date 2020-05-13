@@ -1,10 +1,12 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 // import { Location } from '@angular/common';
 
 import { KeystrokeService } from '../../services/keystroke.service';
 import { MovePermissionService } from '../../_services/move-permission.service';
-// import { PointCountService } from '../../_services/point-count.service';
+
+import { Covmandetails } from '../../_interfaces/covmandetails';
+
 
 @Component({
   selector: 'app-covman',
@@ -13,23 +15,32 @@ import { MovePermissionService } from '../../_services/move-permission.service';
 })
 export class CovmanComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('covman', {static: true}) covmanView:ElementRef;  
+  @Input() covmanCell:number; 
+  @ViewChild('covman', {static: true}) covmanView:ElementRef; 
+  
+  positionxy:object={x:0, y:0}
 
-  positionxy:object = {x:10, y:10};
+  
+  covManDetail:Covmandetails;
 
   positionDirection = "ArrowRight";
  
   nextMovePermission:boolean=true;
 
   constructor(public _KeystrokeService:KeystrokeService,  
-              public _MovePermissionService:MovePermissionService,
+              public _MovePermissionService:MovePermissionService,              
               // public _PointCountService:PointCountService,
               public _Router:Router,
               // public _Location:Location
                ) { }  
 
   ngOnInit() { 
-
+    this.covManDetail = {
+      left: "this.positionxy['x']",
+      top: this.positionxy['y'],
+      width: (this.covmanCell + "px"),
+      height: (this.covmanCell + "px")
+    }    
   }
 
   ngAfterViewInit() {     
@@ -57,7 +68,7 @@ export class CovmanComponent implements OnInit, AfterViewInit {
     }    
 
     // asking for movepermission       
-    this.nextMovePermission = this._MovePermissionService.playMove(this.positionxy);  
+    this.nextMovePermission = this._MovePermissionService.playMove(this.positionxy, this.covmanCell);  
          
     if(!this.nextMovePermission) 
     {      
@@ -65,7 +76,13 @@ export class CovmanComponent implements OnInit, AfterViewInit {
       this.positionxy['y'] = this.covmanView.nativeElement.offsetTop;                    
     };   
 
+    // position
+    this.covManDetail.left= this.positionxy['x'] + "px";
+    this.covManDetail.top= this.positionxy['y'] + "px";
+
     // return to main for check enemy
     return this.positionxy; 
+
+
   }
 }

@@ -1,9 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 
 import { MovePermissionService } from '../../_services/move-permission.service';
 import { PointCountService } from '../../_services/point-count.service';
 import { RandomService } from '../../_services/random.service';
 
+import { Covmandetails } from '../../_interfaces/covmandetails';
 
 @Component({
   selector: 'app-cov-enemy',
@@ -11,13 +12,11 @@ import { RandomService } from '../../_services/random.service';
   styleUrls: ['./cov-enemy.component.css']
 })
 export class CovEnemyComponent implements OnInit {  
-
-  @ViewChild('enemy1', {static: true}) enemyView:ElementRef;  
-
-  // enemyies:object=[{name:1}];
-
+  @Input() covmanCell:number;
+  @ViewChild('enemy1', {static: true}) enemyView:ElementRef; 
   
   positionxy:object;
+  covManDetail:Covmandetails;
   
   positionDirection:number;
   nextMovePermission:boolean= true;
@@ -30,16 +29,19 @@ export class CovEnemyComponent implements OnInit {
 
   ngOnInit() {
     this.positionxy = {
-        x:this._RandomService.randomEngineSolo("x"),
-        y:this._RandomService.randomEngineSolo("y")
+        x:this._RandomService.randomEngineXY()["xS"],
+        y:(this._RandomService.randomEngineXY()["yS"] + 10)
       };
+
+    this.covManDetail = {
+      left: (this.positionxy['x'] + 'px'),
+      top: (this.positionxy['y'] + 'px'),
+      width: (this.covmanCell + "px"),
+      height: (this.covmanCell + "px")
+    }
 
     this.RandomCovEnemyDirection()
    }
-
-  staticEnemy(){
-    return this.positionxy;
-  }
 
   moveEnemy(){ 
     switch (this.positionDirection) {
@@ -58,13 +60,17 @@ export class CovEnemyComponent implements OnInit {
     } 
     
     // asking for movepermission    
-    this.nextMovePermission = this._MovePermissionService.playMove(this.positionxy);      
+    this.nextMovePermission = this._MovePermissionService.playMove(this.positionxy, this.covmanCell);      
     if(!this.nextMovePermission) 
     {      
       this.positionxy['x'] = this.enemyView.nativeElement.offsetLeft;
       this.positionxy['y'] = this.enemyView.nativeElement.offsetTop; 
       this.RandomCovEnemyDirection();        
     }    
+
+    // position
+    this.covManDetail.left= this.positionxy['x'] + "px";
+    this.covManDetail.top= this.positionxy['y'] + "px";
 
     // this.positionxy
     return this.positionxy;  // return to main
@@ -75,5 +81,4 @@ export class CovEnemyComponent implements OnInit {
     let max = Math.floor(4);
     this.positionDirection = Math.floor(Math.random() * (max - min +1)) + min;    
   } 
-
 }

@@ -5,8 +5,11 @@ import { interval } from 'rxjs';
 import { CovmanComponent } from './covman/covman.component';
 import { CovEnemyComponent } from './cov-enemy/cov-enemy.component';
 import { LinesComponent } from './lines/lines.component';
+import { PointsComponent } from './points/points.component';
 
 import { PointCountService } from '../_services/point-count.service';
+import { MovePermissionService } from '../_services/move-permission.service';
+import { RandomService} from '../_services/random.service';
 
 
 
@@ -19,6 +22,7 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   @ViewChild('covmanwalk', { read: CovmanComponent, static: true }) covmanview:CovmanComponent;
   @ViewChild('linewalk', { read: LinesComponent, static: true }) lineview:LinesComponent; 
+  @ViewChild('pointwalk', { read: PointsComponent, static: true }) pointview:PointsComponent; 
   @ViewChildren(CovEnemyComponent) enemieswalk: QueryList<any>;
 
   breakLittle:boolean;
@@ -28,45 +32,82 @@ export class MainComponent implements OnInit, AfterViewInit {
   startCovman = null;
   enemies = [1,2];
 
+  screenX:number;
+  screenXcomplete:number;
+  screenY:number;
+  cellPlay:number;
+  covmanCell:number;
+  cellPlayBorder:number;  
+
   constructor(
     public _PointCountService:PointCountService,
-    public _Router:Router ) { }
+    public _MovePermissionService:MovePermissionService,
+    public _RandomService:RandomService,
+    public _Router:Router ) 
+    {     }
 
   move(){
-    let moveCovmanPosition = this.covmanview.moveCovman(); 
+    let moveCovmanPosition = this.covmanview.moveCovman();
     
     this.enemieswalk.forEach( e => {
-
       let enemyPositionAlt = e.positionxy;      
       if( JSON.stringify(enemyPositionAlt) == JSON.stringify(moveCovmanPosition) ) this.loseLive();
-
       let enemyPositionNeu:object = e.moveEnemy();      
-      if( JSON.stringify(enemyPositionNeu) == JSON.stringify(moveCovmanPosition) ) this.loseLive(); 
-        
-    });    
+      if( JSON.stringify(enemyPositionNeu) == JSON.stringify(moveCovmanPosition) ) this.loseLive();        
+    }); 
 
-    this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition);          
-    
+    this.pointCount = this._PointCountService.matchPoint(moveCovmanPosition); 
     if(this.pointCount) this.nextLevel();  
   }
 
-  ngOnInit() {
-    this.lineview.randomLines();
-    this.startCovman = interval(100).subscribe( () => { this.move() });
+  setSizes(){
+    this.screenXcomplete = window.innerWidth;
+    let screenXplay = this.screenXcomplete/20;    
+    this.cellPlay = Math.ceil( (screenXplay*15)/29 );    
+    this.covmanCell = Math.floor(this.cellPlay/10) *10; 
+    // this.cellPlayBorder = this.cellPlay - this.covmanCell;
+    // if(this.cellPlayBorder<5) this.cellPlayBorder = 5;
+    this.cellPlayBorder = 10;    
+    this.screenX = this.covmanCell*29 + this.cellPlayBorder*28; 
+    this.screenY = this.covmanCell*10 + this.cellPlayBorder*10;    
+  }
+
+  startCovmanLevel(){
+    this.setSizes();
+    this._MovePermissionService.playBorder(this.screenX, this.screenY);
+    this._RandomService.playBorder(this.screenX, this.screenY);
+
+    this.lineview.randomLines(this.cellPlayBorder, this.covmanCell );
+    this.startCovman = interval(50).subscribe( () => { this.move() });
+  }
+
+  ngOnInit() {   
+    this.startCovmanLevel();
    }
 
-   ngAfterViewInit(){    
+   ngAfterViewInit(){  
    }
 
-  loseLive(){    
+  loseLive(){   
+
+
     this.stillLive--;    
-    this.startCovman.unsubscribe();   
+    this.startCovman.unsubscribe();  
+
+    // this.startCovman = null; 
+
     this.breakLittle = true;
-    setTimeout( () => {        
+
+
+
+    setTimeout( () => {     
+      this.covmanview.covManDetail.left = "0";
+      this.covmanview.covManDetail.top = "0";
+      this.covmanview.positionxy = {x:0, y:0};
+
         if( this.stillLive >= 1 ) {
           this.breakLittle = !this.breakLittle;
-          this.covmanview.positionxy = {x:10, y:10};
-          this.startCovman = interval(100).subscribe( () => { this.move(); });
+          this.startCovman = interval(50).subscribe( () => { this.move(); });
         }
       },2500
     );
@@ -82,13 +123,18 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   nextLevel(){
     this.startCovman.unsubscribe();
+    this.startCovman = null;
+    this.covmanview.covManDetail.left = "0";
+    this.covmanview.covManDetail.top = "0";
+
     this.breakLittle = true;
     this.level++;
     this.enemies.push(this.enemies.length + 1);
-    this.covmanview.positionxy = {x:10, y:10};
+
+    this.pointview.pointsMake();
     setTimeout( () => {  
-        this.breakLittle = !this.breakLittle;
-        this.startCovman = interval(100).subscribe( () => { this.move() });
+        this.breakLittle = !this.breakLittle;        
+        this.startCovmanLevel();
       },2500
     )
   }

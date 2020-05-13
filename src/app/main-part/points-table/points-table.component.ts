@@ -23,4 +23,8 @@ export class PointsTableComponent implements OnInit {
     })
   }
 
+  witdhTable(width:number){
+    console.log(width, "witdhTable");    
+  }
+
 }

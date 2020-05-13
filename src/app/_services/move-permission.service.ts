@@ -22,26 +22,24 @@ export class MovePermissionService {
     this.lineXY = dimensions; 
   }
 
-  playMove(positionxy:object){  
+  playMove(positionxy:object, covmancell:number){  
 
     let i:number = 0;
     while (this.lineXY[i]) { 
       if (
-        positionxy['x'] >= this.lineXY[i]["xS"]
+        positionxy['x'] > this.lineXY[i]["xS"] - covmancell
         && positionxy['x'] < (this.lineXY[i]["xS"] + this.lineXY[i]["xW"])
-        && positionxy['y'] >= this.lineXY[i]["yS"]
-        && positionxy['y'] < (this.lineXY[i]["yS"] + this.lineXY[i]["yH"])
-        ) 
-          this.linePosition = false;  
+        && positionxy['y'] > this.lineXY[i]["yS"] - covmancell
+        && positionxy['y'] < (this.lineXY[i]["yS"] + this.lineXY[i]["yH"])         
+        ) this.linePosition = false;        
 
       i++;    
-    }
-   
+    }   
 
     if(
-      positionxy['x'] < (this.PlaygroundWidth)
+      positionxy['x'] <= (this.PlaygroundWidth) - covmancell
       && positionxy['x'] >= 0
-      && positionxy['y'] < this.PlaygroundHeight
+      && positionxy['y'] <= this.PlaygroundHeight - covmancell -10
       && positionxy['y'] >=0    
       && this.linePosition
       ) {
