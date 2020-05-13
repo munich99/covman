@@ -22,14 +22,17 @@ export class RandomService {
 
 
 // for lines
-  randomEngine(linewith:number, covmancell:number){  
+  randomEngine(linewith:number, covmancell:number){ 
+    this.covemanCellComplete = linewith + covmancell;
+     
     let Dimensions:Lines[]=[
       {xS:200, xW:10, yS:30, yH:80},
       // {xS:50, xW:100, yS:0, yH:lineWith}
-      {xS:30, xW:10, yS:0, yH:200}
+      {xS:covmancell, xW:10, yS:0, yH:(covmancell*5)},
+      {xS:covmancell, xW:10, yS:covmancell*6, yH:((this.PlaygroundHeight - covmancell*6) - covmancell*3)}
     ]; 
        
-    this.covemanCellComplete = linewith + covmancell;   
+       
     let preDimensions:any;   
     
     let i:number= 0; 

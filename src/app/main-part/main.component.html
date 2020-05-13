@@ -24,7 +24,10 @@
       <p>Nur noch {{stillLive}} Leben!</p>
     </div>
   </ng-template>
-  <ng-template [ngIf]="breakLittle && stillLive == 0">
+  
+  <ng-template
+    [ngIf]="breakLittle && stillLive == 0"
+  >
     <div class="first_live">
       <p>VERLOREN<br>
         <button (click)="newGame()">neues Spiel?</button>
@@ -39,10 +42,9 @@
 </div>
 
 <app-points-table
-[liveToDie] = stillLive
-[Level] = level
-[ngStyle]="{width:( (screenXcomplete - screenX) + 'px'), height:(screenY -10 + 'px')}"
-
+  [liveToDie] = stillLive
+  [Level] = level
+  [ngStyle]="{width:( (screenXcomplete - screenX) + 'px'), height:(screenY -10 + 'px')}"
 ></app-points-table>
 
 

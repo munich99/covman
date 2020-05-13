@@ -4,6 +4,6 @@
     display: block;
     float: right;   
 }
-div{
-    background-color: khaki;
+p{
+    padding-left: 1em;
 }

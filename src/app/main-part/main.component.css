@@ -3,21 +3,21 @@
     left:0; right: 0; bottom:0; top:10%;    
   }
 
-  .first_live{
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.5);
-    width: 80%;
-    height: 80%;
-    padding: 5%;
-    margin: 5%;
+  .first_live{   
+    position: absolute; 
+    left:5%; right: 5%; top:0; bottom: 0;
+    background-color: rgba(255, 255, 255, 0.5);        
+    padding: 0; 
+    margin: 0;   
     text-align: center; 
 
  }
- .first_live p{
-  display: block; 
-  margin-top: 20%;
-  padding: 20% 0;  
+ .first_live p{  
+  position: absolute; 
+  left:5%; right: 5%;  top:5%; bottom: 5%;
   color: black;
+  margin:0;
+  padding-top: 10%;
   background-color: rgb(236, 11, 11);
   font-size: 4em;
   font-weight: bold;

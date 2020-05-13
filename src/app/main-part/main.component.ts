@@ -98,8 +98,6 @@ export class MainComponent implements OnInit, AfterViewInit {
 
     this.breakLittle = true;
 
-
-
     setTimeout( () => {     
       this.covmanview.covManDetail.left = "0";
       this.covmanview.covManDetail.top = "0";
@@ -110,7 +108,7 @@ export class MainComponent implements OnInit, AfterViewInit {
           this.startCovman = interval(50).subscribe( () => { this.move(); });
         }
       },2500
-    );
+    ); 
   }
 
   newGame(){
@@ -126,6 +124,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.startCovman = null;
     this.covmanview.covManDetail.left = "0";
     this.covmanview.covManDetail.top = "0";
+    this.covmanview.positionxy = {x:0, y:0};
 
     this.breakLittle = true;
     this.level++;
