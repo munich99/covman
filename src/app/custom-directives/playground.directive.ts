@@ -9,6 +9,6 @@ export class PlaygroundDirective {
     ) {
     elementRef.nativeElement.style.position = 'relative';
     elementRef.nativeElement.style.float = 'left';
-    elementRef.nativeElement.style.backgroundColor = '#1f1';
+    elementRef.nativeElement.style.backgroundColor = '#444';
   }
 }
