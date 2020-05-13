@@ -13,8 +13,7 @@ import { Covmandetails } from '../../_interfaces/covmandetails';
 export class PointsComponent implements OnInit {
 
   @Input() covmanCell:number;
-
-  points:Covmandetails[]=[];
+  
   pointsA:Covmandetails[]=[];
 
   constructor(    
@@ -23,9 +22,9 @@ export class PointsComponent implements OnInit {
     public _MovePermissionService:MovePermissionService
     ) { }
 
-  pointsMake(){
+  pointsMake(){    
     let i:number=1;
-    while(i<=10){
+    while(i<=3){
       let pointNew = {
         // Dimensions {xS: 200, xW: 300, yS: 30, yH: 10}
         left:   (this._RandomService.randomEngineXY()["xS"] + 'px'),
@@ -36,17 +35,11 @@ export class PointsComponent implements OnInit {
       this.pointsA.push(pointNew);
       i++;
     }
+    this._PointCountService.pointsPosition(this.pointsA);
   }
 
   ngOnInit() {    
-    this.pointsMake();
-    this._PointCountService.pointsPosition(this.points);
-
-    // für den neustart
-    this._PointCountService.levelGet$.subscribe( next => {
-      this.pointsMake();
-      this._PointCountService.pointsPosition(this.points);
-    });
+   this.pointsMake(); 
   }
 
 }

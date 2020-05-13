@@ -15,10 +15,12 @@ import { Covmandetails } from '../../_interfaces/covmandetails';
 })
 export class CovmanComponent implements OnInit, AfterViewInit {
 
-  @Input() covmanCell:number;
-  @ViewChild('covman', {static: true}) covmanView:ElementRef;  
+  @Input() covmanCell:number; 
+  @ViewChild('covman', {static: true}) covmanView:ElementRef; 
+  
+  positionxy:object={x:0, y:0}
 
-  positionxy:object = {x:0, y:0};
+  
   covManDetail:Covmandetails;
 
   positionDirection = "ArrowRight";
@@ -34,11 +36,11 @@ export class CovmanComponent implements OnInit, AfterViewInit {
 
   ngOnInit() { 
     this.covManDetail = {
-      left: this.positionxy['x'],
+      left: "this.positionxy['x']",
       top: this.positionxy['y'],
       width: (this.covmanCell + "px"),
       height: (this.covmanCell + "px")
-    }
+    }    
   }
 
   ngAfterViewInit() {     

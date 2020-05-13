@@ -9,13 +9,9 @@ export class RandomService {
 
   PlaygroundWidth:number;
   PlaygroundHeight:number; 
-  covemanCellComplete:number;
+  covemanCellComplete:number; 
   
-  Dimensions:Lines[]=[
-    {xS:200, xW:300, yS:30, yH:10},
-    // {xS:50, xW:100, yS:0, yH:lineWith}
-    {xS:30, xW:10, yS:0, yH:200}
-  ]; 
+   
 
   constructor() { }
 
@@ -24,31 +20,55 @@ export class RandomService {
     this.PlaygroundHeight = Playgroundheight;
   }
 
-  randomEngine(lineWith:number, covmancell:number){ 
-    this.covemanCellComplete = lineWith + covmancell
-   
-    let preDimensions;
-   
+
+// for lines
+  randomEngine(linewith:number, covmancell:number){  
+    let Dimensions:Lines[]=[
+      {xS:200, xW:10, yS:30, yH:80},
+      // {xS:50, xW:100, yS:0, yH:lineWith}
+      {xS:30, xW:10, yS:0, yH:200}
+    ]; 
+       
+    this.covemanCellComplete = linewith + covmancell;   
+    let preDimensions:any;   
     
     let i:number= 0; 
-    while(i <= 4){
+    while(i <= 10){
       preDimensions = this.randomEngineXY();
-      this.Dimensions.push(preDimensions);
+      Dimensions.push(preDimensions);
       
       i++;
     }  
-    return this.Dimensions;
+    return Dimensions;
   }
 
   randomEngineXY(){
        
-    let minX = Math.ceil(this.covemanCellComplete/10);
-    let maxX = Math.floor( (this.PlaygroundWidth/10) );
-    let randomValueStartX = (Math.floor(Math.random() * (maxX - minX +1)) + minX) *10;
+    let minX = Math.ceil(1);    
+    let maxX = Math.floor(this.PlaygroundWidth/this.covemanCellComplete);    
+    let randomValueStartX = ( (Math.floor(Math.random() * (maxX - minX +1)) + minX) *(this.covemanCellComplete) );
+
+    let i:boolean=false, randomValueW:number;
+    let minW = Math.ceil(3);    
+    let maxW = Math.floor(this.PlaygroundWidth/10);  
+
+    while(!i){
+      randomValueW = ( Math.floor(Math.random() * (maxW - minW +1)) + minW )*10;
+     
+      if( (this.PlaygroundWidth - (randomValueStartX + randomValueW) ) < (30) )
+        randomValueW = this.PlaygroundWidth - randomValueStartX;
+      if( 
+        randomValueStartX <= this.covemanCellComplete 
+        && (randomValueW + this.covemanCellComplete ) >= this.PlaygroundWidth
+      ) randomValueW = randomValueW - 2*this.covemanCellComplete;
+      if(this.PlaygroundWidth >= (randomValueStartX + randomValueW) ) i=true;     
+    }
 
     let minY = Math.ceil(1);
     let maxY = Math.floor(this.PlaygroundHeight/this.covemanCellComplete -1);
     let randomValueStartY = ( (Math.floor(Math.random() * (maxY - minY +1)) + minY) *(this.covemanCellComplete) -10 );
+    
+    
     
 /*
     min = Math.ceil(1);
@@ -57,7 +77,7 @@ export class RandomService {
 */
     let randomValue:object = {
       xS:randomValueStartX,
-      xW:40, //(randomValueEnd*35),
+      xW:randomValueW, //(randomValueEnd*35),
       yS:randomValueStartY, // (randomValueStartD*10),
       yH:10
     }

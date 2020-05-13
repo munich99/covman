@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+import { Covmandetails } from '../_interfaces/covmandetails';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PointCountService {
 
-  pointsPositionList:object[];
+  pointsPositionList:Covmandetails[];
   
   private pointGetSource = new Subject<number>();
   pointGet$ = this.pointGetSource.asObservable();
@@ -16,16 +18,18 @@ export class PointCountService {
 
   constructor() { }
 
-  pointsPosition(pointsXY:object[]){
+  pointsPosition(pointsXY:Covmandetails[]){
     this.pointsPositionList = pointsXY;     
   }
 
-  matchPoint(covmanposition:object){    
-   
-    let i=0;
-    while(this.pointsPositionList[i]){      
-      if( JSON.stringify(this.pointsPositionList[i]) === JSON.stringify(covmanposition) ) {   
+  matchPoint(covmanposition:object){   
 
+    let i=0;
+    while(this.pointsPositionList[i]){    
+      if(
+        this.pointsPositionList[i]["left"] == (covmanposition["x"] + "px") &&
+        this.pointsPositionList[i]["top"] == (covmanposition["y"] + "px")
+      ) {   
         // counts points
         this.pointCounts(4);
 

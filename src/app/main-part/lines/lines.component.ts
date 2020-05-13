@@ -12,7 +12,7 @@ import { PointCountService } from '../../_services/point-count.service';
 export class LinesComponent implements OnInit {
   
   
-  dimensions;
+  dimensions=null;
 
   constructor(
     public _ElementRef:ElementRef,    
@@ -26,9 +26,7 @@ export class LinesComponent implements OnInit {
     this._MovePermissionService.playLines(this.dimensions);
   }
 
-  ngOnInit() { 
-        
-
+  ngOnInit() {  
     // new random after nextlevel loselive
     this._PointCountService.levelGet$.subscribe(next=>{      
         this.dimensions = this._RandomService.randomEngine(10,30);
