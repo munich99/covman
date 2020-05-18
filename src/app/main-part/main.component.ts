@@ -6,6 +6,7 @@ import { CovmanComponent } from './covman/covman.component';
 import { CovEnemyComponent } from './cov-enemy/cov-enemy.component';
 import { LinesComponent } from './lines/lines.component';
 import { PointsComponent } from './points/points.component';
+import { Points100Component } from './points100/points100.component';
 
 import { PointCountService } from '../_services/point-count.service';
 import { MovePermissionService } from '../_services/move-permission.service';

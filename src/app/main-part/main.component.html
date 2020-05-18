@@ -19,6 +19,11 @@
     [covmanCell]="covmanCell"
   ></app-points>
 
+  <app-points100
+    #pointwalk100
+    [covmanCell]="covmanCell"
+  ></app-points100>
+
   <ng-template [ngIf]="breakLittle && stillLive > 0 && !pointCount">
     <div class="first_live">
       <p>Nur noch {{stillLive}} Leben!</p>

@@ -1,4 +1,5 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
 import { PointCountService } from '../../_services/point-count.service';
 import { RandomService } from '../../_services/random.service';
 import { MovePermissionService } from '../../_services/move-permission.service';
@@ -6,15 +7,15 @@ import { MovePermissionService } from '../../_services/move-permission.service';
 import { Pointsdetails } from '../../_interfaces/pointsdetails';
 
 @Component({
-  selector: 'app-points',
-  templateUrl: './points.component.html',
-  styleUrls: ['./points.component.css']
+  selector: 'app-points100',
+  templateUrl: './points100.component.html',
+  styleUrls: ['./points100.component.css']
 })
-export class PointsComponent implements OnInit {
+export class Points100Component implements OnInit {
 
   @Input() covmanCell:number;
   
-  pointsA:Pointsdetails[]=[];
+  pointsB:Pointsdetails[]=[];
 
   constructor(    
     public _RandomService:RandomService,
@@ -31,12 +32,12 @@ export class PointsComponent implements OnInit {
         top:    (this._RandomService.randomEngineXY()["yS"] + 10 + 'px'),
         width:  (this.covmanCell + "px"),
         height: (this.covmanCell + "px"),
-        count: 4
+        count:100
       };
-      this.pointsA.push(pointNew);
+      this.pointsB.push(pointNew);
       i++;
     }
-    this._PointCountService.pointsPosition(this.pointsA, 4);
+    this._PointCountService.pointsPosition(this.pointsB, 100);
   }
 
   ngOnInit() {    
