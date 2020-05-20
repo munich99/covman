@@ -24,6 +24,8 @@ export class MainComponent implements OnInit, AfterViewInit {
   @ViewChild('covmanwalk', { read: CovmanComponent, static: true }) covmanview:CovmanComponent;
   @ViewChild('linewalk', { read: LinesComponent, static: true }) lineview:LinesComponent; 
   @ViewChild('pointwalk', { read: PointsComponent, static: true }) pointview:PointsComponent; 
+  @ViewChild('pointwalk100', { read: Points100Component, static: true }) pointview100:Points100Component;
+
   @ViewChildren(CovEnemyComponent) enemieswalk: QueryList<any>;
 
   breakLittle:boolean;

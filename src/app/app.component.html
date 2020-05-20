@@ -26,10 +26,14 @@
 
 <!--button routerLink ="/user">Go to Preferences</button><br-->
 
-<p class="start">
-  <button routerLink ="/game">Run For You Life</button><br>
-  (start game)
+<p class="start">  
+  <label>
+    <input type="text" [formControl]="name" #myName placeholder="Please Enter Your Name">
+  </label><br>
+  <button routerLink ="/game" [disabled]="name.invalid" >Run For You Life</button><br>
 </p>
+
+<!--button type="submit" class="btn btn-default" [disabled]="name.invalid">Submit</button-->
 
 <router-outlet></router-outlet>
 
@@ -39,5 +43,7 @@
 http://web600.serverdrome.eu/covman/
 
 ng build --prod  --base-href=/covman/
+
+https://angular.io/api/forms/Validators
 -->
 

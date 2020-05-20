@@ -4,7 +4,7 @@
     top:0;
 }
 
-button {
+button, input {
     margin: 1rem;
 }
 
@@ -35,18 +35,37 @@ p {
     color: #fff;  
 }
 
+.start input {
+  background-color: rgba(76, 175, 80, 0.6); 
+}
+
+::-webkit-input-placeholder { /* Edge */
+  color: rgba(255, 255, 255, 0.75);
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: rgba(255, 255, 255, 0.75);
+}
+
+::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.start input, .start button {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #fff;
+  border: 2px solid #333;
+}
+
 .start button {
-    font-size: 1rem;
     margin-top: 0;
-    margin-bottom: 3px;
-    padding: 1rem;
+    margin-bottom: 3px;   
     cursor: pointer;
-    background-color: #4CAF50;    
-    color: rgba(0, 0, 0, 0.75);
-    color: #fff;
+    background-color: rgb(76, 175, 80); 
     font-weight: bold; 
-    border-radius: 0.25rem;
-    border: 2px solid #333;
+    border-radius: 0.25rem;   
     transition-duration: 0.4s;
 }
 
@@ -54,3 +73,5 @@ p {
     background-color: #a5a5a5; /* Green */
     color: #333;
   }
+
+
