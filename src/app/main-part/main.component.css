@@ -15,10 +15,9 @@
  .first_live p{  
   position: absolute; 
   left:5%; right: 5%;  top:5%; bottom: 5%;
-  color: black;
+  color: white;
   margin:0;
   padding-top: 10%;
-  background-color: rgb(236, 11, 11);
   font-size: 4em;
   font-weight: bold;
  }

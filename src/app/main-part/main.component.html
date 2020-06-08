@@ -24,26 +24,17 @@
     [covmanCell]="covmanCell"
   ></app-points100>
 
-  <ng-template [ngIf]="breakLittle && stillLive > 0 && !pointCount">
-    <div class="first_live">
-      <p>Nur noch {{stillLive}} Leben!</p>
-    </div>
-  </ng-template>
-  
-  <ng-template
-    [ngIf]="breakLittle && stillLive == 0"
-  >
-    <div class="first_live">
-      <p>VERLOREN<br>
-        <button (click)="newGame()">neues Spiel?</button>
-      </p>      
-    </div>
-  </ng-template>
-  <ng-template [ngIf]="breakLittle && pointCount">
-    <div class="first_live">
-      <p>aufgehts zu Runde {{level}}</p>
-    </div>
-  </ng-template>
+  <div 
+    [@openClose]="isOpen ? 'open' : 'closed'"
+    class="first_live"
+    >
+    <p *ngIf="breakLittle && stillLive > 0 && !pointCount">{{stillLive}} Leben</p>
+    <p *ngIf="breakLittle && stillLive < 1">VERLOREN<br>
+      <button (click)="newGame()">neues Spiel?</button>
+    </p>   
+    <p *ngIf="breakLittle && pointCount">aufgehts zu Runde {{level}}</p>   
+  </div>  
+
 </div>
 
 <app-points-table

@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   trigger,
   state,
@@ -29,7 +29,7 @@ import { PointCountService } from '../../_services/point-count.service';
         backgroundColor: 'green'
       })),
       transition('open => closed', [
-        animate('1s')
+        animate('0.5s')
       ]),
       transition('closed => open', [
         animate('0.5s')

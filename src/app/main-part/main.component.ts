@@ -1,4 +1,14 @@
 import { Component, OnInit, AfterViewInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  keyframes,
+  // ...
+} from '@angular/animations';
+
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
 
@@ -17,7 +27,35 @@ import { RandomService} from '../_services/random.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.css'],
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({        
+        opacity: 0.85,
+        backgroundColor: 'orange'
+      })),
+      
+      state('closed', style({
+        
+        opacity: 0,
+        backgroundColor: 'green'
+      })),
+
+      
+      transition('open => closed', [
+        animate('2s', keyframes([
+          style({ backgroundColor: 'blue' }),
+          style({ backgroundColor: 'red' }),
+          style({ backgroundColor: 'orange' })
+        ]))
+      ]),
+      transition('closed => open', [
+        animate('0.5s')
+      ]),
+    ]),
+  ]
+
 })
 export class MainComponent implements OnInit, AfterViewInit {
 
@@ -41,6 +79,8 @@ export class MainComponent implements OnInit, AfterViewInit {
   cellPlay:number;
   covmanCell:number;
   cellPlayBorder:number;  
+
+  isOpen = false; // ani
 
   constructor(
     public _PointCountService:PointCountService,
@@ -96,12 +136,14 @@ export class MainComponent implements OnInit, AfterViewInit {
 
     this.stillLive--;    
     this.startCovman.unsubscribe();  
+    this.isOpen = !this.isOpen;
 
     // this.startCovman = null; 
 
     this.breakLittle = true;
 
-    setTimeout( () => {     
+    setTimeout( () => {    
+      this.isOpen = !this.isOpen; 
       this.covmanview.covManDetail.left = "0";
       this.covmanview.covManDetail.top = "0";
       this.covmanview.positionxy = {x:0, y:0};
