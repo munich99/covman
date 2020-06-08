@@ -4,6 +4,10 @@
 <p>
   your lives {{liveToDie}}
 </p>
-<p>
+<p (click)="toggle()">
   Level {{Level}} !!!
 </p>
+
+<div [@openClose]="isOpen ? 'open' : 'closed'" class="open-close-container">
+  <p>+ {{newPointSolo}} Punkte</p>
+</div>

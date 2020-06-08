@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { KeystrokeService } from './services/keystroke.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -19,14 +19,15 @@ export class AppComponent implements OnInit {
   constructor(public _KeystrokeService:KeystrokeService){    
     }
 
-    ngOnInit(){
-      
-      this.myName.nativeElement.focus();
-
-      
-      
+    ngOnInit(){      
+      this.myName.nativeElement.focus();      
     }
 
+    titleChange(){
+
+      this.title = this.name.value;
+
+    }
     
 
   public keyDirection = fromEvent(document, 'keydown');

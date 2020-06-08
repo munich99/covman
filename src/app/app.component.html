@@ -21,8 +21,8 @@
     flex: 1;
   }
 </style>
-<p>You are the</p>
-<h1>{{title}}</h1>
+<p>You are the <span *ngIf="title !='Survival Man'">Survival {{title}}</span></p>
+<h1 *ngIf="title =='Survival Man'">{{title}}</h1>
 
 <!--button routerLink ="/user">Go to Preferences</button><br-->
 
@@ -30,7 +30,7 @@
   <label>
     <input type="text" [formControl]="name" #myName placeholder="Please Enter Your Name">
   </label><br>
-  <button routerLink ="/game" [disabled]="name.invalid" >Run For You Life</button><br>
+  <button routerLink ="/game" [disabled]="name.invalid" (click)="titleChange()" >Run For You Life</button><br>
 </p>
 
 <!--button type="submit" class="btn btn-default" [disabled]="name.invalid">Submit</button-->

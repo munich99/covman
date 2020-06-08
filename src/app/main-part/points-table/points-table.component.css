@@ -6,3 +6,11 @@
 p{
     padding-left: 1em;
 }
+  
+.open-close-container {
+    border: 1px solid #dddddd;    
+    
+    color: #000000;
+    font-weight: bold;
+    font-size: 20px;
+  }
