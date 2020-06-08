@@ -29,7 +29,7 @@
     class="first_live"
     >
     <p *ngIf="breakLittle && stillLive > 0 && !pointCount">{{stillLive}} Leben</p>
-    <p *ngIf="breakLittle && stillLive < 1">VERLOREN<br>
+    <p *ngIf="breakLittle && stillLive <= 0">VERLOREN<br>
       <button (click)="newGame()">neues Spiel?</button>
     </p>   
     <p *ngIf="breakLittle && pointCount">aufgehts zu Runde {{level}}</p>   

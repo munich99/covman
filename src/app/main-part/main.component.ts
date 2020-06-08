@@ -32,25 +32,20 @@ import { RandomService} from '../_services/random.service';
     trigger('openClose', [
       // ...
       state('open', style({        
-        opacity: 0.85,
+        opacity: 0.9,
         backgroundColor: 'orange'
       })),
       
-      state('closed', style({
-        
+      state('closed', style({        
         opacity: 0,
         backgroundColor: 'green'
       })),
 
       
-      transition('open => closed', [
-        animate('2s', keyframes([
-          style({ backgroundColor: 'blue' }),
-          style({ backgroundColor: 'red' }),
-          style({ backgroundColor: 'orange' })
-        ]))
+       transition('closed => open',[
+        animate('0.5s')
       ]),
-      transition('closed => open', [
+      transition('open => closed', [
         animate('0.5s')
       ]),
     ]),
@@ -131,8 +126,7 @@ export class MainComponent implements OnInit, AfterViewInit {
    ngAfterViewInit(){  
    }
 
-  loseLive(){   
-
+  loseLive(){  
 
     this.stillLive--;    
     this.startCovman.unsubscribe();  
@@ -143,12 +137,13 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.breakLittle = true;
 
     setTimeout( () => {    
-      this.isOpen = !this.isOpen; 
+       
       this.covmanview.covManDetail.left = "0";
       this.covmanview.covManDetail.top = "0";
       this.covmanview.positionxy = {x:0, y:0};
 
         if( this.stillLive >= 1 ) {
+          this.isOpen = !this.isOpen;
           this.breakLittle = !this.breakLittle;
           this.startCovman = interval(50).subscribe( () => { this.move(); });
         }
@@ -171,13 +166,15 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.covmanview.covManDetail.top = "0";
     this.covmanview.positionxy = {x:0, y:0};
 
+    this.isOpen = !this.isOpen;
     this.breakLittle = true;
     this.level++;
     this.enemies.push(this.enemies.length + 1);
 
     this.pointview.pointsMake();
     setTimeout( () => {  
-        this.breakLittle = !this.breakLittle;        
+        this.breakLittle = !this.breakLittle;  
+        this.isOpen = !this.isOpen;      
         this.startCovmanLevel();
       },2500
     )
