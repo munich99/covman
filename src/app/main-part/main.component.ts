@@ -33,7 +33,7 @@ import { RandomService} from '../_services/random.service';
       // ...
       state('open', style({        
         opacity: 0.9,
-        backgroundColor: 'orange'
+        backgroundColor: '#69FA4B'
       })),
       
       state('closed', style({        
